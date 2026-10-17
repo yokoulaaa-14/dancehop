@@ -95,6 +95,7 @@ Un danseur qui entre dans un nouveau style doit reconstituer lui-même qui ensei
 - **Décision** : Lax Studio, Juste Debout School, Ambassadeur d'Espérance, Studio MRG. Base simple, enrichie au fur et à mesure.
 - **Critère retenu** : studios reconnus dans le milieu pour leur qualité, choisis par Emmanuel et son réseau. C'est un parti pris de curation (guide, pas annuaire exhaustif), à assumer comme tel.
 - **Écarté** : Studio Harmonic — forte part de jazz et de classique hors périmètre.
+- **Révisé le 17/10 (D43)** : Studio MRG retiré ; trois studios en MVP.
 - **Coût accepté** : la couverture géographique n'est pas un critère de sélection ; les studios peuvent être concentrés dans certains quartiers.
 
 ### D18 — Ordre des travaux et stack (09/10)
@@ -162,6 +163,7 @@ Un danseur qui entre dans un nouveau style doit reconstituer lui-même qui ensei
 - **Justification** : la liste D17 (curation) contredisait D06 ; la règle géographique dit qui *peut* entrer, la curation (D17) dit qui entre.
 - **Remplace** : la mention "studios parisiens uniquement (pas de banlieue)" de D06.
 - **Volume** : on commence petit, quatre structures ; le volume réel (~100-120 cours) permet d'en ajouter plus tard sans changer d'ordre de grandeur.
+- **Révisé le 17/10 (D43)** : trois structures, ~80-100 cours.
 
 ### D30 — Modèle de données (09/10, révisé 09/10)
 - **Décision** : tables en anglais. `studio` (qui organise et encaisse : nom, Instagram, lien de réservation, prix unité, fiabilité de la grille), `location` (adresse, arrondissement/ville, métro ; indépendante des studios, un lieu peut accueillir plusieurs studios), `teacher` (id, nom, Instagram optionnel), `course` (→ studio, → location, → teacher, jour, heure, durée, → style, niveaux en tableau, type optionnel, `style_raw` / `level_raw` / `type_raw`, lien de réservation surchargeable), `style` (taxonomie en table, un style par cours), `profile` (réponses d'onboarding liées au compte), `plan_item` (sélection utilisateur × cours = "mon planning", base de l'export).
@@ -256,3 +258,10 @@ Un danseur qui entre dans un nouveau style doit reconstituer lui-même qui ensei
 - **Décision** : l'ordre des travaux devient : repo GitHub et scaffold de la stack → `design.md` → saisie des cours → nom → domaine → `research.md` → test terrain. Le nom se choisit avec un produit sous les yeux ; le domaine se prend avant le test terrain (contrainte Resend). D'ici là, « Dancehop » sert de nom de code pour le repo, le projet Supabase et le `package.json`.
 - **Écarté** : choisir le nom et le domaine d'abord (ordre précédent) — engage une marque et un achat avant de savoir à quoi ressemble le produit.
 - **Raison** : rien dans le code ne dépend du nom final, tout se renomme ; seul l'envoi des liens magiques à de vrais testeurs dépend du domaine. Et la borne des trois semaines (D18) court à partir du premier code : autant la lancer sur le scaffold, pas sur une recherche de nom.
+
+### D43 — Trois studios en MVP : Studio MRG retiré (17/10)
+- **Décision** : le MVP couvre Lax Studio, Juste Debout School et Ambassadeur d'Espérance. Studio MRG sort du périmètre pour l'instant ; il pourra revenir plus tard, comme tout studio ajouté « au fur et à mesure » (D17).
+- **Écarté** : garder MRG sur la foi de l'audit web seul.
+- **Raison** : la curation (D17) repose sur la renommée attestée par Emmanuel et son réseau ; il connaît les trois premiers, pas MRG. Accessoirement, MRG était le studio le moins exploitable : grille publiée en image, page encore datée de la saison précédente, deux cas ambigus de saisie (absence d'étiquette de niveau interprétée par une FAQ, « Female Class » sans correspondance) qui tombent avec lui.
+- **Conséquences** : volume de saisie ~80-100 cours (Lax 45-60, JDS 23, Ambassadeur ~13) au lieu de ~100-120 ; Ivry n'est plus représentée, le périmètre « accessible en métro » (D29) reste valable mais n'est exercé que par Pantin ; la fiche MRG de `audit-studios.md` reste en archive.
+- **Révise** : D17 (liste des studios), D29 (volume).

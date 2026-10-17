@@ -17,7 +17,7 @@ Avant, un danseur devait se baser sur les critères suivants :
 
 Tous ces facteurs sont difficiles à réunir au sein d'un agenda : un travail de curation doit se faire à travers un outil d'agenda. Ce planning peut vite être amené à changer, dépendant des studios concernés (changements de professeurs, vacances scolaires...)
 
-Le but : un guide curé, pas un annuaire exhaustif de tous les cours possibles en région parisienne. Quatre studios reconnus ont été choisis pour le MVP car ils sont reconnus dans le milieu (D17), une liste filtrée des cours compatibles, une sélection qui devient « mon planning », un export vers l'agenda. L'outil est l'index ; Instagram reste le média (D08). 
+Le but : un guide curé, pas un annuaire exhaustif de tous les cours possibles en région parisienne. Trois studios ont été choisis pour le MVP, reconnus dans le milieu et dont Emmanuel peut attester la renommée (D17, D43), une liste filtrée des cours compatibles, une sélection qui devient « mon planning », un export vers l'agenda. L'outil est l'index ; Instagram reste le média (D08). 
 
 Objectifs du projet : résoudre un vrai problème utilisateur, shipper un produit live avec des métriques, savoir répondre sur le business model (parqué, D12), matière pour les entretiens product design.
 
@@ -51,7 +51,7 @@ Cas vécus : entrée en freestyle (dizaines de sites parcourus, profs cherchés 
 | 8 | PWA | Manifeste et icône ; pas de cache de données | D22 |
 | — | Pages légales | Mentions légales, confidentialité (profil, PostHog, contact de retrait pour les profs) | D19 |
 
-Prérequis hors fonctionnalités : saisie manuelle des ~100-120 cours des quatre studios dans Supabase.
+Prérequis hors fonctionnalités : saisie manuelle des ~80-100 cours des trois studios dans Supabase.
 
 ### V2 — constructeur avec boucle (test 2)
 

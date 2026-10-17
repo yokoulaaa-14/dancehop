@@ -193,8 +193,8 @@ Une règle par ligne. En cas d'ambiguïté, le cas est listé en fin de section,
 
 ### Cas ambigus listés
 
-1. **Absence d'étiquette de niveau.** Chez un studio, aucune étiquette nulle part (→ `{}`) ; chez un autre, une FAQ dit que « débutant » est précisé sur la grille et que le reste est tous niveaux. La règle « aucune étiquette → `{}` » ou la FAQ du studio ? Non tranché.
-2. **« Female Class »** (étiquette relevée) : aucun style de la taxonomie ne lui correspond. Non tranché.
+1. **Absence d'étiquette de niveau interprétée par une FAQ** (« débutant précisé sur la grille, le reste tous niveaux ») : la règle « aucune étiquette → `{}` » ou la FAQ du studio ? Sans objet tant que Studio MRG est hors périmètre (D43) ; à trancher s'il revient.
+2. **« Female Class »** : aucun style de la taxonomie ne lui correspond. Sans objet tant que Studio MRG est hors périmètre (D43).
 3. **« Coaching FreeStyle »** : type `freestyle` est clair ; le style (hip-hop ?) n'est pas dans l'étiquette. Non tranché.
 4. **Deux sources d'un même studio qui se contredisent** (grille et liste des profs, versions française et anglaise) : laquelle prime ? Non tranché.
 5. **Guest à style fixe** : aucun cas relevé à ce jour ; la ligne « Guest » reste sans usage tant qu'il n'en existe pas (D37).

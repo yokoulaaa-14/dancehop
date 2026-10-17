@@ -58,7 +58,7 @@ Styles tels quels : Hip-Hop · Locking · House Dance · Dancehall · Popping ·
 
 Guests hebdomadaires (mardis 20h30 d'après la liste, lundis à La Place d'après la grille) : Nelson, Joseph Go, Link Le Neil, Mounia, Yanou, Darren & Willis, Anaïs, Odilon, Erine, Oumrata, Odile, Waabee. Styles tels quels : Hip Hop · Coaching FreeStyle · Waacking · Electro · House · Hip Hop Choreo · Popping (+ guests : Voguing, Afro / Jazz rock, Identité Artistique).
 
-## Studio MRG
+## Studio MRG (hors périmètre depuis le 17/10, D43 ; fiche conservée en archive)
 
 - **Identité** : studio avec lieu propre, 6 rue Jules Vanzuppe, 94200 Ivry-sur-Seine. Instagram @studiomrg. Réservation **Bsport**, un seul lien calendrier pour tous les cours. Prix unité 17 € (valable 2 mois) ; cartes 5 : 75 € · 10 : 140 € (3 mois) · 50 : 550 € (6 mois). Cours adultes **à partir de 16 ans**.
 - **Source du planning** : image PNG « Planning 2026-27 » sur le site, non lisible par machine ; à transcrire à la main.
@@ -68,4 +68,4 @@ Guests hebdomadaires (mardis 20h30 d'après la liste, lundis à La Place d'aprè
 
 ## Volume
 
-~100 à 120 cours adultes urbains par semaine sur les quatre structures (Lax 45-60 à confirmer, JDS 24, Ambassadeur ~15, MRG ~20). Un week-end de saisie.
+~100 à 120 cours adultes urbains par semaine sur les quatre structures auditées (Lax 45-60 à confirmer, JDS 24, Ambassadeur ~15, MRG ~20). Sans MRG (D43) : ~80-100. Un week-end de saisie.

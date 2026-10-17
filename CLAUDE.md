@@ -4,7 +4,7 @@ Contexte permanent du projet, lu au début de chaque session. S'il y a besoin de
 
 ## Projet
 
-Une web-app mobile-first qui aide un danseur à construire son planning hebdomadaire de cours de danse urbaine à Paris, à partir d'une liste filtrée des cours de quatre studios curés. Nom de code provisoire : Dancehop. Le détail du problème, des utilisateurs, du périmètre et des écrans sont dans `docs/product.md`.
+Une web-app mobile-first qui aide un danseur à construire son planning hebdomadaire de cours de danse urbaine à Paris, à partir d'une liste filtrée des cours de trois studios curés. Nom de code provisoire : Dancehop. Le détail du problème, des utilisateurs, du périmètre et des écrans sont dans `docs/product.md`.
 
 Il s'agit d'un projet personnel qui n'est pas voué à être commercialisé pour l'instant. 
 

@@ -1,0 +1,257 @@
+# arbitrage.md — Journal des décisions
+
+Source de vérité du projet. Une décision = Dxx (date, décision, alternatives écartées, raison, révision éventuelle). Une décision révisée n'est pas réécrite : on ajoute « révisé le … ». Les questions encore ouvertes vivent dans `TODO.md`.
+
+---
+
+## Décisions
+
+### D01 — Sujet : la découverte de cours de danse urbaine (avant le 07/10/2026)
+- **Décision** : partir sur l'aide à la découverte de cours de danse urbaine à Paris.
+- **Justification** : problème vécu personnellement, réseau mobilisable (studios, profs, collectifs).
+- **Écarté** : un logbook de pratique (saisie quotidienne) — marché productivité/journaling saturé.
+
+### D02 — Persona cible (07/10, précisé 09/10)
+- **Décision** : toute personne qui veut s'investir dans la danse urbaine, débutante ou avancée. Ce qui l'unit : l'intention de pratiquer régulièrement (1 cours/semaine au moins) et le moment où elle construit ou reconstruit son planning (entrée dans un style, nouvelle saison).
+- **Justification** : cas vécu (entrée en freestyle : dizaines de sites parcourus, profs cherchés à la main sur les réseaux, agenda Google illisible et jamais à jour). Même douleur observée chez une débutante en hip-hop.
+- **Précision du 09/10** : le niveau n'est pas un critère de persona mais un filtre (D10).
+
+### D03 — Formulation du problème (08/10)
+Un danseur qui entre dans un nouveau style doit reconstituer lui-même qui enseigne quoi, où, quand, à quel niveau, et à quoi ressemble le prof en mouvement. Il choisit sur trois critères : vidéo du prof, échos des amis, couple créneau + distance. Puis il maintient ce puzzle à la main, et l'ajuste pendant quelques semaines (retire un prof, cherche un remplaçant sur le même créneau).
+
+### D04 — Nature du besoin : épisodique (08/10)
+- **Décision** : le besoin est épisodique (1 à 2 fois/an) avec une boucle d'ajustement de quelques semaines. Le produit est un "moment", pas une habitude.
+- **Conséquences** : pas d'app à usage quotidien, pas de métrique d'engagement quotidien, pas d'abonnement B2C.
+- **Révisé le 09/10** : à Paris, on peut commencer un cours à tout moment, sans engagement, donc difficile de tenir la fréquence. Le planning est donc un dispositif d'engagement : il doit être **mouvant** (voir D14). Les rappels et le suivi d'assiduité restent hors V1.
+
+### D05 — Format : liste filtrée en MVP, constructeur en V2, jamais de générateur (08/10, révisé 09/10)
+- **Décision (révisée 09/10)** : le MVP est une **liste filtrée** permissive — l'utilisateur donne son objectif (styles, niveau, jours), l'outil montre tous les cours compatibles, chevauchements inclus. Sélection minimale par un bouton "ajouter à mon planning" par cours ; "mon planning" = cette sélection, c'est elle qu'on exporte. Pas de grille, pas de règle de non-chevauchement. Le constructeur avec boucle (retrait, motif, alternatives) est la V2.
+- **Vocabulaire fixé** : Emmanuel a parlé de "générateur" pour le MVP ; ce n'est pas un générateur (un générateur choisit à la place de l'utilisateur), c'est un catalogue personnalisé.
+- **Trou évité** : exporter toute la liste avec chevauchements reconstruirait l'agenda illisible du problème initial (D03) — d'où la sélection minimale.
+- **Justification** : aucun signal fiable pour classer deux cours sur le même créneau (pas de vibe, pas d'avis, pas d'historique). Un générateur qui se trompe sur une donnée périmée perd toute la confiance ; un constructeur partage la responsabilité du choix.
+- **Écarté** : générateur automatique ("on te sort le planning idéal") — reporté à quand il y aura des signaux de classement.
+- **Écarté** : MVP concierge (formulaire + planning composé à la main) — refusé, l'objectif est un outil automatique.
+- **Écarté** : un simple calendrier abonnable par style — il couvre le "suivre" mais pas le "choisir".
+
+### D06 — Périmètre V1 (08/10, révisé 09/10)
+- **Décision** : toute la danse urbaine (hip-hop, house, dancehall, popping, freestyle, chorégraphies commerciales…), ~~studios parisiens uniquement (pas de banlieue)~~ → accessible en métro (D29, 09/10), 4 structures (D17), saison 2026-2027.
+- **Justification** : le persona "entre dans un nouveau style", et ce style varie selon la personne ; un seul style ne servirait qu'une fraction des entrants. L'algorithme ne dépend pas de la taille de la base ; la saisie et la maintenance, si.
+- **Coût accepté** : 400 à 600 créneaux par saison sur 5-6 studios (contre 60 à 100 pour un seul style), à refaire à chaque changement de grille.
+- **Arbitrage confirmé le 09/10** : en cas de volume trop lourd, on réduit le nombre de studios, jamais la variété des styles. Nombre et choix des studios tranchés en D17.
+- **Conditions** : (1) taxonomie figée après l'audit et avant la saisie — liste fermée de 8 à 10 styles construite à partir des étiquettes réelles des studios, un seul style par cours, l'étiquette du studio prime (D41) ; (2) audit sur 3 studios avant de s'engager davantage.
+- **Coûts notés** : moins de studios = couverture géographique plus faible (le filtre distance perd son sens si les studios sont concentrés) et moins d'alternatives sur créneaux proches pour la boucle de remplacement (D14) — la boucle sera testée sur un terrain défavorable.
+- **Écarté (08/10)** : un seul style en V1 — trop étroit pour le persona.
+- **Écarté** : "tous les cours possibles sur l'année en backend" — irréaliste seul, et les plannings n'existent pas à l'année mais par saison avec exceptions.
+
+### D07 — Données : grille de saison saisie à la main, exceptions hors scope (08/10)
+- **Décision** : saisie manuelle par Emmanuel de la grille de saison (profs réguliers par saison). Les exceptions (vacances, remplacements) ne sont pas gérées en V1. Disclaimer systématique : "planning de saison, vérifie sur le site du studio avant d'y aller".
+- **Justification** : les profs sont stables par saison, la maintenance porte sur la grille, pas sur l'hebdo. Les exceptions sont annoncées par les studios en story/mail et ne sont pas captables de façon fiable.
+- **Écarté** : saisie communautaire en V1 — problème de démarrage à froid, aucune raison pour un danseur de maintenir le planning d'un studio.
+- **Écarté** : scraping — fragile, zone grise, plannings souvent sur des plateformes tierces (Bsport, Deciplus…).
+- **Retenu pour plus tard** : signalement d'info périmée par les utilisateurs, à condition d'un engagement de correction (48 h) — sinon une info marquée obsolète qui traîne détruit la confiance.
+
+### D08 — Vidéos : l'outil est l'index, Instagram reste le média (08/10)
+- **Décision** : pas d'embed de vidéos. Fiche prof avec nom, styles, studios, créneaux et lien vers son compte *quand il existe* (optionnel, D26). Éventuellement une vidéo représentative liée par prof.
+- **Photos (09/10)** : aucune en MVP. Les photos des sites des studios appartiennent aux studios ou aux photographes ; une photo n'entre que si le prof ou le studio la fournit.
+- **Justification** : la douleur était "je ne sais pas qui suivre", pas "je ne peux pas voir les vidéos". L'embed Instagram dépend de Meta et casse régulièrement.
+
+### D09 — Prix : affiché, pas filtrant (08/10)
+- **Décision** : le prix n'est pas une contrainte de l'algorithme. Hypothèse : l'utilisateur teste à l'unité avant de s'engager, puis décide lui-même d'un carnet dans un studio. Le prix à l'unité est affiché (donnée stable, peu coûteuse). ~~Prix d'essai~~ retiré le 09/10 : aucun des quatre n'en propose.
+- **Risque noté** : un planning sur trois studios = trois carnets ; le coût peut expliquer pourquoi les gens restent dans un seul studio.
+
+### D10 — Niveau : trois valeurs, multi-valeurs par cours (08/10, révisé 09/10)
+- **Décision (09/10)** : trois niveaux — débutant, intermédiaire, avancé. Un cours peut en porter plusieurs ("INTER/AV" = intermédiaire + avancé). L'étiquette d'origine du studio est affichée sur la fiche.
+- **"Tous niveaux" (tranché 09/10)** : à la lettre = les trois valeurs, étiquette brute visible sur la fiche. Justification : ne pas porter préjudice au label donné par le studio. Intuition d'Emmanuel consignée pour mémoire : en pratique, c'est généralement intermédiaire + avancé à Paris.
+- **Justification** : le niveau annoncé n'est jamais fiable d'un studio à l'autre ; un filtre exclusif exclurait des cours à tort.
+- **Historique** : 08/10 débutant / confirmé ; 09/10 débutant / intermédiaire-avancé avec "tous niveaux = intermédiaire-avancé".
+
+### D11 — Pas d'app ; compte par lien magique (08/10, révisé 09/10)
+- **Décision** : site mobile-first, pas d'app native. Compte par lien magique (mail → lien → connecté, sans mot de passe).
+- **Justification** : besoin épisodique → friction d'installation d'une app injustifiée. Le planning mouvant (D14) doit persister sur plusieurs semaines et entre appareils, ce qui justifie un compte. Le lien magique supprime les mots de passe et les réinitialisations, pas le backend ni la mention RGPD.
+- **Écarté (08/10)** : pas de compte, planning dans l'URL et le navigateur — insuffisant dès que le planning évolue sur plusieurs semaines.
+
+### D12 — Business model : parqué (08/10)
+- **Décision** : pas de design du modèle en V1, mais une réponse prête. L'épisodique tue l'abonnement danseur. Pistes crédibles : mise en avant payante pour les profs (ce sont eux qui tournent et se vendent seuls), affiliation sur les cours d'essai.
+
+### D13 — Lancement : dans la saison 2026-2027, pas trop tard (08/10)
+- **Décision** : pas de date contrainte (on peut commencer un cours à tout moment à Paris). Les grilles de saison sont publiées depuis septembre, c'est le moment de les saisir.
+
+### D14 — Le planning est mouvant : boucle test / retour / remplacement (09/10, reportée en V2 le 09/10)
+- **Décision** : cœur du produit à terme, **reporté en V2**. Le MVP teste d'abord si des danseurs construisent et exportent un planning multi-studios (voir D16). L'utilisateur teste un cours de son planning, indique s'il a aimé ou non et pourquoi, le retire, et demande une alternative (même créneau ou créneaux proches).
+- **Justification** : à Paris, aucun engagement structurel ; le planning qui évolue est ce qui maintient la fréquence. Le "pourquoi" est aussi le seul signal de classement qui pourra, à terme, faire passer du constructeur (D05) au générateur.
+- **Conditions** : motifs de rejet en liste fermée (prof, niveau réel, ambiance, créneau, lieu, prix…), pas de texte libre seul. Les alternatives doivent inclure des créneaux proches (même soir, ±1 h), car avec 5-6 studios l'alternative au créneau exact n'existe souvent pas.
+- **Hors V1** : rappels, suivi d'assiduité, statistiques de pratique.
+
+### D15 — Pas de filtre de distance en V1 (09/10)
+- **Décision** : le filtre par arrondissement / temps de trajet est retiré. L'arrondissement et le métro restent affichés sur chaque cours.
+- **Justification** : périmètre Paris intra-muros et 3-4 studios seulement, l'utilisateur fait le tri à l'œil. Retirer le filtre ne retire pas la donnée, qui faisait partie des trois critères de choix du persona (D03).
+- **À rouvrir si** : extension à plus de studios ou à la petite couronne.
+
+### D16 — Finalité du MVP : test terrain avant de continuer (09/10, révisé 09/10)
+- **Décision** : deux tests successifs. Test 1 (MVP) : "des danseurs construisent-ils un planning multi-studios à partir d'une liste filtrée, et l'exportent-ils ?". Test 2 (V2) : la boucle de remplacement (D14). Si le test 1 échoue, la boucle n'a pas besoin d'exister.
+- **Conditions** : testeurs qui entrent réellement dans un nouveau style au moment du test (pas des amis en jeu de rôle), une dizaine ; durée de test de 3 à 4 semaines minimum (il faut aller au cours puis revenir) ; seuils de succès et d'arrêt écrits avant le test (à fixer par Emmanuel, voir `TODO.md`).
+
+### D17 — Studios de la V1 : curation éditoriale (09/10)
+- **Décision** : Lax Studio, Juste Debout School, Ambassadeur d'Espérance, Studio MRG. Base simple, enrichie au fur et à mesure.
+- **Critère retenu** : studios reconnus dans le milieu pour leur qualité, choisis par Emmanuel et son réseau. C'est un parti pris de curation (guide, pas annuaire exhaustif), à assumer comme tel.
+- **Écarté** : Studio Harmonic — forte part de jazz et de classique hors périmètre.
+- **Coût accepté** : la couverture géographique n'est pas un critère de sélection ; les studios peuvent être concentrés dans certains quartiers.
+
+### D18 — Ordre des travaux et stack (09/10)
+- **Décision** : audit des studios avant toute ligne de code, car le modèle de données en dépend (prof entité ou champ texte ? lien de réservation par cours ou par studio ? prix par studio ou par cours ? étiquettes de niveau homogènes ?). Le choix de la stack, lui, ne dépend pas de l'audit et se fait tout de suite.
+- **Révisé le 09/10** : Emmanuel ne cherche plus à apprendre React ; le code sera produit avec l'assistance de l'IA. Critère de choix de stack qui en découle : la voie la plus empruntée (celle où les générations IA sont les plus fiables), pas la plus élégante.
+- **Options listées** : A. Next.js + Supabase + Vercel (corpus IA le plus profond, auth lien magique incluse, saisie dans l'interface de tables Supabase, gratuit au départ ; mais codebase à maintenir sans pouvoir déboguer seul en profondeur). B. No-code Airtable + Softr/Glide (le plus rapide, pas de bug non corrigeable ; mais le moteur est ce que le no-code fait mal, auth limitée, 30-60 €/mois, dépendance). C. Hybride Airtable + front codé (écarté : deux systèmes, autant de code qu'en A). D. Astro/SvelteKit + Supabase (écarté : corpus IA plus mince). Recommandation : A, avec B en sortie de secours.
+- **Architecture en quatre blocs** : donnée (studios, profs, cours, saison) ; moteur ; planning utilisateur (compte, cours retenus, retours avec motif) ; export.
+- **Définition du moteur** : couche de logique entre la donnée et l'écran. Prend les entrées utilisateur, sort les cours compatibles sur une grille hebdo, interdit les chevauchements, et au retrait d'un cours calcule les alternatives (même créneau puis créneaux proches). Filtres et trois règles, pas d'IA. Seule partie vraiment spécifique au produit.
+- **Risque principal** : ne pas comprendre le code généré quand il casse. Borne : si le moteur et le compte ne tournent pas au bout de trois semaines, bascule sur l'option B, code reporté en V2.
+
+### D19 — Stack tranchée (09/10, révisée 09/10)
+- **Décision** : React + **Vite** (SPA, pas de rendu serveur nécessaire avec Supabase) + Supabase (Postgres, auth lien magique, RLS, API auto) + Vercel + Tailwind + shadcn/ui + PostHog (UE, sans cookie) + Resend (mails de lien magique) + GitHub. Code assisté par l'IA. Option B (no-code) conservée comme sortie de secours (borne de trois semaines, D18).
+- **Révision** : Next.js → Vite (plus simple à générer, plugin PWA mûr, aucun besoin de SSR). Justifications consignées le 09/10 : Vite = moins de concepts (pas de serveur/client components, zone d'erreur fréquente du code généré) pour une app derrière compte sans SEO ni logique serveur ; Postgres = données relationnelles avec contraintes d'intégrité (cours → studio, lieu, prof, style ; planning = utilisateur × cours), Mongo écarté ; PostHog = analyse produit (événements, entonnoirs, rétention) là où Clarity est un outil d'observation (sessions, heatmaps) qui dépose des cookies ; shadcn/ui retenu parce qu'il copie le code source des composants dans le repo (restylables, tokenisables).
+- **Storybook (tranché 09/10)** : reporté **après le test terrain**, livrable de phase 2 pour pérenniser le projet ; composants isolés dans `components/ui` dès le début pour le préparer.
+- **Confirmés le 09/10 par Emmanuel** : Vite, Postgres, PostHog (Clarity éventuellement plus tard, en complément).
+- **Choix par défaut proposés et validés le 09/10** : TypeScript ; React Router ; supabase-js + TanStack Query ; react-hook-form + zod ; Supabase CLI avec `supabase/migrations` versionnées dans le repo ; RLS dès la première table (lecture publique sur course/studio/location/teacher/style, propriétaire seul sur profile/plan_item) ; Vitest sur le moteur de filtrage et la génération .ics (fuseau Europe/Paris, changement d'heure) ; GitHub Actions (lint, tests) + Vercel (main + prévisualisations par branche) ; un projet Supabase jusqu'au test, un second pour la prod ensuite ; pages mentions légales et confidentialité avant tout utilisateur réel ; français uniquement ; pas de suivi d'erreurs en MVP.
+- **Stack d'équipe proposée par un ami développeur, examinée et écartée** : Node + GraphQL (serveur et API à maintenir pour ce que Supabase donne sans code ; GraphQL = outil de coordination d'équipe), Render (inutile sans backend), Google Analytics + Clarity (bandeau de consentement, redondant avec PostHog), Three.js / GSAP / Motion (hors objectif du MVP), Storybook (seconde chaîne de build pour dix composants). Retenus : Vite, Tailwind, shadcn/ui, Postgres, GitHub.
+- **Ajout proposé** : web-app installable en PWA (manifeste, icône, ajout à l'écran d'accueil) — expérience "app" sans stores, et ouvre les notifications web push pour le rappel avant le cours (nice to have).
+
+### D20 — Vue liste, pas vue agenda (09/10)
+- **Décision** : les cours sont présentés en liste groupée par jour et triée par heure ; les chevauchements apparaissent comme lignes voisines. La grille hebdomadaire est une vue desktop, nice to have.
+- **Justification** : lecture mobile (la cible utilise un téléphone plus qu'un PC) ; l'export .ics reste le pont vers les agendas tiers.
+- **Conséquence** : les jours/plages deviennent des filtres ; la fréquence visée devient un objectif affiché (D24).
+
+### D21 — Organisation interne : le repo est la source de vérité (09/10)
+- **Décision** : documentation en markdown dans le repo — `CLAUDE.md` (contexte permanent pour l'IA qui code), `docs/` (Arbitrage.md, PRD, specs), suivi des tâches en `TODO.md` ou GitHub Issues.
+- **Justification** : solo, et le builder (IA) lit le repo ; les décisions doivent être à côté du code. Une seconde source de vérité (Notion) est le vrai risque.
+- **Écarté** : espace Notion façon Jira — Kanban que personne d'autre ne regarde, double maintenance. La présentation à un recruteur non technique se règle en fin de projet, via le case study monté à partir des docs du repo.
+- **Révisé le 16/10 (D40)** : structure resserrée à cinq documents dans `docs/` ; suivi des tâches dans `TODO.md` seulement.
+
+### D22 — PWA : manifeste et icône seulement en MVP (09/10)
+- **Décision** : web-app mobile-first installable (manifeste, icône, service worker minimal), sans cache de données.
+- **Justification** : un planning en cache hors-ligne est un planning périmé. Sur iPhone l'installation est manuelle ("Partager > Sur l'écran d'accueil"), donc ne pas compter dessus pour l'adoption. Notifications push en V2.
+
+### D23 — Export : deux granularités en MVP (09/10)
+- **Décision** : export d'un cours (événement .ics) et de "mon planning" (fichier .ics de la sélection). Pas d'export de la liste filtrée entière.
+- **V2** : flux .ics abonnable par style ou par planning (URL qui se met à jour dans l'agenda) — endpoint à maintenir et promesse de fraîcheur non tenue en V1.
+
+### D24 — Fréquence visée et indicateur de progression : V2 (09/10, révisé 09/10)
+- **Décision (09/10)** : la fréquence visée sort de l'onboarding MVP ; l'objectif avec compteur ("objectif 2 cours/semaine, 2 ajoutés") passe en V2. Onboarding MVP = styles, niveau, disponibilités.
+- **Pour la V2** : ce qui remplit l'objectif, ce sont les cours *ajoutés* au planning, pas les cours suivis (invérifiable).
+- **Garde-fous** : pas de statut par cours (à tester / testé / gardé) — un cours est dans le planning ou non ; les statuts relèvent de la boucle V2 (D14). Vocabulaire : "indicateur de progression", pas "gamification" — le mot promettrait des mécaniques non prévues sur un usage épisodique.
+
+### D25 — Définition et périmètre d'un cours (09/10)
+- **Décision** : un cours = un créneau hebdomadaire récurrent sur la période de la grille. Seuls les cours adultes ouverts à l'unité (drop-in) entrent.
+- **Exclus** : stages, workshops, masterclass, événements ponctuels, cours enfants et ados, formations à engagement annuel ou sur audition, cours fermés.
+
+### D26 — Identification des profs (09/10)
+- **Décision** : table profs (id, nom, compte Instagram optionnel). Les noms sont stables d'un studio à l'autre : dédoublonnage par le nom à la saisie. L'id est la clé technique.
+- **Écarté** : Instagram comme identifiant — risque de piratage de compte, et certains profs n'ont pas de réseaux. La fiche n'affiche le lien que s'il existe (D08 amendé).
+- **Révisé le 10/10 (D38)** : le compte Instagram devient une liste de handles (`instagrams`), pour les binômes.
+
+### D27 — Période des grilles et fin de récurrence (09/10)
+- **Décision** : les studios publient des grilles à l'année (hypothèse D07 maintenue, à confirmer par l'audit studio par studio). Export .ics en récurrence hebdomadaire.
+- **Fin de récurrence (tranché 09/10)** : date de fin annoncée par la grille du studio si elle existe, sinon fin juin par défaut. L'audit relève cette date par studio. Écarté : fin août (deux mois d'événements fantômes, l'été étant un autre planning).
+
+### D28 — Disponibilités dans l'onboarding (09/10)
+- **Décision** : deux plages, "journée" (matin + après-midi) et "soirée".
+- **Tranché (09/10)** : soirée = cours commençant à 18h ou après. Saisie en grille jours × plages (14 cases), avec des raccourcis qui pré-remplissent la grille ("tous les soirs", "les week-ends", "soirs de semaine + week-ends") pour les personnes sans planning précis ; l'utilisateur affine ensuite en décochant.
+- **Écarté** : jours et plages en deux filtres séparés — produirait "lundi journée" pour quelqu'un qui voulait "semaine soir + week-end journée".
+
+### D29 — Périmètre géographique : accessible en métro (09/10)
+- **Décision** : le périmètre passe de "Paris intra-muros" à "accessible en métro depuis Paris". Formulation proposée pour la rendre vérifiable : lieu à moins de dix minutes à pied d'une station de métro (lignes 1 à 14), hors RER et tram. Pantin (Studio Bleu) et Ivry (MRG) entrent.
+- **Justification** : la liste D17 (curation) contredisait D06 ; la règle géographique dit qui *peut* entrer, la curation (D17) dit qui entre.
+- **Remplace** : la mention "studios parisiens uniquement (pas de banlieue)" de D06.
+- **Volume** : on commence petit, quatre structures ; le volume réel (~100-120 cours) permet d'en ajouter plus tard sans changer d'ordre de grandeur.
+
+### D30 — Modèle de données (09/10, révisé 09/10)
+- **Décision** : tables en anglais. `studio` (qui organise et encaisse : nom, Instagram, lien de réservation, prix unité, fiabilité de la grille), `location` (adresse, arrondissement/ville, métro ; indépendante des studios, un lieu peut accueillir plusieurs studios), `teacher` (id, nom, Instagram optionnel), `course` (→ studio, → location, → teacher, jour, heure, durée, → style, niveaux en tableau, type optionnel, `style_raw` / `level_raw` / `type_raw`, lien de réservation surchargeable), `style` (taxonomie en table, un style par cours), `profile` (réponses d'onboarding liées au compte), `plan_item` (sélection utilisateur × cours = "mon planning", base de l'export).
+- **Écarté** : `class` comme nom de table (mot-clé JavaScript, collision avec les types générés) ; table `event` (PostHog prend la mesure).
+- **Guests** : un enregistrement `teacher` "Guest" partagé entre studios, sans lien, fiche avec disclaimer "prof variable, vérifie auprès du studio". Cours mensuels hors périmètre (cassent la récurrence hebdo).
+- **Révisé le 10/10 (D37)** : seuls les créneaux Guest à style déclaré entrent en base ; ceux dont le style tourne sont exclus.
+- **Règle d'interface** : à l'écran, le nom propre du studio, jamais un libellé générique.
+- **Niveau non précisé** : matche les trois filtres, affiché "niveau non précisé par le studio".
+- **Fiabilité** : champ par école (grille de saison / mise à jour fréquente) qui module le disclaimer.
+- **"Adulte"** : tout cours non étiqueté enfants/ados (remplace la formulation de D25).
+
+### D31 — Second axe "type de cours" (09/10)
+- **Décision** : champ optionnel `type` à trois valeurs — freestyle, chorégraphie, technique — à côté du style. Renseigné **uniquement** quand l'étiquette du studio le dit ("Coaching FreeStyle", "Hip Hop Choreo", "Talons (Cours Technique)") ; jamais inféré, `null` sinon.
+- **Non renseigné (09/10)** : pas de quatrième valeur "inconnu" (c'est ce que `null` veut dire) ; affiché "non précisé", matche tous les filtres de type — même règle que le niveau (D30).
+- **Justification** : "freestyle" est une pratique, pas un style ; donne un filtre au persona "progresser en freestyle".
+
+### D32 — Passage à Claude Code (09/10, révisé 09/10)
+- **Décision (révisée)** : bascule **complète** dès que le repo existe — décisions produit, journal et code au même endroit, une seule source de vérité (D21). Plus de va-et-vient avec le chat.
+- **Condition** : `CLAUDE.md` consigne le rôle de challenger (questions de clarification, refus de coder une fonctionnalité sans arbitrage consigné, mise à jour de `docs/arbitrage.md` à chaque décision), sinon l'environnement pousse à produire sans questionner.
+- **Reste à décider dans Claude Code** : style des créneaux Guest (D37), binômes (D38), nom et domaine (`TODO.md`).
+- **Prérequis dans le repo avant la première session** : `CLAUDE.md`, `docs/arbitrage.md`, `docs/data-model.md`, `docs/audit-studios.md`, `docs/prd.md` (court, tiré du périmètre figé).
+
+### D33 — Le repo comme cerveau du produit : structure étendue (09/10)
+- **Source** : vidéo "Why the Old Design-to-Code Process Doesn't Work Anymore" (transcription fournie par Emmanuel). Thèse : sans contexte centralisé l'IA devine ; le repo doit porter exigences, règles métier, décisions, design system et règles d'usage des composants ; les composants deviennent de la logique métier.
+- **Décision** : `docs/` passe de 5 à 11 fichiers, chacun avec un déclencheur de mise à jour écrit dans `CLAUDE.md` : ajout de `README.md` (humains), `research.md` (hypothèses, entretiens, résultats de test), `business-rules.md` (règles métier une par ligne, extraites de `data-model.md` et du journal), `components.md` (usage, états et règles métier portés par chaque composant — "businessware"), `analytics.md` (événements PostHog nommés avant l'implémentation).
+- **Definition of done** ajoutée à `CLAUDE.md` : spec, règles métier, composants, analytics, docs à jour, TODO coché — vérification explicite par l'agent.
+- **Écarté** : agents gardiens de PR et détection de dérive entre branches (contexte d'équipe, pas de branches concurrentes) ; les skills vendus par la vidéo (encodent un process d'équipe).
+- **Effet sur Storybook (D19)** : `components.md` porte la logique d'usage dès le MVP ; Storybook ne montrera que les variantes, plus tard. Confirme le report.
+- **Mise en garde** : un cerveau de douze fichiers non tenus est pire que cinq fichiers à jour — d'où les déclencheurs.
+- **Révisé le 16/10 (D40)** : `research.md`, `business-rules.md`, `components.md`, `analytics.md` et la definition of done sont supprimés ; leur contenu utile est replié dans `product.md` et `data-model.md`.
+
+### D34 — `product.md`, skills, et `design.md` comme source des tokens (09/10)
+- **Source** : seconde vidéo (The Design Project) sur agent.md / skills / product.md / design.md, transcription fournie par Emmanuel.
+- **`CLAUDE.md`** : reste court (coût en tokens à chaque session) ; ajout d'une section UI explicite (lire `design.md` et `components.md` avant tout élément d'interface, réutiliser avant de créer), des commandes build/test (dès le scaffold) et de la règle "un changement par PR". Plus aucun ajout : le spécifique va dans les skills.
+- **Skills du projet** : quatre, pas plus sans arbitrage — `saisir-un-cours`, `ecrire-une-spec`, `consigner-un-arbitrage`, `creer-un-composant`. Écarté : skills globaux de goût ("UI designer") qui encodent le goût d'un tiers.
+- **`vision.md` → `product.md`** : qui on est (mission, personnalité, références, anti-références), distinct du PRD (ce qu'on livre). Deux temps : mission + anti-références maintenant (pas ClassPass, pas un clone d'Instagram, pas une app fitness gamifiée, pas un dashboard) ; personnalité + références après le nom.
+- **`design.md`** : en-tête YAML lisible par la machine = **source de vérité des tokens** ; `src/styles/tokens.css` **généré** par un script (`npm run tokens`) avec un test de divergence. Justification : un seul endroit à éditer, celui que le designer éditera volontiers ; l'IA lit des valeurs structurées ; shadcn consomme le CSS généré. Si la machinerie agace, inverser le sens, mais jamais les deux à la main.
+- **Conservé de D33** : `components.md` porte l'usage et la logique métier des composants ; `design.md` porte les tokens et les règles visuelles.
+- **Révisé le 16/10 (D40)** : skills supprimés ; `design.md` sans tokens pour l'instant ; `product.md` absorbe le PRD. Le découpage en deux temps (mission maintenant, personnalité et références après le nom) tient.
+- **Révisé le 17/10 (D42)** : personnalité et références de `design.md` se définissent **avant** le nom, pas après ; le nom en découlera. Évite des premiers écrans en style shadcn par défaut à restyler ensuite.
+
+### D35 — Inbox, protocole de démarrage, frontières des outils (09/10)
+- **Source** : troisième vidéo (même chaîne) sur le "cerveau" / Context OS d'agence, transcription fournie par Emmanuel.
+- **Retenu** : `docs/inbox.md` (zone tampon jetée sans trier, vidée par l'agent au début de chaque session, jamais source de vérité) ; protocole de lecture au démarrage (inbox → `TODO.md` → questions ouvertes du journal, le reste selon la tâche) ; frontières des outils (le repo décide, Figma explore, `TODO.md` porte le périmètre, PostHog mesure) ; principes "maintenabilité > exhaustivité" et "une décision n'est jamais enterrée dans une transcription" (entretien → `research.md`, conclusion → journal) ; contrôle "tokens plutôt que valeurs en dur, instances plutôt que créations" ajouté à la definition of done.
+- **Écarté** : états Figma et porte de promotion par le designer (une seule personne), Linear, directives de communication (un skill le jour venu), Business Model Canvas (D12 parqué), `start_here.md` et `context_now.md` (couverts par `CLAUDE.md`, `product.md`, `TODO.md`).
+- **Mise en garde consignée** : trois vidéos, trois révisions du système documentaire, zéro donnée saisie, pas de repo. Le système est complet ; prochaine étape = repo + saisie des 24 cours JDS avant toute nouvelle lecture.
+- **Révisé le 10/10** : `docs/inbox.md` supprimé (D36). Le reste de D35 tient.
+- **Révisé le 16/10 (D40)** : les idées vivent dans Notion ; protocole de démarrage = `TODO.md` → questions ouvertes → documents liés à la tâche.
+
+### D36 — Suppression de l'inbox (10/10)
+- **Décision** : `docs/inbox.md` est supprimé. Une idée, un lien ou un retour se donne directement en début de session ; l'agent le range aussitôt dans `research.md`, `arbitrage.md` (question ouverte) ou `TODO.md`. Le protocole de démarrage devient : `TODO.md` → questions ouvertes du journal → le reste selon la tâche.
+- **Justification** : projet solo, tout passe déjà par une session Claude Code ; un fichier tampon vide à chaque démarrage ne fait qu'ajouter une étape. Application directe de "maintenabilité > exhaustivité" (D35) et de la mise en garde de D35 sur l'inflation documentaire.
+- **Écarté** : garder l'inbox "au cas où" — un doc non utilisé est un doc périmé.
+- **Risque accepté** : une idée notée hors session (téléphone) vit ailleurs jusqu'à la session suivante ; elle n'entre dans le repo que rangée.
+
+### D37 — Créneaux Guest sans style déclaré : exclus (10/10)
+- **Décision** : un créneau dont le style change d'une semaine à l'autre n'entre pas en base. Cas connus : le Guest d'Ambassadeur le lundi à La Place et le Guest de MRG le lundi 20h30. `course.style_id` reste `not null`. Le prof "Guest" (D30) ne sert plus qu'aux créneaux à style fixe et à prof variable ; s'il n'en existe aucun chez les quatre studios, la ligne reste sans usage en MVP.
+- **Justification** : un cours de niveau non précisé reste un cours du style visé. Un cours de style inconnu, lui, n'est probablement pas du style visé (environ 1 chance sur 13). Le faire matcher tous les filtres polluerait toutes les listes. Et la liste des guests d'Ambassadeur contient du hors-urbain (Jazz rock, Identité Artistique), ce qui contredirait D41 (urbain strict). Perte : environ 3 créneaux sur 100 à 120, négligeable pour le test 1.
+- **Écarté** : `style_id` nullable qui matche tout (pollution des listes, hors-urbain) ; un 14e style "Guest" (casse la taxonomie figée, et "Guest" n'est pas un style).
+- **Révise** : D30 (Guests), en partie.
+- **Fait à vérifier** : existe-t-il, chez l'un des quatre studios, un créneau à prof variable mais à style fixe ? Si non, la ligne `teacher` "Guest" pourra être retirée.
+
+### D38 — Binômes de profs : une ligne `teacher`, plusieurs Instagram (10/10)
+- **Décision** : un cours donné par deux profs ("Mariana et Kenny", "Cleve & Sandra") est rattaché à **une** ligne `teacher` dont le nom est normalisé "A & B", dans l'ordre du studio. La colonne `teacher.instagram` (texte) devient `teacher.instagrams` (`text[]`, vide par défaut) : la fiche cours affiche un lien par handle, aucun si la liste est vide (D08). Un prof seul a zéro ou un handle ; un binôme peut en avoir deux.
+- **Justification** : aucun changement de structure pour 2 ou 3 cours, une saisie simple dans l'interface Supabase, et chacun des deux profs garde sa visibilité (demande d'Emmanuel). Une liste plutôt que deux colonnes `instagram` / `instagram_2` : un seul champ, un seul rendu, quel que soit le nombre de personnes.
+- **Écarté** : table de jointure `course_teacher` (une table, une RLS et une saisie en deux temps pour 2-3 cours) ; prof "principal" + champ texte pour le second (choix arbitraire, donnée incohérente) ; deux handles dans un même champ texte (casse le rendu du lien).
+- **Dette connue** : si l'un des membres d'un binôme enseigne aussi seul, il existe deux lignes `teacher` pour lui, ce qui contourne le dédoublonnage de D26. Invisible en MVP (pas de fiche prof, pas de filtre par prof) ; à reprendre avec `course_teacher` si une fonctionnalité centrée sur le prof arrive (alternatives "même prof", D14).
+- **Révise** : D26 (Instagram optionnel → liste de handles).
+
+### D39 — Structure du repo : une arborescence dans `CLAUDE.md` (10/10)
+- **Décision** : la structure du repo quitte `arbitrage.md` et **remplace** le tableau "Documents du repo" de `CLAUDE.md`, sous la forme d'une arborescence commentée : pour chaque fichier, ce qu'il contient et son déclencheur de mise à jour (→). Les dossiers de code (`src/`, `supabase/migrations/`) y entrent au scaffold.
+- **Justification** : un journal consigne des décisions, pas l'état du repo. L'arborescence se lit d'un coup d'œil (préférence d'Emmanuel). Elle remplace le tableau au lieu de s'y ajouter : une seule liste de fichiers à tenir, et `CLAUDE.md` ne grossit pas (D34).
+- **Écarté** : l'arborescence en plus du tableau (deux listes à synchroniser) ; garder la structure dans le journal.
+- **Perdu volontairement** : les descriptions longues du tableau (exemples de règles métier, détail de `design.md`) ; elles vivent dans les fichiers eux-mêmes et dans la section "Interface et design".
+- **Révisé le 16/10 (D40)** : l'arborescence devient une section « Structure du repo » avec une règle d'usage par document.
+
+### D40 — Architecture documentaire resserrée (16/10)
+- **Décision** : le repo passe à cinq documents dans `docs/` : `arbitrage.md`, `product.md` (ex-`prd.md`, enrichi : problème et but, utilisateurs, anti-références produit, dans / hors MVP, un écran par section avec objectif, contenu, actions, états, test terrain), `design.md` (personnalité, ton rédactionnel dont écriture inclusive, références, anti-références visuelles, principes, accessibilité ; pas de tokens pour l'instant), `data-model.md` (tables, contraintes et RLS, règles métier en trois volets — admission, correspondance, comportement — avec les cas ambigus listés au lieu d'être devinés, format .ics), `audit-studios.md` (une fiche par studio, archive). `CLAUDE.md` est réécrit : projet en deux lignes, stack de référence, trois règles dures, protocole de démarrage, structure du repo avec une règle d'usage par document, conventions. `TODO.md` : En cours / À faire / Fait. `README.md` : mission, ce que fait le produit, état, construit avec (une phrase simple).
+- **Supprimés** : `prd.md` (renommé), `business-rules.md` (jamais écrit ; absorbé par `data-model.md`), `components.md`, `analytics.md` (les événements sont dans `product.md`), `research.md` (le test terrain est dans `product.md`), `docs/specs/` (les écrans sont dans `product.md`), `skills/`, la definition of done, les tokens YAML et `tokens.css`, les sections Problème et Démarche du README.
+- **Règles ajoutées** : (1) `TODO.md` ne recopie pas une question ouverte, il contient seulement « Trancher Qxx » ; (2) une particularité d'un seul studio reste dans `audit-studios.md`, une règle valable pour tous va dans `data-model.md`, un piège présent chez deux studios devient une règle ; (3) anti-références produit dans `product.md`, visuelles dans `design.md` ; (4) accessibilité : contraste AA, cibles tactiles de 44 px, information jamais portée uniquement par la couleur, focus visible ; (5) les idées vivent dans Notion et sont collées en début de session si besoin ; (6) TypeScript strict, aucune autre librairie de composants que shadcn/ui, RLS sur toutes les tables, aucune nouvelle dépendance sans arbitrage.
+- **Écarté** : un PRD par fonctionnalité (doublon avec le journal et les sections écrans) ; conserver onze fichiers « au cas où » ; les tokens machine avant le premier écran.
+- **Raison** : trois révisions du système documentaire sans une ligne de code (mise en garde de D35) ; des doublons entre fichiers (tableau + arborescence, PRD + specs + journal) ; la maintenabilité prime sur l'exhaustivité.
+- **Révise** : D21 (structure), D33 (onze fichiers, definition of done), D34 (skills, tokens dans `design.md`, `product.md` en deux temps — conservé), D35 (protocole de démarrage), D39 (arborescence seule → section avec règles d'usage).
+- **Révisé le 17/10** : le registre « Questions ouvertes » du journal est supprimé (illisible à la longue). Les questions encore ouvertes vivent dans `TODO.md` avec leur contenu ; une question tranchée devient une décision. La taxonomie, qui ne vivait que dans ce registre, est consignée en D41. Les références Qxx sont retirées de tous les documents. La section « Test terrain » de `product.md` est retirée ; un `research.md` sera créé avant le test terrain (tâche dans `TODO.md`).
+
+### D41 — Taxonomie des styles figée à 13 (tranché le 09/10 ; consigné en décision le 17/10, depuis l'ancien registre des questions)
+- **Décision** : treize styles, un seul par cours, l'étiquette du studio prime et se conserve telle quelle. Hip-hop (HipHop, Hip-Hop, Hip Hop, Hip Hop Choreo, Commercial, Commercial Hiphop) · House (House, House Dance) · Popping · Locking · Waacking · Voguing (Voguing, Vogue Fem Class) · Dancehall (Dancehall, Dancehall Hybrid, Street Ragga) · Afro (Afro, Afro Hybrid, Amapiano) · Breaking (Bboying) · Krump · Electro · Heels (Heels, Heels (Choreo), Talons) · Street jazz (Street Jazz, Urban Jazz). Hors périmètre : Contemporary, Contemporary Lyrical, Urban Contemporary, Modern Contempo, Jazz, Jazz Fusion, Jazz Rock, Organic Dance Movement, Yoga Dynamique, Atelier Scénique, Identité Artistique.
+- **Écarté** : une catégorie Contemporary (demandée par Emmanuel, puis retirée) — elle contredisait D06 (toute la danse urbaine, rien d'autre) et D17 (Harmonic écarté pour jazz et classique), et aurait entraîné Jazz et Jazz Fusion ; une règle « tout ce que les écoles curées enseignent sauf exclusions » (il aurait fallu justifier Jazz dehors).
+- **Raison** : règle cohérente et vérifiable — urbain strict ; 40 étiquettes brutes relevées à l'audit, repliées sur 13 valeurs sans migration de code (table `style`).
+
+### D42 — Le nom et le domaine se choisissent après un premier produit utilisable (17/10)
+- **Décision** : l'ordre des travaux devient : repo GitHub et scaffold de la stack → `design.md` → saisie des cours → nom → domaine → `research.md` → test terrain. Le nom se choisit avec un produit sous les yeux ; le domaine se prend avant le test terrain (contrainte Resend). D'ici là, « Dancehop » sert de nom de code pour le repo, le projet Supabase et le `package.json`.
+- **Écarté** : choisir le nom et le domaine d'abord (ordre précédent) — engage une marque et un achat avant de savoir à quoi ressemble le produit.
+- **Raison** : rien dans le code ne dépend du nom final, tout se renomme ; seul l'envoi des liens magiques à de vrais testeurs dépend du domaine. Et la borne des trois semaines (D18) court à partir du premier code : autant la lancer sur le scaffold, pas sur une recherche de nom.

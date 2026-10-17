@@ -1,0 +1,21 @@
+# dépendances et builds
+node_modules/
+dist/
+dist-ssr/
+
+# secrets et environnement
+.env
+.env.*
+!.env.example
+
+# Supabase local
+supabase/.branches/
+supabase/.temp/
+
+# éditeurs et OS
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+Thumbs.db
+*.log

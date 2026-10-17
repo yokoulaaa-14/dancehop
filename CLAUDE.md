@@ -41,6 +41,12 @@ docs/
   design.md             lire avant de générer ou modifier tout écran, composant ou texte d'interface
   data-model.md         lire avant toute migration, requête ou saisie ; mettre à jour à chaque migration
   audit-studios.md      lire lors de la saisie d'un studio ; archive, pas de mise à jour
+src/
+  components/ui/        composants shadcn copiés ; restylables, jamais réécrits à la main
+  lib/supabase.ts       client Supabase (variables dans .env, modèle dans .env.example)
+supabase/
+  migrations/           une migration par changement de schéma, jamais modifiée après application
+  seed.sql              données de référence rejouables (les 13 styles)
 ```
 
 Règles contre les doublons :
@@ -53,4 +59,4 @@ Règles contre les doublons :
 - Commits en français, à l'impératif, courts. Un changement par PR.
 - Tables et colonnes en anglais, `snake_case` ; composants React en `PascalCase`. Pas de valeur magique : constantes nommées.
 - Une migration par changement de schéma, jamais modifiée après application.
-- Commandes build / test : à renseigner ici après le scaffold.
+- Commandes : `npm run dev` (serveur local), `npm run build` (typecheck + build), `npm run lint` (oxlint), `npm test` (Vitest), `npx supabase db reset` (rejoue migrations + seed en local), `npx supabase migration new <nom>` (nouvelle migration).

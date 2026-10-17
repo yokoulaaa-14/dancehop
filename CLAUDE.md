@@ -59,4 +59,5 @@ Règles contre les doublons :
 - Commits en français, à l'impératif, courts. Un changement par PR.
 - Tables et colonnes en anglais, `snake_case` ; composants React en `PascalCase`. Pas de valeur magique : constantes nommées.
 - Une migration par changement de schéma, jamais modifiée après application.
-- Commandes : `npm run dev` (serveur local), `npm run build` (typecheck + build), `npm run lint` (oxlint), `npm test` (Vitest), `npx supabase db reset` (rejoue migrations + seed en local), `npx supabase migration new <nom>` (nouvelle migration).
+- Commandes : `npm run dev` (serveur local), `npm run build` (typecheck + build), `npm run lint` (oxlint), `npm test` (Vitest), `npx supabase migration new <nom>` (nouvelle migration).
+- Migrations : le projet Supabase est relié au repo GitHub ; un push sur `main` applique automatiquement les nouveaux fichiers de `supabase/migrations/` à la base de production. Donc : jamais de changement de schéma dans l'interface Supabase, jamais de fichier de migration modifié après son push, et relire chaque migration avant de pousser (une erreur casse la base en production).

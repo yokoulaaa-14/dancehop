@@ -294,3 +294,16 @@ Un danseur qui entre dans un nouveau style doit reconstituer lui-même qui ensei
 - **Écarté** : un serif en police de titre unique à la place de Sofia (tire vers « high fashion / spiritual brand ») ; Cormorant Garamond (disparaît sous 36 px), Fraunces (réchauffe), Playfair Display (magazine), Newsreader (bon second choix) ; brume sur les écrans denses ; silhouettes floues de danseurs.
 - **Raison** : le style visé se reconnaît à l'atmosphère et au titre, pas à la densité. Séparer les écrans d'atmosphère (serif + brume) des écrans de donnée (sans) garde la liste lisible et donne au produit son moment « éthéré » là où il n'y a rien à lire.
 - **Révise** : D44 (« aucune autre police » → trois polices à rôle fixe).
+
+### D46 — Réglages de l'atmosphère (19/10)
+- **Source** : prototype v2 de l'onboarding avec onze leviers réglables (https://claude.ai/artifact/28aYM26Qr5fnC1Dw2abCSF), testés par Emmanuel levier par levier.
+- **Décision**, valeurs de référence pour les écrans d'atmosphère :
+  - *Calque de lumière* : brume 1, grain 0,8, halos glace et bleu plus un halo violet `#6b5cff` à 0,5 ; pas de seconde source en bas. **La lumière dérive** lentement (une dérive de 20 s, aller-retour), seule exception à « rien ne bouge au repos », coupée par `prefers-reduced-motion`.
+  - *Titre serif* : 40 px, lueur à 1 (double ombre portée de l'accent, 18 px à 45 % et 44 px à 30 %), pas d'effet de mise au point à l'arrivée.
+  - *Surfaces* : verre dépoli (flou d'arrière-plan 12 px, fond texte 7 %, liseré clair en haut) sur les écrans d'atmosphère et la barre « Mon planning ». Sélection lumineuse partout où il y a un choix : dégradé accent vers `#e6f5ff`, lueur extérieure 16 px, libellé noir.
+  - *Transitions* : flou 14 px, 300 ms, sans traînée ni aberration chromatique.
+  - *Confirmation d'export* : calque de lumière et titre serif seulement ; **pas de traînées de lumière animées en fond** (Canvas écarté).
+- **Écarté** : traînée au départ et aberration chromatique (mal de mer) ; mise au point du titre ; seconde source de lumière ; traînées Canvas sur la confirmation ; grain plus faible.
+- **Raison** : choix faits sur le prototype, levier par levier, par retrait. Le grain à 0,8 et la dérive à 20 s sont les deux réglages les plus marqués ; ils se vérifient au premier écran codé sur un vrai téléphone (lisibilité du 14 px sous le grain, confort de la dérive).
+- **Révise** : D44 (mouvement au repos), D45 (valeurs du calque de lumière).
+- **Non tranché** : l'attente comme lumière (pulsation de la brume pendant un chargement), à décider au premier chargement réel.

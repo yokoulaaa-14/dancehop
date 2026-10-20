@@ -117,7 +117,6 @@
   --font-body: "Hanken Grotesk";
   --font-body-strong: "Hanken Grotesk";
   --font-body-small: "Hanken Grotesk";
-  --font-time: "Hanken Grotesk";
   --text-display: 40px;
   --text-heading-large: 32px;
   --text-heading-small: 22px;
@@ -126,7 +125,6 @@
   --text-body: 14px;
   --text-body-strong: 14px;
   --text-body-small: 12px;
-  --text-time: 14px;
   --tracking-display: -0.005em;
   --tracking-heading-large: 0.02em;
   --tracking-heading-small: 0.02em;
@@ -139,7 +137,6 @@
   --font-weight-body: 400;
   --font-weight-body-strong: 600;
   --font-weight-body-small: 400;
-  --font-weight-time: 600;
   --radius-none: 0px;
   --radius-sm: 8px;
   --radius-md: 10px;

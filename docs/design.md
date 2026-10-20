@@ -168,12 +168,6 @@ typography:
     fontSize: 12px
     fontWeight: 400
     lineHeight: 1.4
-  time:
-    fontFamily: Hanken Grotesk
-    fontSize: 14px
-    fontWeight: 600
-    lineHeight: 1.45
-    fontFeature: "\"tnum\" 1"
 rounded:
   none: 0px
   sm: 8px
@@ -312,14 +306,14 @@ Contrastes sur le fond : texte courant 14,8:1, titres 16,9:1, texte discret 6,7:
 Trois polices à rôle fixe (D44, D45), toutes sur Google Fonts, aucune autre. Les niveaux sont des **rôles**, jamais des noms de composant (D49).
 
 - *Structure* : Sofia Sans Extra Condensed (`heading-large`, `heading-small`, `label`), variable. `heading-large` (32 px, 700) pour les jours ; `heading-small` (22 px, 600) pour les titres de bloc et le compteur du planning ; `label` (15 px, 500) en capitales (« ÉTAPE 1 SUR 3 »). Jamais sous 500 sur fond sombre ; léger interlettrage positif ; jamais sur un nom de prof ni de studio.
-- *Texte* : Hanken Grotesk, graisses 400 à 600, jamais en dessous de 400 sur fond sombre. `body` (14 px) est la base ; `body-strong` (14 px, 600) pour le style d'un cours et les libellés de bouton ; `body-small` (12 px) seulement pour les métadonnées (« 1h30 », « 2 cours »), en `text-neutral-subtle` au minimum ; `body-large` (16 px) obligatoire dans les champs, sinon iOS zoome au focus ; `time` (14 px, 600, chiffres tabulaires) pour les horaires.
+- *Texte* : Hanken Grotesk, graisses 400 à 600, jamais en dessous de 400 sur fond sombre. `body` (14 px) est la base ; `body-strong` (14 px, 600) pour le style d'un cours et les libellés de bouton ; `body-small` (12 px) seulement pour les métadonnées (« 1h30 », « 2 cours »), en `text-neutral-subtle` au minimum ; `body-large` (16 px) obligatoire dans les champs, sinon iOS zoome au focus. Les horaires sont en `body-strong` : les chiffres de Hanken Grotesk ont tous la même largeur, les heures s'alignent en colonne sans réglage.
 - *Atmosphère* : Instrument Serif italique (`display`), 40 px sur mobile, réservé à la question de chaque étape d'onboarding, à l'accueil, aux états vides et aux confirmations. Jamais dans la liste des cours ni sur une donnée. Il porte une lueur de l'accent (ombres portées 18 px à 45 % et 44 px à 30 %), sans animation d'arrivée (D46).
 
 ## Layout
 
 Le vide fait partie du dessin : marges généreuses, listes aérées, une information par ligne ; on préfère faire défiler plutôt que tasser. **Échelle chiffrée** sur l'unité de 4 px (D49) : `050` (4), `100` (8), `150` (12), `200` (16), `250` (20), `300` (24), `400` (32), `500` (40), `550` (44), `600` (48). Une seule échelle, sans nom par usage ni par composant (D49) : les règles de mise en page pointent sur un cran. Gouttière des écrans de donnée : `250` ; gouttière des écrans d'atmosphère : `300` ; cible tactile minimale : `550`, même quand le texte fait 14 px ; espacement des chips et marge interne des lignes de liste : `150` ; hauteur des boutons et des champs : `600`.
 
-Liste, pas grille : les cours se lisent par jour, triés par heure ; les chevauchements sont des lignes voisines (D20). Chaque ligne de cours : heure en `time`, style en `body-strong`, prof et studio en `body` et `text-neutral-subtle`, mention de niveau en `body-small`, action à droite.
+Liste, pas grille : les cours se lisent par jour, triés par heure ; les chevauchements sont des lignes voisines (D20). Chaque ligne de cours : heure et style en `body-strong`, prof et studio en `body` et `text-neutral-subtle`, mention de niveau en `body-small`, action à droite.
 
 ## Elevation & Depth
 

@@ -293,6 +293,63 @@ Anti-références produit : dans `product.md`. Mobile-first, la cible utilise un
 
 **Rôles d'état** : `info` (gamme `blue` pour l'instant), `success`, `warning`, `error`, chacun avec un fond teinté (`bg-X-subtle`, cran 900), un texte et une icône (cran 300), une bordure (cran 500). Réservés aux messages d'état : jamais en décoration, toujours avec une icône et un texte.
 
+**Usage des sémantiques**
+
+| Token | → Primitif | Usage |
+|---|---|---|
+| **Neutre : fonds et surfaces** | | |
+| `bg-neutral-default` | `slate-950` | Fond de tous les écrans. 60 % de la surface. |
+| `bg-neutral-strong-default` | `slate-900` | Surface qui se détache du fond : chip, carte de niveau, champ, case de disponibilité, barre « Mon planning ». |
+| `bg-neutral-strong-pressed` | `slate-800` | Surface pendant l'appui (chip, carte, ligne). |
+| `bg-neutral-strong-disabled` | `slate-900` | Surface inactive ; toujours accompagnée d'un texte ou d'une icône désactivés. |
+| **Neutre : texte** | | |
+| `text-neutral-strong-default` | `neutral-50` | Titres : jours, titres de bloc, compteur du planning, questions d'onboarding. |
+| `text-neutral-default` | `neutral-100` | Texte courant : style d'un cours, libellés, contenu des champs. |
+| `text-neutral-subtle-default` | `neutral-400` | Texte secondaire : prof, studio, lieu, durée, mentions (« niveau non précisé par le studio »), descriptions. |
+| `text-neutral-disabled` | `neutral-600` | Texte d'un élément inactif. Sous 4,5:1 (exempté), jamais seul indice d'inactivité. |
+| **Neutre : bordures et icônes** | | |
+| `border-neutral-default` | `slate-800` | Filets entre lignes de liste, bordures de surfaces et de champs. |
+| `border-neutral-strong-default` | `slate-700` | Bordure appuyée : champ survolé, séparation qui doit se voir. |
+| `icon-neutral-default` | `neutral-100` | Icône principale, à côté d'un texte courant. |
+| `icon-neutral-subtle-default` | `neutral-400` | Icône secondaire : métro, horloge, chevron. |
+| `icon-neutral-disabled` | `neutral-600` | Icône d'un élément inactif. |
+| **Accent : remplissages** | | |
+| `bg-accent-default` | `blue-300` | Bouton principal, une seule action principale par écran (ajouter, exporter, continuer). |
+| `bg-accent-hover` | `blue-200` | Bouton principal survolé (desktop seulement). |
+| `bg-accent-pressed` | `blue-400` | Bouton principal pendant l'appui. |
+| `bg-accent-selected` | `blue-300` | Élément choisi qui s'allume : chip cochée, case de disponibilité cochée. Dégradé vers blue-50 et lueur en CSS (D46). |
+| `bg-accent-disabled` | `slate-800` | Bouton principal inactif (formulaire incomplet). |
+| `bg-accent-subtle-default` | `blue-900` | Fond teinté d'un élément choisi sans remplissage plein : carte de niveau cochée, filtre actif discret. |
+| **Accent : texte, bordures, icônes** | | |
+| `text-accent-default` | `blue-300` | Lien, bouton texte, filtre actif, mot mis en avant. |
+| `text-accent-hover` | `blue-200` | Lien survolé (desktop seulement). |
+| `text-accent-inverted-default` | `slate-950` | Libellé posé sur un remplissage d'accent plein (bouton principal, chip cochée). |
+| `text-accent-inverted-disabled` | `neutral-600` | Libellé d'un bouton principal inactif. |
+| `border-accent-selected` | `blue-300` | Bordure 1 px d'un élément choisi : carte de niveau cochée. |
+| `border-accent-focus` | `blue-300` | Anneau de focus clavier, 2 px, décalé de 3 px, sur tout élément interactif. |
+| `icon-accent-default` | `blue-300` | Icône d'action : ajouter, exporter, lien externe. |
+| **État : info** | | |
+| `bg-info-subtle-default` | `blue-900` | Fond d'un message d'information (lien magique envoyé). |
+| `text-info-default` | `blue-300` | Texte d'un message d'information. |
+| `icon-info-default` | `blue-300` | Icône d'un message d'information. |
+| `border-info-default` | `blue-500` | Bordure d'un message d'information. |
+| **État : success** | | |
+| `bg-success-subtle-default` | `green-900` | Fond d'un message de réussite (planning exporté). |
+| `text-success-default` | `green-300` | Texte d'un message de réussite. |
+| `icon-success-default` | `green-300` | Icône d'un message de réussite. |
+| `border-success-default` | `green-500` | Bordure d'un message de réussite. |
+| **État : warning** | | |
+| `bg-warning-subtle-default` | `orange-900` | Fond d'un avertissement (grille du studio vérifiée il y a longtemps). |
+| `text-warning-default` | `orange-300` | Texte d'un avertissement. |
+| `icon-warning-default` | `orange-300` | Icône d'un avertissement. |
+| `border-warning-default` | `orange-500` | Bordure d'un avertissement. |
+| **État : error** | | |
+| `bg-error-subtle-default` | `red-900` | Fond d'un message d'erreur (lien expiré, export raté). |
+| `text-error-default` | `red-300` | Texte d'un message d'erreur. |
+| `icon-error-default` | `red-300` | Icône d'un message d'erreur. |
+| `border-error-default` | `red-500` | Bordure d'un message d'erreur, et d'un champ en erreur. |
+
+
 **Lumière** : `light-blue` et `light-violet` sont hors système, pour le calque d'atmosphère seulement, jamais pour un élément d'interface.
 
 Contrastes sur le fond : texte courant 14,8:1, titres 16,9:1, texte discret 6,7:1, accent 12:1, libellé sur accent 12:1, textes d'état sur leur fond teinté de 7,5:1 (`error`) à 11,3:1 (`info`). Le lint vérifie chaque couple déclaré dans `components`. L'effet « bas contraste » du style éthéré se joue sur les éléments discrets et les filets, jamais sur le texte courant. Les états `disabled` sont volontairement sous 4,5:1 (exemptés par WCAG) et ne sont jamais le seul indice qu'un élément est inactif.

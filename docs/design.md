@@ -285,11 +285,7 @@ Anti-références produit : dans `product.md`. Mobile-first, la cible utilise un
 
 **Deux étages** (D49). Les *primitifs* sont six gammes de 11 crans, 50 le plus clair et 950 le plus foncé, générées en OKLCH à partir de nos couleurs : `slate` (fonds), `neutral` (texte), `blue` (accent), `red`, `orange` et `green` (états). Les *sémantiques* pointent sur les primitifs et sont **les seuls tokens qu'un écran appelle** ; les primitifs sont la réserve où l'on pioche une variation (Paper, D48). Une combinaison sémantique qui n'existe pas dans l'en-tête ne s'utilise pas.
 
-**Nommage** : `catégorie.élément.rôle.modificateur.état`, écrit avec des tirets (`--color-text-neutral-subtle-default`).
-- *Élément* : `bg`, `text`, `border`, `icon`.
-- *Rôle* : `neutral`, `accent`, et les rôles d'état `info`, `success`, `warning`, `error`.
-- *Modificateur*, facultatif, du plus bas au plus haut : `subtle`, (rien), `strong` ; plus `inverted` pour le texte posé sur un remplissage plein.
-- *État* : `default`, `hover`, `pressed`, `selected`, `focus`, `disabled`. `hover` ne sert qu'au desktop ; sur téléphone, c'est `pressed` qui compte.
+**Nommage** : voir la section Nomenclature des tokens.
 
 **Palette « Nuit », règle 60 / 30 / 10** (D44) : `bg-neutral` (slate-950) est le fond, 60 % ; le texte `neutral` en trois niveaux, 30 % ; l'accent `blue`, 10 %, n'apparaît que sur une action (ajouter, exporter, filtre actif) ou un état actif, jamais en décoration. `bg-neutral-strong` (slate-900) porte les surfaces qui se détachent du fond (chips, cartes, champs, barre), `border-neutral` (slate-800) les filets.
 
@@ -349,6 +345,58 @@ Composants prévus pour le MVP : chip (styles, filtres) ; bouton principal et bo
 - Le prix est affiché, jamais filtrant (D09). Le studio est nommé par son nom propre, jamais « école » ou « studio » en libellé générique (D30).
 - Rien n'est caché derrière un cache : un planning hors ligne est un planning périmé (D22).
 - Anti-références visuelles : ClassPass (grille marketplace avec catégories, notes et avis) ; Google Agenda (blocs colorés qui se chevauchent dans une grille horaire, l'agenda illisible du problème, D03) ; dashboard SaaS (cartes KPI, sidebar, template admin, palette par défaut d'une librairie, D34) ; Inter comme police par défaut ; les affiches de battle en capitales saturées, qui sont le terrain, pas l'app.
+
+## Nomenclature des tokens
+
+Règles de nommage de tous les tokens (D49). Elles valent pour l'en-tête YAML, pour `src/styles/tokens.css` et pour Paper (D48). Un nom ne se crée pas hors de ces règles ; une valeur ou un nom nouveau passe par le journal.
+
+**Principes**
+- *Deux étages pour la couleur* : des primitifs (la réserve de valeurs) et des sémantiques (l'usage). Un écran n'appelle que des sémantiques.
+- *Une échelle simple pour le reste* : typographie, espacement et rayons n'ont qu'un étage, nommé par rôle ou par cran.
+- *Aucun nom de composant ni d'usage* dans un token : pas de `chip-gap`, pas de `button`, pas de `gutter`. Un composant combine des tokens existants ; une règle de mise en page pointe sur un cran.
+- *Le préfixe de catégorie est ajouté par l'export*, jamais écrit dans le YAML : la clé `text-neutral-default` sous `colors:` devient `--color-text-neutral-default`.
+- *Notation* : on discute avec des points (`color.text.neutral.subtle.default`), on écrit avec des tirets (`--color-text-neutral-subtle-default`).
+
+**Couleur, primitifs** : `--color-{gamme}-{cran}`
+
+| Segment | Valeurs |
+|---|---|
+| gamme | `slate` (fonds), `neutral` (texte), `blue` (accent, info), `red` (error), `orange` (warning), `green` (success) |
+| cran | `50`, `100`, `200`, `300`, `400`, `500`, `600`, `700`, `800`, `900`, `950` ; 50 le plus clair, 950 le plus foncé |
+
+Hors gammes : `--color-light-blue` et `--color-light-violet`, couleurs de lumière du calque d'atmosphère, jamais en interface.
+
+**Couleur, sémantiques** : `--color-{élément}-{rôle}[-{modificateur}]-{état}`
+
+| Segment | Obligatoire | Valeurs |
+|---|---|---|
+| élément | oui | `bg` (fond), `text`, `border`, `icon` |
+| rôle | oui | `neutral`, `accent` ; rôles d'état : `info`, `success`, `warning`, `error` |
+| modificateur | non | `subtle` < (rien) < `strong` ; `inverted` à part, pour le texte posé sur un remplissage plein |
+| état | oui | `default`, `hover` (desktop seulement), `pressed`, `selected`, `focus`, `disabled` |
+
+Exemples : `--color-bg-neutral-default` (le fond), `--color-text-neutral-subtle-default` (prof, studio), `--color-bg-accent-pressed` (appui sur le bouton principal), `--color-text-accent-inverted-default` (libellé du bouton plein), `--color-border-accent-focus` (anneau de focus), `--color-bg-error-subtle-default` (fond d'un message d'erreur). Le système permet bien plus de combinaisons qu'il n'en définit : seules existent celles de l'en-tête YAML.
+
+**Typographie** : `--{propriété}-{niveau}`
+
+| Segment | Valeurs |
+|---|---|
+| propriété | `font` (police), `text` (taille), `font-weight` (graisse), `tracking` (interlettrage), `leading` (interligne, Paper seulement : l'export ne le produit pas) |
+| niveau | `display`, `heading-large`, `heading-small`, `label`, `body-large`, `body`, `body-strong`, `body-small` |
+
+Exemples : `--font-display`, `--text-body`, `--font-weight-heading-large`, `--tracking-label`.
+
+**Espacement** : `--spacing-{cran}`, avec `100` = 8 px
+
+| Cran | `050` | `100` | `150` | `200` | `250` | `300` | `400` | `500` | `550` | `600` |
+|---|---|---|---|---|---|---|---|---|---|---|
+| px | 4 | 8 | 12 | 16 | 20 | 24 | 32 | 40 | 44 | 48 |
+
+**Rayons** : `--radius-{taille}` : `none` (0), `sm` (8 px), `md` (10 px), `lg` (14 px), `full`.
+
+**Sans token** (la spec DESIGN.md ne les modélise pas, D49) : épaisseurs de bordure, opacités, ombres et élévation. Leurs valeurs sont en prose dans Elevation & Depth.
+
+**Dans le code** (Tailwind v4) : la classe reprend le nom sans le préfixe de catégorie, précédée de l'utilitaire : `bg-bg-neutral-default`, `text-text-neutral-subtle-default`, `border-border-neutral-default`, `font-heading-large`, `text-body`, `p-150`, `gap-150`, `rounded-lg`. La palette Tailwind par défaut est désactivée (`src/styles/theme-reset.css`) : `bg-emerald-400` ne produit rien.
 
 ## Mouvement
 

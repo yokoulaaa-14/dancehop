@@ -1,7 +1,9 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
-/* Tokens GÉNÉRÉS depuis docs/design.md par `npm run tokens` (D47). Ne pas éditer tokens.css à la main. */
+/* Palette Tailwind par défaut désactivée (D49), puis tokens GÉNÉRÉS depuis docs/design.md
+   par `npm run tokens` (D47). Ne pas éditer tokens.css à la main. */
+@import "./styles/theme-reset.css";
 @import "./styles/tokens.css";
 
 @custom-variant dark (&:is(.dark *));
@@ -53,39 +55,39 @@
 /* Dancehop est sombre par défaut, sans thème clair en MVP (D44). */
 :root {
     color-scheme: dark;
-    --background: var(--color-surface);
-    --foreground: var(--color-on-surface);
-    --card: var(--color-surface-container);
-    --card-foreground: var(--color-on-surface);
-    --popover: var(--color-surface-container);
-    --popover-foreground: var(--color-on-surface);
-    --primary: var(--color-primary);
-    --primary-foreground: var(--color-on-primary);
-    --secondary: var(--color-surface-container);
-    --secondary-foreground: var(--color-on-surface);
-    --muted: var(--color-surface-container);
-    --muted-foreground: var(--color-on-surface-muted);
-    --accent: var(--color-surface-container);
-    --accent-foreground: var(--color-on-surface);
-    /* Pas de couleur d'erreur (D47) : une erreur se dit en texte, cerclée en primary. */
-    --destructive: var(--color-on-surface);
-    --border: var(--color-outline);
-    --input: var(--color-outline);
-    --ring: var(--color-primary);
+    --background: var(--color-bg-neutral-default);
+    --foreground: var(--color-text-neutral-default);
+    --card: var(--color-bg-neutral-strong-default);
+    --card-foreground: var(--color-text-neutral-default);
+    --popover: var(--color-bg-neutral-strong-default);
+    --popover-foreground: var(--color-text-neutral-default);
+    --primary: var(--color-bg-accent-default);
+    --primary-foreground: var(--color-text-accent-inverted-default);
+    --secondary: var(--color-bg-neutral-strong-default);
+    --secondary-foreground: var(--color-text-neutral-default);
+    --muted: var(--color-bg-neutral-strong-default);
+    --muted-foreground: var(--color-text-neutral-subtle-default);
+    --accent: var(--color-bg-neutral-strong-pressed);
+    --accent-foreground: var(--color-text-neutral-default);
+    /* Rôle d'état error (D49). */
+    --destructive: var(--color-text-error-default);
+    --border: var(--color-border-neutral-default);
+    --input: var(--color-border-neutral-default);
+    --ring: var(--color-border-accent-focus);
     --radius: var(--radius-lg);
-    --chart-1: var(--color-primary);
+    --chart-1: var(--color-blue-300);
     --chart-2: var(--color-light-blue);
     --chart-3: var(--color-light-violet);
-    --chart-4: var(--color-on-surface-muted);
-    --chart-5: var(--color-on-surface-faint);
-    --sidebar: var(--color-surface-container);
-    --sidebar-foreground: var(--color-on-surface);
-    --sidebar-primary: var(--color-primary);
-    --sidebar-primary-foreground: var(--color-on-primary);
-    --sidebar-accent: var(--color-surface-container);
-    --sidebar-accent-foreground: var(--color-on-surface);
-    --sidebar-border: var(--color-outline);
-    --sidebar-ring: var(--color-primary);
+    --chart-4: var(--color-neutral-400);
+    --chart-5: var(--color-neutral-500);
+    --sidebar: var(--color-bg-neutral-strong-default);
+    --sidebar-foreground: var(--color-text-neutral-default);
+    --sidebar-primary: var(--color-bg-accent-default);
+    --sidebar-primary-foreground: var(--color-text-accent-inverted-default);
+    --sidebar-accent: var(--color-bg-neutral-strong-pressed);
+    --sidebar-accent-foreground: var(--color-text-neutral-default);
+    --sidebar-border: var(--color-border-neutral-default);
+    --sidebar-ring: var(--color-border-accent-focus);
 }
 
 @layer base {

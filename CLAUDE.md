@@ -38,13 +38,16 @@ README.md               mettre à jour quand l'état ou le périmètre change. T
 docs/
   arbitrage.md          écrire la décision avant de coder
   product.md            lire avant les décisions importants de l'évolution du produit (fonctionnalités, objectifs), de créer ou modifier un écran ; mettre à jour si le périmètre change en demandant la validation
-  design.md             lire avant de générer ou modifier tout écran, composant ou texte d'interface ; format DESIGN.md (D47) : l'en-tête YAML est la source de vérité des tokens, `npm run tokens` après chaque changement
+  design.md             lire avant de générer ou modifier tout écran, composant ou texte d'interface ; format DESIGN.md (D47) : l'en-tête YAML est la source de vérité des tokens (primitifs + sémantiques, D49 ; un écran n'appelle que des sémantiques), `npm run tokens` après chaque changement
   data-model.md         lire avant toute migration, requête ou saisie ; mettre à jour à chaque migration
   audit-studios.md      lire lors de la saisie d'un studio ; archive, pas de mise à jour
 src/
   components/ui/        composants shadcn copiés ; restylables, jamais réécrits à la main
   lib/supabase.ts       client Supabase (variables dans .env, modèle dans .env.example)
   styles/tokens.css     GÉNÉRÉ par `npm run tokens` depuis docs/design.md ; jamais édité à la main
+  styles/theme-reset.css  désactive la palette Tailwind par défaut (D49)
+scripts/
+  lint-design.mjs       lint de design.md (`npm run lint:design`), ignore les primitifs non utilisés
 supabase/
   migrations/           une migration par changement de schéma, jamais modifiée après application
   seed.sql              données de référence rejouables (les 13 styles)

@@ -10,7 +10,7 @@
     "test": "vitest run --passWithNoTests",
     "preview": "vite preview",
     "tokens": "designmd export docs/design.md --format css-tailwind > src/styles/tokens.css",
-    "lint:design": "designmd lint docs/design.md"
+    "lint:design": "node scripts/lint-design.mjs"
   },
   "dependencies": {
     "@base-ui/react": "^1.9.0",

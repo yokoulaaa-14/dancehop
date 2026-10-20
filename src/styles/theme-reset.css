@@ -1,0 +1,6 @@
+/* Désactive la palette de couleurs par défaut de Tailwind (D49) : seules les couleurs de
+   src/styles/tokens.css existent. Une classe hors système (bg-red-500 de Tailwind,
+   text-emerald-400…) ne produit plus rien. Importé AVANT tokens.css. */
+@theme {
+  --color-*: initial;
+}

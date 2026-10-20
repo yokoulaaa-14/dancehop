@@ -188,10 +188,8 @@ spacing:
   "250": 20px
   "300": 24px
   "400": 32px
+  "550": 44px
   "600": 48px
-  gutter: 20px
-  gutter-atmosphere: 24px
-  target: 44px
 # Couples fond / texte vérifiés par le lint (contraste AA). Pas de dimensions : pas de token par composant (D49).
 components:
   page:
@@ -318,7 +316,7 @@ Trois polices à rôle fixe (D44, D45), toutes sur Google Fonts, aucune autre. L
 
 ## Layout
 
-Le vide fait partie du dessin : marges généreuses, listes aérées, une information par ligne ; on préfère faire défiler plutôt que tasser. **Échelle chiffrée** sur l'unité de 4 px (D49) : `050` (4), `100` (8), `150` (12), `200` (16), `250` (20), `300` (24), `400` (32), `600` (48). Pas d'espacement propre à un composant : les chips s'espacent de `150`, les lignes de liste ont `150` de marge interne, boutons et champs font `600` de haut. Trois alias de mise en page : `gutter` (20 px, écrans de donnée), `gutter-atmosphere` (24 px, écrans d'atmosphère) et `target` (44 px, cible tactile minimale, même quand le texte fait 14 px).
+Le vide fait partie du dessin : marges généreuses, listes aérées, une information par ligne ; on préfère faire défiler plutôt que tasser. **Échelle chiffrée** sur l'unité de 4 px (D49) : `050` (4), `100` (8), `150` (12), `200` (16), `250` (20), `300` (24), `400` (32), `550` (44), `600` (48). Une seule échelle, sans nom par usage ni par composant (D49) : les règles de mise en page pointent sur un cran. Gouttière des écrans de donnée : `250` ; gouttière des écrans d'atmosphère : `300` ; cible tactile minimale : `550`, même quand le texte fait 14 px ; espacement des chips et marge interne des lignes de liste : `150` ; hauteur des boutons et des champs : `600`.
 
 Liste, pas grille : les cours se lisent par jour, triés par heure ; les chevauchements sont des lignes voisines (D20). Chaque ligne de cours : heure en `time`, style en `body-strong`, prof et studio en `body` et `text-neutral-subtle`, mention de niveau en `body-small`, action à droite.
 

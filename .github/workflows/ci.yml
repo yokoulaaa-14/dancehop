@@ -17,5 +17,7 @@ jobs:
       - run: npm ci
       - run: npm run lint
       - run: npm run lint:design
+      - name: tokens.css à jour avec design.md
+        run: npm run tokens && git diff --exit-code -- src/styles/tokens.css
       - run: npm test
       - run: npm run build

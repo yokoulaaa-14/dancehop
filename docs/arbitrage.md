@@ -339,3 +339,13 @@ Un danseur qui entre dans un nouveau style doit reconstituer lui-même qui ensei
 - **Lint** : le lint de la spec signale chaque primitif qui ne sert à aucun composant et l'absence d'une couleur nommée `primary`. Ces deux règles sont filtrées par le script `lint:design` (une gamme complète est voulue ; `primary` n'existe pas dans notre nommage) ; les règles de référence cassée, de contraste, d'ordre de sections et de clé inconnue restent bloquantes.
 - **Raison** : séparer valeur et usage pour varier sans réécrire ; un nommage qu'on peut deviner ; des rôles d'état prêts avant le premier formulaire.
 - **Révise** : D44 (trois couleurs → trois couleurs d'interface plus quatre rôles d'état, réservés aux messages), D47 (couleur d'erreur : il en existe une désormais, `error`), D46 (libellé du bouton, sélection), D47 (`components:` sans dimensions).
+
+### D50 — La CI vérifie que `tokens.css` est à jour (20/10)
+- **Décision** : une étape de la CI relance `npm run tokens` puis échoue si `src/styles/tokens.css` diffère du fichier commité (`git diff --exit-code`). Oublier de régénérer après une modification de `design.md` bloque donc le push sur `main` et toute PR.
+- **Écarté** : un hook git local (contournable, à installer sur chaque poste) ; générer `tokens.css` au build sans le commiter (le fichier ne serait plus lisible dans le repo ni relu en diff).
+- **Raison** : D47 fait de `design.md` la seule source ; sans contrôle, une valeur changée dans `design.md` mais pas régénérée laisse le code sur l'ancienne valeur sans rien signaler.
+
+### D51 — On garde le double préfixe des classes de couleur (20/10)
+- **Décision** : les classes Tailwind des sémantiques gardent le nom complet du token : `bg-bg-neutral-default`, `text-text-neutral-subtle-default`, `border-border-neutral-default`. Le nom est identique dans `design.md`, Paper, `tokens.css` et le code (D49).
+- **Écarté** : ranger chaque sémantique dans l'espace de noms Tailwind de son élément (`--background-color-*`, `--text-color-*`, `--border-color-*`) par un script après l'export, pour écrire `bg-neutral-default` : classes plus courtes, mais un nom de variable CSS différent de celui du token, un script de plus à maintenir et un sémantique (`text-neutral-default`) plus facile à confondre avec un primitif (`text-neutral-100`).
+- **Raison** : un seul nom partout et aucune étape en plus valent mieux que quelques caractères gagnés.

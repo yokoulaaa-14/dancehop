@@ -315,3 +315,9 @@ Un danseur qui entre dans un nouveau style doit reconstituer lui-même qui ensei
 - **Raison** : c'est l'intention de D34 (YAML source, CSS généré) avec un standard et un outil à la place d'un script à maintenir ; le lint de contraste automatise la règle AA de D40 ; le format est celui que lisent les agents de code et Stitch, ce qui sert le jour où l'on génère des écrans.
 - **Risques acceptés** : spec en alpha (version du CLI figée, `diff` relu à chaque montée) ; ce que le format ne modélise pas (transitions, calque de lumière, ton) reste en prose.
 - **Révise** : D34 (retour au YAML source de vérité), D40 (tokens, `design.md` sans tokens), D44 (tokens dans `src/index.css` → générés dans `src/styles/tokens.css`).
+
+### D48 — Paper, copie de travail synchronisée de `design.md` (20/10)
+- **Décision** : le fichier Paper « Design System » (https://app.paper.design/file/01M5CQ9YBDRJR7JBRDTR6QVD5V) reçoit une copie des tokens et des fondations de `docs/design.md`, transférés par le serveur MCP de Paper. **`design.md` reste la seule source de vérité** (D47). Paper sert à créer des variations ; une variation retenue revient dans le repo en modifiant l'en-tête YAML, puis `npm run tokens`, puis une nouvelle synchro vers Paper. Les synchros repo → Paper sont régulières ; on ne recopie jamais une valeur de Paper vers le code sans passer par `design.md` et le journal.
+- **Périmètre de la première synchro** : fondations seulement (couleurs avec leurs contrastes, typographie, rayons, espacements). Composants et écrans de référence plus tard.
+- **Écarté** : Paper comme source des tokens (deux sources, dérive certaine) ; la direction par défaut proposée par Paper (fond clair, accents saturés, ton enjoué) : on reproduit D44 à D46.
+- **Raison** : Emmanuel explore visuellement dans un outil de design, le code se nourrit d'un fichier versionné et lintable ; le sens unique repo → Paper, avec retour par arbitrage, garde une seule vérité.

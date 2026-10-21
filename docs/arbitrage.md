@@ -373,3 +373,23 @@ Un danseur qui entre dans un nouveau style doit reconstituer lui-même qui ensei
 - **Décision** : quand une page d'un studio se contredit (planning et liste des profs, version française et anglaise), le planning publié prime. « Coaching FreeStyle » se saisit en style hip-hop, type `freestyle`. Tranche les cas ambigus 3 et 4 de `data-model.md`.
 - **Écarté** : la liste des profs comme source (déjà incohérente avec elle-même chez Ambassadeur d'Espérance) ; exclure Coaching FreeStyle faute de style dans l'étiquette.
 - **Raison** : le planning est la partie que le studio met à jour et depuis laquelle on réserve ; Spider est présenté comme prof de « Hip hop & Coaching Freestyle ».
+
+### D56 — Cours de Lax Studio : 1h30, pas 1h15 (21/10)
+- **Décision** : les cours de Lax Studio se saisissent en 1h30. La grille publiée affiche des créneaux de 1h15 : c'est le temps de cours moins une transition de 15 minutes, pas la durée réelle (Emmanuel, élève régulier du studio).
+- **Raison** : une exception à D55 (le planning prime) fondée sur la connaissance du terrain ; un export agenda en 1h15 finirait chaque cours trop tôt.
+
+### D57 — Quatorzième style : Commercial (21/10)
+- **Décision** : la taxonomie passe à 14 styles avec Commercial. Tout cours dont l'étiquette contient « Commercial » y va (Commercial, Commercial HipHop, Commercial - Movement Quality) ; ces étiquettes quittent Hip-hop. Un nom de cours qui n'est pas un style se garde dans `title` (« Movement Quality »), sans type inféré (D31). Correspondances ajoutées à l'occasion de Lax Studio : Dancehall Style Jamaica → Dancehall ; Tyaka Dance (méthode de Ralph Beaubrun) → Afro ; niveaux « INTER » → intermédiaire, « AVANCÉ » → avancé, « DEBUTANT » → débutant.
+- **Écarté** : garder Commercial dans Hip-hop (près d'un tiers des cours urbains de Lax Studio y seraient confondus) ; un type « atelier » pour « Movement Quality » (un nom de cours, pas une nature de cours).
+- **Raison** : Commercial est une famille à part entière chez Lax Studio, que les danseurs cherchent pour elle-même.
+- **Révise** : D41 (13 → 14 styles ; Commercial et Commercial Hiphop quittent Hip-hop).
+
+### D58 — Style non précisé : un cours peut n'avoir aucun style (21/10)
+- **Décision** : `course.style_id` devient facultatif ; vide = style non précisé par le studio, sur le modèle du type (D31). Cas d'origine : les cours étiquetés seulement « Choreography » (type `choreography`, style vide). Un cours sans style s'affiche pour tout le monde, quels que soient les styles choisis, avec la mention « style non précisé par le studio ». L'unicité d'un cours traite deux styles vides comme égaux (`nulls not distinct`), pour que la saisie reste rejouable.
+- **Écarté** : une ligne « non précisé » dans la table `style` (elle apparaîtrait comme un style à cocher à l'onboarding et mêlerait une donnée et son absence) ; ne montrer ces cours à personne (autant ne pas les saisir).
+- **Révise** : D06 (un seul style par cours → au plus un).
+
+### D59 — Cours une semaine sur deux (21/10)
+- **Décision** : un cours donné une semaine sur deux entre en base, avec `course.every_other_week = true` et la mention « une semaine sur deux, vérifie sur l'application du studio ». Le comportement de l'export .ics pour ces cours se tranche quand on construira l'export (on ne sait pas quelle semaine est la bonne).
+- **Écarté** : les exclure (des cours réels disparaîtraient de la liste) ; une note en texte libre (ni le moteur ni l'export ne pourraient s'en servir).
+- **Révise** : D25 (un cours n'est plus forcément hebdomadaire).

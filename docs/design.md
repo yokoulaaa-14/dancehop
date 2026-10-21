@@ -463,6 +463,6 @@ Les transitions entre écrans utilisent un flou de mouvement (14 px, 300 ms, flo
 
 - Tout le texte utilisateur est en français (D19).
 - Vocabulaire fixé : « mon planning » (la sélection), « ajouter à mon planning » / « retirer de mon planning » ; « indicateur de progression », jamais « gamification » (D24). L'outil n'est pas un « générateur » (D05).
-- Les mentions obligatoires, telles quelles : « planning de saison, vérifie sur le site du studio » (D07) ; « prof variable, vérifie auprès du studio » (D30) ; « non précisé » pour le type (D31).
+- Les mentions obligatoires, telles quelles : « planning de saison, vérifie sur le site du studio » (D07) ; « prof variable, vérifie auprès du studio » (D30) ; « style non précisé par le studio » (D58) ; « une semaine sur deux, vérifie sur l'application du studio » (D59) ; « non précisé » pour le type (D31).
 - Court et direct, comme la personnalité : pas d'exclamation, pas d'emoji, pas de ton « copain ». Les questions d'onboarding en serif sont les seules phrases qui se permettent une image (« Quels styles te font bouger ? »).
 - Écriture inclusive : à définir (forme retenue).

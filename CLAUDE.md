@@ -50,7 +50,7 @@ scripts/
   lint-design.mjs       lint de design.md (`npm run lint:design`), ignore les primitifs non utilisés
 supabase/
   migrations/           une migration par changement de schéma, jamais modifiée après application
-  seed.sql              données de référence rejouables (les 13 styles)
+  seed.sql              données de référence rejouables (les 14 styles)
   data/                 un fichier SQL rejouable par studio (D52) ; relevé validé avant application en production, jamais dans migrations/
 ```
 

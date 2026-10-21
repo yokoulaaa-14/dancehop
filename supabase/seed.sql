@@ -1,5 +1,5 @@
 -- Données de référence rejouables (`supabase db reset` les applique après les migrations).
--- Taxonomie figée à 13 styles (D41). Les studios, lieux, profs et cours se saisissent à la main.
+-- Taxonomie à 14 styles (D41, D57). Les studios, lieux, profs et cours se saisissent à la main.
 
 insert into style (slug, label, sort_order) values
   ('hip-hop',     'Hip-hop',     1),
@@ -14,5 +14,6 @@ insert into style (slug, label, sort_order) values
   ('krump',       'Krump',       10),
   ('electro',     'Electro',     11),
   ('heels',       'Heels',       12),
-  ('street-jazz', 'Street jazz', 13)
+  ('street-jazz', 'Street jazz', 13),
+  ('commercial',  'Commercial',  14)
 on conflict (slug) do nothing;

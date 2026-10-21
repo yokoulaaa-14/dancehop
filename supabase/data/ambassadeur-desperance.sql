@@ -59,7 +59,7 @@ where not exists (
 -- Profs : nom normalisé (D53) ; un prof déjà saisi ailleurs n'est pas recréé (D26).
 insert into teacher (name) values
   ('Spider'), ('Boubou'), ('Myax'), ('Aminata Crazystyle'), ('Sofia'), ('Raza'),
-  ('Carmel'), ('Eva'), ('Valentina Paradox-Sal'), ('Cintia'), ('Mariana & Kenny')
+  ('Carmel Loanga'), ('Eva'), ('Valentina Paradox-Sal'), ('Cintia'), ('Mariana & Kenny')
 on conflict (name) do nothing;
 
 -- Cours : lieu (code postal), jour (1 = lundi), heure, style, étiquettes du studio, prof.
@@ -73,7 +73,7 @@ with grid (postal_code, weekday, start_time, style_slug, style_raw, levels, leve
     ('93500', 3, '19:00', 'hip-hop',  'Hip Hop',            '{beginner,intermediate,advanced}', 'Tous niveaux',    null,           null,                 'Aminata Crazystyle'),
     ('93500', 3, '20:30', 'waacking', 'Waacking',           '{beginner,intermediate,advanced}', 'Tous niveaux',    null,           null,                 'Sofia'),
     ('93500', 3, '20:30', 'house',    'House',              '{beginner,intermediate,advanced}', 'Tous niveaux',    null,           null,                 'Raza'),
-    ('93500', 4, '19:00', 'hip-hop',  'Hip Hop Choreo',     '{beginner,intermediate}',          'Débutants/inter', 'choreography', 'Hip Hop Choreo',     'Carmel'),
+    ('93500', 4, '19:00', 'hip-hop',  'Hip Hop Choreo',     '{beginner,intermediate}',          'Débutants/inter', 'choreography', 'Hip Hop Choreo',     'Carmel Loanga'),
     ('93500', 4, '20:30', 'waacking', 'Waacking',           '{beginner}',                       'Débutants',       null,           null,                 'Eva'),
     ('75001', 1, '19:00', 'house',    'House',              '{beginner}',                       'Débutants',       null,           null,                 'Valentina Paradox-Sal'),
     ('75001', 1, '20:30', 'waacking', 'Waacking',           '{beginner}',                       'Débutants',       null,           null,                 'Eva'),

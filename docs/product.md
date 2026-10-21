@@ -77,7 +77,7 @@ App native · générateur automatique de planning · saisie communautaire · sc
 ### Onboarding
 
 - **Objectif** : recueillir ce qui filtre la liste (D24 : pas de fréquence visée).
-- **Contenu affiché** : styles visés (13, multi) ; niveaux (débutant / intermédiaire / avancé, multi) ; grille de disponibilités 7 jours × 2 plages (journée / soirée), avec les raccourcis « tous les soirs », « les week-ends », « soirs de semaine + week-ends » (D28).
+- **Contenu affiché** : styles visés (14, multi) ; niveaux (débutant / intermédiaire / avancé, multi) ; grille de disponibilités 7 jours × 2 plages (journée / soirée), avec les raccourcis « tous les soirs », « les week-ends », « soirs de semaine + week-ends » (D28).
 - **Actions** : cocher / décocher ; appliquer un raccourci puis affiner ; terminer → liste filtrée. Événement PostHog « onboarding terminé ».
 - **États** : à définir (ordre des étapes, validation minimale, retour pour modifier).
 
@@ -86,14 +86,14 @@ App native · générateur automatique de planning · saisie communautaire · sc
 - **Objectif** : montrer tous les cours compatibles, chevauchements inclus, pour que l'utilisateur choisisse (D05, D20).
 - **Contenu affiché** : cours groupés par jour, triés par heure ; par cours : heure, style, prof, studio (nom propre), lieu et métro, niveaux (sans étiquette du studio : tous niveaux, D54). Chevauchements visibles comme lignes voisines.
 - **Actions** : ajouter à / retirer de mon planning (événements PostHog) ; ouvrir la fiche cours ; modifier ses réponses d'onboarding.
-- **États** : aucun cours compatible ; autres états : à définir.
+- **États** : aucun cours compatible ; style non précisé (visible par tous, D58) ; une semaine sur deux (D59) ; autres états : à définir.
 
 ### Fiche cours
 
 - **Objectif** : donner ce qu'il faut pour décider et y aller.
 - **Contenu affiché** : style (+ titre du cours s'il diffère) ; prof avec lien Instagram par handle seulement s'il existe, jamais de photo (D08, D38) ; niveaux + étiquette brute du studio (D10) ; type si précisé, sinon « non précisé » (D31) ; studio, lieu, adresse, métro ; prix à l'unité (D09) ; lien de réservation et note de réservation ; date de dernière vérification ; disclaimer « planning de saison, vérifie sur le site du studio », modulé par la fiabilité de la grille du studio (D07, D30) ; mention « prof variable, vérifie auprès du studio » si Guest (D30).
 - **Actions** : ajouter / retirer ; exporter ce cours en .ics (événement PostHog) ; ouvrir le lien de réservation.
-- **États** : Guest ; type non précisé ; autres états : à définir.
+- **États** : Guest ; style non précisé ; une semaine sur deux ; type non précisé ; autres états : à définir.
 
 ### Mon planning
 

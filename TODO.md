@@ -8,6 +8,13 @@ _(rien)_
 
 ## À faire
 
+- [ ] **Construire le MVP** (D42 : saisie faite, le produit vient avant le nom). Un écran par PR, chacun spécifié dans `product.md` et dessiné avec les tokens de `design.md` :
+  - [ ] Connexion (lien magique, D11)
+  - [ ] Onboarding : styles, niveaux, disponibilités (D28)
+  - [ ] Liste des cours filtrée (D05, D20, D58, D59)
+  - [ ] Fiche cours
+  - [ ] Mon planning
+  - [ ] Export .ics d'un cours et du planning (D23, D27 ; cas 6 de `data-model.md` à trancher)
 - [ ] **Revenir sur `docs/design.md`** : forme retenue d'écriture inclusive (encore « à définir » dans Ton rédactionnel) ; attente lumineuse (non tranchée) ; au premier écran, restyler le bouton shadcn sur nos tokens (hauteur, graisse, survol, appui, inactif, focus) et corriger les trois écarts de `src/index.css` (couleurs de graphique sur les lumières, polices et interligne en dur, anneau de focus à 50 %).
 - [ ] **Un jour, ouvrir aux styles non urbains** (contemporain, jazz, modern, yoga…) : hors taxonomie aujourd'hui (D41), ils sont exclus de la saisie. Chez Lax Studio, une dizaine de cours attendent (Contemporary, Jazz, Jazz Fusion, Urban Contemporary, Organic Dance Movement…), plus le Jazz Rock de Juste Debout School.
 - [ ] **Lier une vidéo par prof** (`teacher.video_url`, D08) : chez Lax Studio, chaque fiche prof (laxstudio.fr/professeurs) embarque une vidéo YouTube.

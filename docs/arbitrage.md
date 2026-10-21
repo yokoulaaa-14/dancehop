@@ -395,6 +395,6 @@ Un danseur qui entre dans un nouveau style doit reconstituer lui-même qui ensei
 - **Révise** : D25 (un cours n'est plus forcément hebdomadaire).
 
 ### D60 — Suppression de audit-studios.md (21/10)
-- **Décision** :  est supprimé. Les règles valables pour tous les studios sont dans  ; les particularités d'un studio vont dans l'en-tête de son fichier  (et dans  quand elles doivent vivre en base). La fiche Studio MRG reste dans l'historique git. La seule information encore sans autre place (une vidéo YouTube par fiche prof chez Lax Studio) passe dans le TODO.
+- **Décision** : `docs/audit-studios.md` est supprimé. Les règles valables pour tous les studios sont dans `data-model.md` ; les particularités d'un studio vont dans l'en-tête de son fichier `supabase/data/` (et dans `studio.notes` quand elles doivent vivre en base). La fiche Studio MRG reste dans l'historique git. La seule information encore sans autre place (une vidéo YouTube par fiche prof chez Lax Studio) passe dans le TODO.
 - **Raison** : l'audit préparait la saisie ; les trois studios du MVP sont saisis et ses pièges sont tranchés (D54, D55, D56). Le garder ferait une seconde source sur chaque studio.
 - **Révise** : D40 (structure de la documentation).

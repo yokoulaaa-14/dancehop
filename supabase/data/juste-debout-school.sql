@@ -27,7 +27,13 @@ on conflict (slug) do update set
   grid_source_url = excluded.grid_source_url,
   notes = excluded.notes;
 
--- location n'a pas de clé unique : on n'insère que si le lieu n'existe pas déjà.
+-- location n'a pas de clé unique : un lieu se reconnaît à son adresse et son code postal.
+-- On met à jour le lieu s'il existe, sinon on l'insère.
+update location set
+  name = 'Juste Debout School', city = 'Paris', district_label = 'Paris 20e',
+  metro = 'Gambetta (L3), Jourdain (L11)'
+where address_line = '3 rue de l''Est' and postal_code = '75020';
+
 insert into location (name, address_line, postal_code, city, district_label, metro)
 select 'Juste Debout School', '3 rue de l''Est', '75020', 'Paris', 'Paris 20e',
        'Gambetta (L3), Jourdain (L11)'

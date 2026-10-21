@@ -67,7 +67,7 @@ En table plutôt qu'en enum pour ajouter un style sans migration de code. La cor
 | `postal_code` | `text` | not null | |
 | `city` | `text` | not null | |
 | `district_label` | `text` | | affiché : « Paris 20e », « Pantin » |
-| `metro` | `text` | not null | texte libre affiché : « Gambetta (L3), Jourdain (L11) » |
+| `metro` | `text` | not null | texte libre affiché, métro ou RER : « Gambetta (L3), Jourdain (L11) », « Pantin (RER E) » |
 | `access_note` | `text` | | code porte, etc. |
 | `lat` / `lng` | `double precision` | | optionnels, pour un futur filtre distance (D15) |
 
@@ -158,7 +158,7 @@ Une règle par ligne. En cas d'ambiguïté, le cas est listé en fin de section,
 ### Admission (ce qui entre en base)
 
 - Un cours = un créneau hebdomadaire récurrent sur la période de la grille (D25).
-- Seuls les studios de la curation entrent (D17). Un lieu doit être à moins de dix minutes à pied d'une station de métro (lignes 1 à 14), hors RER et tram (D29, formulation à confirmer).
+- Seuls les studios de la curation entrent (D17). Un lieu doit être à moins de dix minutes à pied d'une station de métro (lignes 1 à 14) ou de RER, hors tram (D29 révisé le 21/10).
 - « Adulte » = tout cours non étiqueté enfants / ados (D30).
 - Ouvert à l'unité : les formations à engagement ou sur audition et les programmes payants à part n'entrent pas (D25).
 - Pas de ligne pour : stages, workshops, masterclass, événements ponctuels, cours mensuels (D25, D30).
@@ -173,7 +173,8 @@ Une règle par ligne. En cas d'ambiguïté, le cas est listé en fin de section,
 - Styles (D41) : Hip-hop ← HipHop, Hip-Hop, Hip Hop, Hip Hop Choreo, Commercial, Commercial Hiphop · House ← House, House Dance · Popping · Locking · Waacking · Voguing ← Voguing, Vogue Fem Class · Dancehall ← Dancehall, Dancehall Hybrid, Street Ragga · Afro ← Afro, Afro Hybrid, Amapiano · Breaking ← Bboying · Krump · Electro · Heels ← Heels, Heels (Choreo), Talons · Street jazz ← Street Jazz, Urban Jazz.
 - Hors taxonomie, pas de ligne : Contemporary, Contemporary Lyrical, Urban Contemporary, Modern Contempo, Jazz, Jazz Fusion, Jazz Rock, Organic Dance Movement, Yoga Dynamique, Atelier Scénique, Identité Artistique (D41).
 - Niveaux (D10) : « Tous niveaux » → `{beginner, intermediate, advanced}` · « INTER/AV » → `{intermediate, advanced}` · « DEB/INTER », « Débutants/inter » → `{beginner, intermediate}` · « Débutants » → `{beginner}` · aucune étiquette → `{beginner, intermediate, advanced}`, `level_raw` null (D54).
-- Type (D31) : renseigné uniquement quand l'étiquette le dit — « Coaching FreeStyle » → `freestyle` ; « … Choreo » → `choreography` ; « … (Cours Technique) » → `technique` ; sinon `null`, jamais inféré.
+- Source (D55) : quand une page du studio se contredit (planning et liste des profs, versions française et anglaise), le planning publié prime.
+- Type (D31) : renseigné uniquement quand l'étiquette le dit — « Coaching FreeStyle » → `freestyle`, style hip-hop (D55) ; « … Choreo » → `choreography` ; « … (Cours Technique) » → `technique` ; sinon `null`, jamais inféré.
 - Titre : `title` renseigné quand le studio nomme le cours autrement que par le style (ex. « Snaking Popping » → style Popping, titre conservé).
 - Nom de prof : majuscule au début de chaque mot, le reste en minuscules, y compris après un tiret et pour les noms de scène (« Spider », « K-Yoo », « Axoo Gucci ») ; un nom de scène qui complète le nom se met entre parenthèses (« Aston (Snaking Popping) ») (D53).
 - Prof : dédoublonnage par le nom, un prof présent dans deux studios = une ligne (D26) ; un binôme = une ligne « A & B » dans l'ordre du studio, un handle par personne dans `instagrams` (D38) ; prof tournant = la ligne « Guest » (D30).
@@ -196,8 +197,8 @@ Une règle par ligne. En cas d'ambiguïté, le cas est listé en fin de section,
 
 1. **Absence d'étiquette de niveau interprétée par une FAQ** (« débutant précisé sur la grille, le reste tous niveaux ») : la règle « aucune étiquette → `{}` » ou la FAQ du studio ? Sans objet tant que Studio MRG est hors périmètre (D43) ; à trancher s'il revient.
 2. **« Female Class »** : aucun style de la taxonomie ne lui correspond. Sans objet tant que Studio MRG est hors périmètre (D43).
-3. **« Coaching FreeStyle »** : type `freestyle` est clair ; le style (hip-hop ?) n'est pas dans l'étiquette. Non tranché.
-4. **Deux sources d'un même studio qui se contredisent** (grille et liste des profs, versions française et anglaise) : laquelle prime ? Non tranché.
+3. **« Coaching FreeStyle »** : tranché (D55) : style hip-hop, type `freestyle`.
+4. **Deux sources d'un même studio qui se contredisent** : tranché (D55) : le planning publié prime.
 5. **Guest à style fixe** : aucun cas relevé à ce jour ; la ligne « Guest » reste sans usage tant qu'il n'en existe pas (D37).
 
 ## Format .ics (D23, D27)

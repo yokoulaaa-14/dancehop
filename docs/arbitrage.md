@@ -164,6 +164,7 @@ Un danseur qui entre dans un nouveau style doit reconstituer lui-même qui ensei
 - **Remplace** : la mention "studios parisiens uniquement (pas de banlieue)" de D06.
 - **Volume** : on commence petit, quatre structures ; le volume réel (~100-120 cours) permet d'en ajouter plus tard sans changer d'ordre de grandeur.
 - **Révisé le 17/10 (D43)** : trois structures, ~80-100 cours.
+- **Révisé le 21/10** : le RER compte comme le métro. Un lieu doit être à moins de dix minutes à pied d'une station de métro (lignes 1 à 14) ou de RER ; le tram reste exclu. Le champ `location.metro` cite l'une ou l'autre (« Pantin (RER E) »).
 
 ### D30 — Modèle de données (09/10, révisé 09/10)
 - **Décision** : tables en anglais. `studio` (qui organise et encaisse : nom, Instagram, lien de réservation, prix unité, fiabilité de la grille), `location` (adresse, arrondissement/ville, métro ; indépendante des studios, un lieu peut accueillir plusieurs studios), `teacher` (id, nom, Instagram optionnel), `course` (→ studio, → location, → teacher, jour, heure, durée, → style, niveaux en tableau, type optionnel, `style_raw` / `level_raw` / `type_raw`, lien de réservation surchargeable), `style` (taxonomie en table, un style par cours), `profile` (réponses d'onboarding liées au compte), `plan_item` (sélection utilisateur × cours = "mon planning", base de l'export).
@@ -367,3 +368,8 @@ Un danseur qui entre dans un nouveau style doit reconstituer lui-même qui ensei
 - **Raison** : un cours sans étiquette est ouvert à tous dans les studios curés ; Juste Debout School l'écrit en toutes lettres. Le filtrage ne change pas (un cours sans niveau matchait déjà tous les profils), seul ce qu'on affiche change.
 - **Risque accepté** : présenter comme accessible à un débutant un cours que le studio n'a pas étiqueté.
 - **Révise** : D10 (l'absence d'étiquette n'est plus « non précisé »), D30 (mention de niveau supprimée).
+
+### D55 — Le planning publié prime ; Coaching FreeStyle est du hip-hop (21/10)
+- **Décision** : quand une page d'un studio se contredit (planning et liste des profs, version française et anglaise), le planning publié prime. « Coaching FreeStyle » se saisit en style hip-hop, type `freestyle`. Tranche les cas ambigus 3 et 4 de `data-model.md`.
+- **Écarté** : la liste des profs comme source (déjà incohérente avec elle-même chez Ambassadeur d'Espérance) ; exclure Coaching FreeStyle faute de style dans l'étiquette.
+- **Raison** : le planning est la partie que le studio met à jour et depuis laquelle on réserve ; Spider est présenté comme prof de « Hip hop & Coaching Freestyle ».

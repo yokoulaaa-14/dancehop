@@ -40,7 +40,6 @@ docs/
   product.md            lire avant les décisions importants de l'évolution du produit (fonctionnalités, objectifs), de créer ou modifier un écran ; mettre à jour si le périmètre change en demandant la validation
   design.md             lire avant de générer ou modifier tout écran, composant ou texte d'interface ; format DESIGN.md (D47) : l'en-tête YAML est la source de vérité des tokens (primitifs + sémantiques, D49 ; un écran n'appelle que des sémantiques), `npm run tokens` après chaque changement
   data-model.md         lire avant toute migration, requête ou saisie ; mettre à jour à chaque migration
-  audit-studios.md      lire lors de la saisie d'un studio ; archive, pas de mise à jour
 src/
   components/ui/        composants shadcn copiés ; restylables, jamais réécrits à la main
   lib/supabase.ts       client Supabase (variables dans .env, modèle dans .env.example)
@@ -56,7 +55,7 @@ supabase/
 
 Règles contre les doublons :
 - `TODO.md` doit rappeler la question ouverte
-- Une particularité d'un seul studio reste dans `audit-studios.md`. Une règle valable pour tous va dans `data-model.md`. 
+- Une particularité d'un seul studio reste dans l'en-tête de son fichier `supabase/data/` (et dans `studio.notes` si elle doit vivre en base). Une règle valable pour tous va dans `data-model.md`. 
 - Anti-références : celles du produit dans `product.md`, les visuelles dans `design.md`.
 
 ## Conventions

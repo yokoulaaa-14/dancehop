@@ -1,6 +1,6 @@
 # data-model.md
 
-Tables, contraintes, règles métier et format d'export. Postgres via Supabase, schéma versionné dans `supabase/migrations/`. À lire avant toute migration, requête ou saisie ; à mettre à jour à chaque migration. Les particularités d'un seul studio sont dans `audit-studios.md`.
+Tables, contraintes, règles métier et format d'export. Postgres via Supabase, schéma versionné dans `supabase/migrations/`. À lire avant toute migration, requête ou saisie ; à mettre à jour à chaque migration. Les particularités d'un seul studio sont dans l'en-tête de son fichier `supabase/data/`.
 
 ## Tables
 

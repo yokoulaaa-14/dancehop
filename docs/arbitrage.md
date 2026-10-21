@@ -393,3 +393,8 @@ Un danseur qui entre dans un nouveau style doit reconstituer lui-même qui ensei
 - **Décision** : un cours donné une semaine sur deux entre en base, avec `course.every_other_week = true` et la mention « une semaine sur deux, vérifie sur l'application du studio ». Le comportement de l'export .ics pour ces cours se tranche quand on construira l'export (on ne sait pas quelle semaine est la bonne).
 - **Écarté** : les exclure (des cours réels disparaîtraient de la liste) ; une note en texte libre (ni le moteur ni l'export ne pourraient s'en servir).
 - **Révise** : D25 (un cours n'est plus forcément hebdomadaire).
+
+### D60 — Suppression de audit-studios.md (21/10)
+- **Décision** :  est supprimé. Les règles valables pour tous les studios sont dans  ; les particularités d'un studio vont dans l'en-tête de son fichier  (et dans  quand elles doivent vivre en base). La fiche Studio MRG reste dans l'historique git. La seule information encore sans autre place (une vidéo YouTube par fiche prof chez Lax Studio) passe dans le TODO.
+- **Raison** : l'audit préparait la saisie ; les trois studios du MVP sont saisis et ses pièges sont tranchés (D54, D55, D56). Le garder ferait une seconde source sur chaque studio.
+- **Révise** : D40 (structure de la documentation).

@@ -305,7 +305,7 @@ Anti-références produit : dans `product.md`. Mobile-first, la cible utilise un
 | **Neutre : texte** | | |
 | `text-neutral-strong-default` | `neutral-50` | Titres : jours, titres de bloc, compteur du planning, questions d'onboarding. |
 | `text-neutral-default` | `neutral-100` | Texte courant : style d'un cours, libellés, contenu des champs. |
-| `text-neutral-subtle-default` | `neutral-400` | Texte secondaire : prof, studio, lieu, durée, mentions (« niveau non précisé par le studio »), descriptions. |
+| `text-neutral-subtle-default` | `neutral-400` | Texte secondaire : prof, studio, lieu, durée, mentions (« prof variable, vérifie auprès du studio »), descriptions. |
 | `text-neutral-disabled` | `neutral-600` | Texte d'un élément inactif. Sous 4,5:1 (exempté), jamais seul indice d'inactivité. |
 | **Neutre : bordures et icônes** | | |
 | `border-neutral-default` | `slate-800` | Filets entre lignes de liste, bordures de surfaces et de champs. |
@@ -463,6 +463,6 @@ Les transitions entre écrans utilisent un flou de mouvement (14 px, 300 ms, flo
 
 - Tout le texte utilisateur est en français (D19).
 - Vocabulaire fixé : « mon planning » (la sélection), « ajouter à mon planning » / « retirer de mon planning » ; « indicateur de progression », jamais « gamification » (D24). L'outil n'est pas un « générateur » (D05).
-- Les mentions obligatoires, telles quelles : « planning de saison, vérifie sur le site du studio » (D07) ; « prof variable, vérifie auprès du studio » (D30) ; « niveau non précisé par le studio » (D30) ; « non précisé » pour le type (D31).
+- Les mentions obligatoires, telles quelles : « planning de saison, vérifie sur le site du studio » (D07) ; « prof variable, vérifie auprès du studio » (D30) ; « non précisé » pour le type (D31).
 - Court et direct, comme la personnalité : pas d'exclamation, pas d'emoji, pas de ton « copain ». Les questions d'onboarding en serif sont les seules phrases qui se permettent une image (« Quels styles te font bouger ? »).
 - Écriture inclusive : à définir (forme retenue).

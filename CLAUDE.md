@@ -51,6 +51,7 @@ scripts/
 supabase/
   migrations/           une migration par changement de schéma, jamais modifiée après application
   seed.sql              données de référence rejouables (les 13 styles)
+  data/                 un fichier SQL rejouable par studio (D52) ; relevé validé avant application en production, jamais dans migrations/
 ```
 
 Règles contre les doublons :

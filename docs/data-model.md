@@ -98,7 +98,7 @@ Pas de photo (D08).
 | `weekday` | `smallint` | check 1–7, not null | |
 | `start_time` | `time` | not null | heure locale Europe/Paris |
 | `duration_min` | `integer` | check > 0, not null | |
-| `levels` | `level[]` | not null, default `'{}'` | vide = non précisé par le studio |
+| `levels` | `level[]` | not null, default `'{}'` | sans étiquette du studio : les trois niveaux (D54) ; `{}` n'est pas utilisé à la saisie |
 | `course_type` | `course_type` | nullable | `null` = non précisé ; jamais inféré (D31) |
 | `style_raw` | `text` | not null | étiquette du studio telle quelle |
 | `level_raw` | `text` | nullable | étiquette du studio telle quelle, `null` si absente |
@@ -147,7 +147,7 @@ Pas de statut, pas de motif (V2, D14).
 
 | Table | Lecture | Écriture |
 |---|---|---|
-| `style`, `studio`, `location`, `teacher`, `course` | publique (anon + authentifié) | aucune depuis l'app ; saisie via l'interface Supabase |
+| `style`, `studio`, `location`, `teacher`, `course` | publique (anon + authentifié) | aucune depuis l'app ; saisie par les fichiers de `supabase/data/` (D52) |
 | `profile` | `auth.uid() = user_id` | idem (insert, update) |
 | `plan_item` | `auth.uid() = user_id` | idem (insert, delete) |
 
@@ -172,9 +172,10 @@ Une règle par ligne. En cas d'ambiguïté, le cas est listé en fin de section,
 - L'étiquette du studio prime et se conserve telle quelle dans `style_raw`, `level_raw`, `type_raw` (D06, D10).
 - Styles (D41) : Hip-hop ← HipHop, Hip-Hop, Hip Hop, Hip Hop Choreo, Commercial, Commercial Hiphop · House ← House, House Dance · Popping · Locking · Waacking · Voguing ← Voguing, Vogue Fem Class · Dancehall ← Dancehall, Dancehall Hybrid, Street Ragga · Afro ← Afro, Afro Hybrid, Amapiano · Breaking ← Bboying · Krump · Electro · Heels ← Heels, Heels (Choreo), Talons · Street jazz ← Street Jazz, Urban Jazz.
 - Hors taxonomie, pas de ligne : Contemporary, Contemporary Lyrical, Urban Contemporary, Modern Contempo, Jazz, Jazz Fusion, Jazz Rock, Organic Dance Movement, Yoga Dynamique, Atelier Scénique, Identité Artistique (D41).
-- Niveaux (D10) : « Tous niveaux » → `{beginner, intermediate, advanced}` · « INTER/AV » → `{intermediate, advanced}` · « DEB/INTER », « Débutants/inter » → `{beginner, intermediate}` · « Débutants » → `{beginner}` · aucune étiquette → `{}` (non précisé).
+- Niveaux (D10) : « Tous niveaux » → `{beginner, intermediate, advanced}` · « INTER/AV » → `{intermediate, advanced}` · « DEB/INTER », « Débutants/inter » → `{beginner, intermediate}` · « Débutants » → `{beginner}` · aucune étiquette → `{beginner, intermediate, advanced}`, `level_raw` null (D54).
 - Type (D31) : renseigné uniquement quand l'étiquette le dit — « Coaching FreeStyle » → `freestyle` ; « … Choreo » → `choreography` ; « … (Cours Technique) » → `technique` ; sinon `null`, jamais inféré.
 - Titre : `title` renseigné quand le studio nomme le cours autrement que par le style (ex. « Snaking Popping » → style Popping, titre conservé).
+- Nom de prof : majuscule au début de chaque mot, le reste en minuscules, y compris après un tiret et pour les noms de scène (« Spider », « K-Yoo », « Axoo Gucci ») ; un nom de scène qui complète le nom se met entre parenthèses (« Aston (Snaking Popping) ») (D53).
 - Prof : dédoublonnage par le nom, un prof présent dans deux studios = une ligne (D26) ; un binôme = une ligne « A & B » dans l'ordre du studio, un handle par personne dans `instagrams` (D38) ; prof tournant = la ligne « Guest » (D30).
 - Prix et lien de réservation : au niveau studio, surcharge par cours seulement si le studio publie un prix ou un lien propre à ce cours.
 - `source_url` et `last_verified_at` renseignés à chaque saisie, pour re-vérifier studio par studio.
@@ -189,7 +190,7 @@ Une règle par ligne. En cas d'ambiguïté, le cas est listé en fin de section,
 - Seuls les cours `is_active` dont `valid_until` (ou le défaut) n'est pas passé.
 - Le prix est affiché, jamais filtrant (D09).
 - Le disclaimer de saison est modulé par `studio.grid_reliability` (D30).
-- Mention « prof variable » si `teacher.is_guest` ; « niveau non précisé par le studio » si `levels` vide ; « non précisé » si `course_type` null.
+- Mention « prof variable » si `teacher.is_guest` ; « non précisé » si `course_type` null. Pas de mention de niveau : un cours sans étiquette est tous niveaux (D54).
 
 ### Cas ambigus listés
 

@@ -349,3 +349,21 @@ Un danseur qui entre dans un nouveau style doit reconstituer lui-même qui ensei
 - **Décision** : les classes Tailwind des sémantiques gardent le nom complet du token : `bg-bg-neutral-default`, `text-text-neutral-subtle-default`, `border-border-neutral-default`. Le nom est identique dans `design.md`, Paper, `tokens.css` et le code (D49).
 - **Écarté** : ranger chaque sémantique dans l'espace de noms Tailwind de son élément (`--background-color-*`, `--text-color-*`, `--border-color-*`) par un script après l'export, pour écrire `bg-neutral-default` : classes plus courtes, mais un nom de variable CSS différent de celui du token, un script de plus à maintenir et un sémantique (`text-neutral-default`) plus facile à confondre avec un primitif (`text-neutral-100`).
 - **Raison** : un seul nom partout et aucune étape en plus valent mieux que quelques caractères gagnés.
+
+### D52 — Saisie des cours : relevé par Claude, fichier SQL versionné, validation d'Emmanuel (21/10)
+- **Décision** : Claude relève la grille publiée de chaque studio (site du studio, jamais Instagram pour l'instant), applique les règles de `data-model.md` et écrit un fichier SQL par studio dans `supabase/data/` (`juste-debout-school.sql`…). Le fichier est rejouable sans doublon (`on conflict`). Emmanuel valide le relevé ; Claude l'applique ensuite en production. Les données ne passent jamais par `supabase/migrations/` (réservé au schéma, appliqué automatiquement à chaque push). Ordre : Juste Debout School, puis Ambassadeur d'Espérance (après arbitrage des cas ambigus 3 et 4 de `data-model.md`), puis Lax Studio.
+- **Écarté** : saisie à la main dans l'interface Supabase (D07 d'origine) : plus longue, sans trace dans le repo ni diff d'une saison à l'autre ; données dans les migrations : une erreur de saisie deviendrait une migration à corriger par une autre.
+- **Raison** : une saisie relisible, rejouable et comparable d'une saison à l'autre, avec une validation humaine avant la production.
+- **Révise** : D07 (qui saisit et comment ; la grille de saison et le hors-scope des exceptions restent).
+
+### D53 — Écriture des noms de profs (21/10)
+- **Décision** : majuscule au début de chaque mot, le reste en minuscules, y compris après un tiret et pour les noms de scène : « Spider », « K-Yoo », « Axoo Gucci », « La Salle Rose ». Un nom de scène qui complète le nom se met entre parenthèses : « Aston (Snaking Popping) ». La forme normalisée sert aussi de clé de dédoublonnage entre studios (D26).
+- **Écarté** : l'écriture de chaque studio (« SPIDER » chez Juste Debout School, « Spider » chez Ambassadeur d'Espérance) : affichage irrégulier, et le premier studio saisi imposerait sa graphie aux autres.
+- **Raison** : une liste régulière à lire, une seule graphie par prof.
+
+### D54 — Sans étiquette de niveau, un cours est tous niveaux (21/10)
+- **Décision** : un cours dont le studio n'affiche aucun niveau porte les trois niveaux (`{beginner, intermediate, advanced}`), `level_raw` reste vide. La mention « niveau non précisé par le studio » disparaît de la liste, de la fiche et du ton rédactionnel.
+- **Écarté** : `levels = {}` avec la mention « niveau non précisé par le studio » ; une règle propre à Juste Debout School (qui écrit « Quel que soit votre niveau » en tête de grille) au lieu d'une règle générale.
+- **Raison** : un cours sans étiquette est ouvert à tous dans les studios curés ; Juste Debout School l'écrit en toutes lettres. Le filtrage ne change pas (un cours sans niveau matchait déjà tous les profils), seul ce qu'on affiche change.
+- **Risque accepté** : présenter comme accessible à un débutant un cours que le studio n'a pas étiqueté.
+- **Révise** : D10 (l'absence d'étiquette n'est plus « non précisé »), D30 (mention de niveau supprimée).

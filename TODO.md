@@ -9,7 +9,7 @@ _(rien)_
 ## À faire
 
 - [ ] **Construire le MVP** (D42 : saisie faite, le produit vient avant le nom). Un écran par PR, chacun spécifié dans `product.md` et dessiné avec les tokens de `design.md` :
-  - [ ] Activer la connexion anonyme dans Supabase, Authentication > Sign In / Providers (Emmanuel, D61)
+  - [x] Activer la connexion anonyme dans Supabase, Authentication > Sign In / Providers (Emmanuel, D61)
   - [ ] Onboarding : styles, niveaux, disponibilités (D28), sur une session anonyme (D61)
   - [ ] Liste des cours filtrée (D05, D20, D58, D59)
   - [ ] Fiche cours

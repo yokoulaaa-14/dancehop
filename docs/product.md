@@ -41,13 +41,13 @@ Cas vécus : entrée en freestyle (dizaines de sites parcourus, profs cherchés 
 
 | # | Fonctionnalité | Détail | Réf. |
 |---|---|---|---|
-| 1 | Compte | Authentification par lien magique, sans mot de passe | D11 |
+| 1 | Compte | Accès sans compte (connexion anonyme) ; compte par lien magique proposé pour garder son planning | D11, D61 |
 | 2 | Onboarding | Styles visés (multi), niveaux (multi), disponibilités en grille jours × plages avec raccourcis | D28, D30 |
 | 3 | Liste filtrée | Cours compatibles, groupés par jour, triés par heure ; chevauchements autorisés ; niveau / type non précisés matchent tout | D05, D20, D31 |
 | 4 | Mon planning | Ajouter / retirer un cours ; la sélection est le planning | D05 |
 | 5 | Fiche cours | Prof (lien si existant, pas de photo), niveaux + étiquette brute, lieu, métro, prix unité, lien de réservation, disclaimer de saison, mention « prof variable » (Guest) | D08, D09, D10, D30 |
 | 6 | Export | .ics d'un cours ou du planning, récurrence hebdo, Europe/Paris, fin de saison | D23, D27 |
-| 7 | Mesure | PostHog : compte créé, onboarding terminé, cours ajouté, cours retiré, export | D16, D19 |
+| 7 | Mesure | PostHog : onboarding terminé, cours ajouté, cours retiré, export, compte créé (passage d'anonyme à e-mail) | D16, D19, D61 |
 | 8 | PWA | Manifeste et icône ; pas de cache de données | D22 |
 | — | Pages légales | Mentions légales, confidentialité (profil, PostHog, contact de retrait pour les profs) | D19 |
 
@@ -66,13 +66,6 @@ Signalement d'une information fausse (avec engagement de correction sous 48 h) �
 App native · générateur automatique de planning · saisie communautaire · scraping · exceptions de planning (vacances, remplacements) · prix comme contrainte · cours enfants/ados, stages, workshops, mensuels, formations · photos de profs récupérées sur les sites · styles non urbains (contemporain, jazz…).
 
 ## Écrans du MVP
-
-### Connexion
-
-- **Objectif** : entrer sans mot de passe.
-- **Contenu affiché** : champ e-mail, explication du lien magique.
-- **Actions** : envoyer le lien ; ouvrir le lien reçu → connecté.
-- **États** : lien envoyé (attente du mail) ; lien expiré ou invalide. Autres états : à définir.
 
 ### Onboarding
 
@@ -101,6 +94,14 @@ App native · générateur automatique de planning · saisie communautaire · sc
 - **Contenu affiché** : les cours ajoutés, groupés par jour, triés par heure ; chevauchements visibles, aucune règle de non-chevauchement.
 - **Actions** : retirer un cours ; exporter le planning en .ics (événement PostHog).
 - **États** : planning vide ; autres états : à définir.
+
+### Créer un compte / se connecter
+
+- **Objectif** : garder son planning (nouveau téléphone, autre navigateur), sans mot de passe (D11, D61).
+- **Quand** : proposé après le premier cours ajouté et depuis Mon planning ; jamais bloquant. Avant, la personne utilise Dancehop sur une session anonyme.
+- **Contenu affiché** : champ e-mail, explication du lien magique, pourquoi créer un compte.
+- **Actions** : envoyer le lien ; ouvrir le lien reçu → compte créé, planning conservé ; « J'ai déjà un compte » pour le retrouver sur un nouveau téléphone.
+- **États** : lien envoyé (attente du mail) ; lien expiré ou invalide ; adresse déjà liée à un compte. À définir : connexion à un compte existant depuis une session anonyme qui a déjà un planning (fusionner, remplacer, ou perdre en prévenant). Autres états : à définir.
 
 ### Pages légales
 

@@ -9,7 +9,7 @@
     "lint": "oxlint",
     "test": "vitest run --passWithNoTests",
     "preview": "vite preview",
-    "tokens": "designmd export docs/design.md --format css-tailwind > src/styles/tokens.css",
+    "tokens": "designmd export docs/design.md --format css-tailwind > src/styles/tokens.css && node scripts/tokens-line-height.mjs >> src/styles/tokens.css",
     "lint:design": "node scripts/lint-design.mjs"
   },
   "dependencies": {

@@ -42,11 +42,13 @@ docs/
   data-model.md         lire avant toute migration, requête ou saisie ; mettre à jour à chaque migration
 src/
   components/ui/        composants shadcn copiés ; restylables, jamais réécrits à la main
+  features/<parcours>/  écrans, composants et accès aux données d'un parcours (onboarding…)
   lib/supabase.ts       client Supabase (variables dans .env, modèle dans .env.example)
   styles/tokens.css     GÉNÉRÉ par `npm run tokens` depuis docs/design.md ; jamais édité à la main
   styles/theme-reset.css  désactive la palette Tailwind par défaut (D49)
 scripts/
   lint-design.mjs       lint de design.md (`npm run lint:design`), ignore les primitifs non utilisés
+  tokens-line-height.mjs  ajoute les interlignes de design.md à tokens.css (`npm run tokens`, D63)
 supabase/
   migrations/           une migration par changement de schéma, jamais modifiée après application
   seed.sql              données de référence rejouables (les 14 styles)

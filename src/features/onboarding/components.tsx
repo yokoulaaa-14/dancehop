@@ -45,7 +45,7 @@ export function QuestionLayout({
         <Progress step={step} stepCount={stepCount} />
       </header>
       <main className="relative flex flex-1 flex-col gap-300 overflow-y-auto px-300 pt-400 pb-300">
-        <div className="flex flex-col gap-100">
+        <div className="flex flex-col gap-100 pb-300">
           <h1 className="type-display glow-display text-text-neutral-strong-default">{title}</h1>
           {subtitle && <p className="type-body text-text-neutral-subtle-default">{subtitle}</p>}
         </div>

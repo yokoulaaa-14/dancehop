@@ -88,20 +88,37 @@ export function InfoMessage({ children }: { children: ReactNode }) {
   )
 }
 
-/** Puce à cocher (styles, raccourcis) : elle s'allume quand elle est choisie (D46). */
+/**
+ * Libellé qui passe en body-strong quand il est choisi, sans changer de largeur :
+ * une copie invisible en body-strong réserve la place dès le départ.
+ */
+function SteadyLabel({ selected, children }: { selected: boolean; children: ReactNode }) {
+  return (
+    <span className="grid">
+      <span aria-hidden className="invisible col-start-1 row-start-1 type-body-strong">
+        {children}
+      </span>
+      <span className={`col-start-1 row-start-1 text-center ${selected ? 'type-body-strong' : 'type-body'}`}>
+        {children}
+      </span>
+    </span>
+  )
+}
+
+/** Puce à cocher (styles, raccourcis) : elle s'allume quand elle est choisie (D46), sans changer de taille. */
 export function Chip({ selected, onToggle, children }: { selected: boolean; onToggle: () => void; children: ReactNode }) {
   return (
     <button
       type="button"
       aria-pressed={selected}
       onClick={onToggle}
-      className={`flex h-550 items-center rounded-full px-200 ${
+      className={`flex h-550 items-center rounded-full border px-200 ${
         selected
-          ? 'lit type-body-strong'
-          : 'border border-border-neutral-default bg-bg-neutral-strong-default type-body text-text-neutral-default active:bg-bg-neutral-strong-pressed'
+          ? 'lit border-transparent'
+          : 'border-border-neutral-default bg-bg-neutral-strong-default text-text-neutral-default active:bg-bg-neutral-strong-pressed'
       }`}
     >
-      {children}
+      <SteadyLabel selected={selected}>{children}</SteadyLabel>
     </button>
   )
 }
@@ -127,10 +144,10 @@ export function LevelSelector({
             aria-pressed={value === level}
             onClick={() => onChange(level)}
             className={`flex h-550 flex-1 items-center justify-center rounded-full ${
-              value === level ? 'lit type-body-strong' : 'type-body text-text-neutral-default'
+              value === level ? 'lit' : 'text-text-neutral-default'
             }`}
           >
-            {LEVEL_LABELS[level]}
+            <SteadyLabel selected={value === level}>{LEVEL_LABELS[level]}</SteadyLabel>
           </button>
         ))}
       </div>
@@ -177,8 +194,8 @@ export function AvailabilityGrid({
                 aria-checked={checked}
                 aria-label={`${WEEKDAY_LABELS[day]}, ${SLOT_HEADERS[slot].label.toLowerCase()}`}
                 onClick={() => onToggle(day, slot)}
-                className={`flex h-550 items-center justify-center rounded-sm ${
-                  checked ? 'lit' : 'border border-border-neutral-strong-default bg-bg-neutral-strong-default'
+                className={`flex h-550 items-center justify-center rounded-sm border ${
+                  checked ? 'lit border-transparent' : 'border-border-neutral-strong-default bg-bg-neutral-strong-default'
                 }`}
               >
                 {checked && <Check size={ICON_SIZE} strokeWidth={2.5} aria-hidden />}

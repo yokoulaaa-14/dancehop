@@ -10,7 +10,7 @@ import {
   emptyAvailability,
   hasAnyAvailability,
   levelsForStyles,
-  sameAvailability,
+  matchingShortcut,
   type Availability,
   type Level,
   type StyleLevels,
@@ -19,7 +19,7 @@ import {
 const STEP_COUNT = 3
 
 const LEVEL_DESCRIPTIONS: Record<Level, string> = {
-  beginner: 'Je découvre ce style (bases et pas fondamentaux).',
+  beginner: 'Je découvre ce style (bases et pas fondamentaux)',
   intermediate: 'Je connais les bases et je peux suivre une chorégraphie.',
   advanced: "Je danse ce style depuis longtemps et je cherche de l'exigence.",
 }
@@ -35,6 +35,8 @@ export function OnboardingFlow() {
   const [styleIds, setStyleIds] = useState<string[]>([])
   const [styleLevels, setStyleLevels] = useState<StyleLevels>({})
   const [availability, setAvailability] = useState<Availability>(emptyAvailability)
+  // « Personnalisé » choisi au clic, avant la première case cochée.
+  const [customStarted, setCustomStarted] = useState(false)
   const [saving, setSaving] = useState(false)
   const [failed, setFailed] = useState(false)
 
@@ -74,6 +76,16 @@ export function OnboardingFlow() {
   }
 
   const back = () => (step === 1 ? navigate('/') : setStep(step - 1))
+
+  // Une grille remplie qui ne correspond à aucun raccourci est « Personnalisé » (D62 révisé).
+  const shortcut = matchingShortcut(availability)
+  const custom = shortcut === null && (customStarted || hasAnyAvailability(availability))
+
+  function startCustom() {
+    if (custom) return
+    setAvailability(emptyAvailability())
+    setCustomStarted(true)
+  }
 
   if (step === 1) {
     return (
@@ -143,7 +155,6 @@ export function OnboardingFlow() {
       step={3}
       stepCount={STEP_COUNT}
       title="Quand es-tu libre pour danser ?"
-      subtitle="Choisis un raccourci, puis affine case par case."
       onBack={back}
       action={
         <div className="flex flex-col gap-100">
@@ -159,15 +170,21 @@ export function OnboardingFlow() {
       }
     >
       <div className="flex flex-wrap gap-150">
-        {SHORTCUTS.map((shortcut) => (
+        {SHORTCUTS.map((s) => (
           <Chip
-            key={shortcut.id}
-            selected={sameAvailability(availability, shortcut.availability)}
-            onToggle={() => setAvailability(shortcut.availability)}
+            key={s.id}
+            selected={shortcut === s.id}
+            onToggle={() => {
+              setAvailability(s.availability)
+              setCustomStarted(false)
+            }}
           >
-            {shortcut.label}
+            {s.label}
           </Chip>
         ))}
+        <Chip selected={custom} onToggle={startCustom}>
+          Personnalisé
+        </Chip>
       </div>
       <AvailabilityGrid
         value={availability}

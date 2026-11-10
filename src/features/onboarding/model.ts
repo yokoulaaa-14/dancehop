@@ -67,7 +67,19 @@ export const SHORTCUTS = [
       WORKDAYS.includes(d) ? { day: false, evening: true } : { day: true, evening: true },
     ),
   },
+  {
+    id: 'all-the-time',
+    label: 'Tout le temps',
+    availability: availabilityFrom(() => ({ day: true, evening: true })),
+  },
 ] as const
+
+export type ShortcutId = (typeof SHORTCUTS)[number]['id']
+
+/** Raccourci dont la grille est exactement celle-ci, s'il y en a un. */
+export function matchingShortcut(availability: Availability): ShortcutId | null {
+  return SHORTCUTS.find((s) => sameAvailability(availability, s.availability))?.id ?? null
+}
 
 export function sameAvailability(a: Availability, b: Availability): boolean {
   return WEEKDAYS.every((d) => SLOTS.every((s) => a[d][s] === b[d][s]))

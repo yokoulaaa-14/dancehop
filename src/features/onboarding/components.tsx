@@ -30,7 +30,7 @@ export function QuestionLayout({
   step: number
   stepCount: number
   title: string
-  subtitle: string
+  subtitle?: string
   onBack: () => void
   action: ReactNode
   children: ReactNode
@@ -47,7 +47,7 @@ export function QuestionLayout({
       <main className="relative flex flex-1 flex-col gap-300 overflow-y-auto px-300 pt-400 pb-300">
         <div className="flex flex-col gap-100">
           <h1 className="type-display glow-display text-text-neutral-strong-default">{title}</h1>
-          <p className="type-body text-text-neutral-subtle-default">{subtitle}</p>
+          {subtitle && <p className="type-body text-text-neutral-subtle-default">{subtitle}</p>}
         </div>
         {children}
       </main>

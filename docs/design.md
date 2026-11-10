@@ -85,7 +85,7 @@ colors:
   text-neutral-subtle-default: "{colors.neutral-400}"
   text-neutral-disabled: "{colors.neutral-600}"
   border-neutral-default: "{colors.slate-800}"
-  border-neutral-strong-default: "{colors.slate-700}"
+  border-neutral-strong-default: "{colors.slate-600}"
   icon-neutral-default: "{colors.neutral-100}"
   icon-neutral-subtle-default: "{colors.neutral-400}"
   icon-neutral-disabled: "{colors.neutral-600}"
@@ -309,7 +309,7 @@ Anti-références produit : dans `product.md`. Mobile-first, la cible utilise un
 | `text-neutral-disabled` | `neutral-600` | Texte d'un élément inactif. Sous 4,5:1 (exempté), jamais seul indice d'inactivité. |
 | **Neutre : bordures et icônes** | | |
 | `border-neutral-default` | `slate-800` | Filets entre lignes de liste, bordures de surfaces et de champs. |
-| `border-neutral-strong-default` | `slate-700` | Bordure appuyée : champ survolé, séparation qui doit se voir. |
+| `border-neutral-strong-default` | `slate-600` | Bordure appuyée : contour d'un élément à cocher ou d'un champ survolé, séparation qui doit se voir. Contraste 3:1 sur `bg-neutral-strong` (D49 révisé le 10/11). |
 | `icon-neutral-default` | `neutral-100` | Icône principale, à côté d'un texte courant. |
 | `icon-neutral-subtle-default` | `neutral-400` | Icône secondaire : métro, horloge, chevron. |
 | `icon-neutral-disabled` | `neutral-600` | Icône d'un élément inactif. |

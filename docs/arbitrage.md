@@ -414,3 +414,9 @@ Un danseur qui entre dans un nouveau style doit reconstituer lui-même qui ensei
 - **Écarté** : un niveau global (le persona qui entre dans un nouveau style, D02, y est débutant alors qu'il est avancé ailleurs) ; plusieurs niveaux par style ; un compteur dans le bouton des styles ; « ÉTAPE 1 SUR 3 » en texte ; le rappel « modifiable plus tard » à chaque étape.
 - **Révise** : D10 (le niveau se donne par style, choix unique), D30 (`profile`), D24 (onboarding : styles, niveau par style, disponibilités).
 - **Révisé le 10/11, après maquette Paper** : variante (a) retenue pour les disponibilités, la grille sur un seul écran (la variante b est écartée). Par défaut, chaque style choisi est au niveau intermédiaire ; la grille de disponibilités est vide et le bouton reste inactif tant qu'aucune case n'est cochée. Le bouton reste fixé en bas, le contenu défile dessous. Le message info se place sous le sous-titre de la première question.
+
+### D63 — Les interlignes passent dans tokens.css (10/11)
+- **Décision** : `npm run tokens` enchaîne l'export du CLI DESIGN.md et un script maison (`scripts/tokens-line-height.mjs`) qui lit les `lineHeight` du bloc `typography:` de `docs/design.md` et ajoute `--text-{niveau}--line-height` à `src/styles/tokens.css`. Avec Tailwind v4, la classe `text-body` porte alors sa taille et son interligne. Le contrôle de la CI (D50) couvre aussi ces lignes.
+- **Écarté** : écrire les interlignes à la main dans le CSS (seconde source, dérive certaine) ; une dépendance d'analyse YAML (le bloc est simple, une lecture ligne à ligne suffit).
+- **Raison** : aucun format d'export du CLI (css-tailwind, json-tailwind, dtcg, css-vars) ne contient `lineHeight` ; sans ce script, chaque écran aurait des interlignes en dur.
+- **Révise** : D47 (le CSS généré ne vient plus du seul CLI).

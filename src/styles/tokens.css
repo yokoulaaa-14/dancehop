@@ -153,3 +153,15 @@
   --spacing-600: 48px;
   --spacing-050: 4px;
 }
+
+/* Interlignes, ajoutés par scripts/tokens-line-height.mjs (D63). */
+@theme {
+  --text-display--line-height: 1.05;
+  --text-heading-large--line-height: 0.95;
+  --text-heading-small--line-height: 1;
+  --text-label--line-height: 1;
+  --text-body-large--line-height: 1.4;
+  --text-body--line-height: 1.45;
+  --text-body-strong--line-height: 1.45;
+  --text-body-small--line-height: 1.4;
+}

@@ -11,9 +11,10 @@
 /* Raccordement des variables shadcn aux tokens Dancehop. Les noms shadcn restent pour que
    les composants copiés dans src/components/ui fonctionnent sans modification. */
 @theme inline {
-    --font-sans: "Hanken Grotesk", system-ui, sans-serif;
-    --font-heading: "Sofia Sans Extra Condensed", "Hanken Grotesk", sans-serif;
-    --font-serif: "Instrument Serif", Georgia, serif;
+    /* Familles de shadcn raccordées aux tokens : aucune police écrite en dur. */
+    --font-sans: var(--font-body);
+    --font-heading: var(--font-heading-large);
+    --font-serif: var(--font-display);
     --color-sidebar-ring: var(--sidebar-ring);
     --color-sidebar-border: var(--sidebar-border);
     --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -75,11 +76,13 @@
     --input: var(--color-border-neutral-default);
     --ring: var(--color-border-accent-focus);
     --radius: var(--radius-lg);
-    --chart-1: var(--color-blue-300);
-    --chart-2: var(--color-light-blue);
-    --chart-3: var(--color-light-violet);
-    --chart-4: var(--color-neutral-400);
-    --chart-5: var(--color-neutral-500);
+    /* Pas de graphique en MVP ; si un composant shadcn en demande, il reçoit des sémantiques,
+       jamais les couleurs de lumière (réservées au calque d'atmosphère). */
+    --chart-1: var(--color-text-accent-default);
+    --chart-2: var(--color-text-info-default);
+    --chart-3: var(--color-text-success-default);
+    --chart-4: var(--color-text-warning-default);
+    --chart-5: var(--color-text-neutral-subtle-default);
     --sidebar: var(--color-bg-neutral-strong-default);
     --sidebar-foreground: var(--color-text-neutral-default);
     --sidebar-primary: var(--color-bg-accent-default);
@@ -92,14 +95,103 @@
 
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    @apply border-border;
+  }
+  /* Anneau de focus clavier : 2 px plein, décalé de 3 px (design.md, Elevation & Depth). */
+  :focus-visible {
+    outline: 2px solid var(--color-border-accent-focus);
+    outline-offset: 3px;
   }
   body {
-    @apply bg-background text-foreground;
-    font-size: var(--text-body);
-    line-height: 1.45;
+    @apply bg-background text-foreground type-body;
   }
   html {
     @apply font-sans;
+  }
+}
+
+/* Niveaux typographiques de design.md : une classe par rôle, uniquement des tokens. */
+@utility type-display {
+  font-family: var(--font-display);
+  font-size: var(--text-display);
+  font-weight: var(--font-weight-display);
+  letter-spacing: var(--tracking-display);
+  line-height: var(--text-display--line-height);
+  font-style: italic;
+}
+@utility type-heading-large {
+  font-family: var(--font-heading-large);
+  font-size: var(--text-heading-large);
+  font-weight: var(--font-weight-heading-large);
+  letter-spacing: var(--tracking-heading-large);
+  line-height: var(--text-heading-large--line-height);
+}
+@utility type-heading-small {
+  font-family: var(--font-heading-small);
+  font-size: var(--text-heading-small);
+  font-weight: var(--font-weight-heading-small);
+  letter-spacing: var(--tracking-heading-small);
+  line-height: var(--text-heading-small--line-height);
+}
+@utility type-label {
+  font-family: var(--font-label);
+  font-size: var(--text-label);
+  font-weight: var(--font-weight-label);
+  letter-spacing: var(--tracking-label);
+  line-height: var(--text-label--line-height);
+  text-transform: uppercase;
+}
+@utility type-body-large {
+  font-family: var(--font-body-large);
+  font-size: var(--text-body-large);
+  font-weight: var(--font-weight-body-large);
+  line-height: var(--text-body-large--line-height);
+}
+@utility type-body {
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  font-weight: var(--font-weight-body);
+  line-height: var(--text-body--line-height);
+}
+@utility type-body-strong {
+  font-family: var(--font-body-strong);
+  font-size: var(--text-body-strong);
+  font-weight: var(--font-weight-body-strong);
+  line-height: var(--text-body-strong--line-height);
+}
+@utility type-body-small {
+  font-family: var(--font-body-small);
+  font-size: var(--text-body-small);
+  font-weight: var(--font-weight-body-small);
+  line-height: var(--text-body-small--line-height);
+}
+
+/* Lueur du titre serif (D46, design.md : ombres 18 px à 45 % et 44 px à 30 % de l'accent). */
+@utility glow-display {
+  text-shadow:
+    0 0 18px color-mix(in srgb, var(--color-bg-accent-default) 45%, transparent),
+    0 0 44px color-mix(in srgb, var(--color-bg-accent-default) 30%, transparent);
+}
+
+/* Une sélection s'allume (D46) : dégradé de bg-accent-selected vers blue-50, lueur de 16 px à 45 %. */
+@utility lit {
+  background-image: linear-gradient(135deg, var(--color-bg-accent-selected), var(--color-blue-50));
+  box-shadow: 0 0 16px color-mix(in srgb, var(--color-bg-accent-default) 45%, transparent);
+  color: var(--color-text-accent-inverted-default);
+}
+
+/* Calque de lumière des écrans d'atmosphère (D45, D46) : la lumière dérive en 20 s aller-retour. */
+@keyframes atmosphere-drift {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(24px, 16px, 0); }
+}
+@utility atmosphere-halo {
+  position: absolute;
+  border-radius: var(--radius-full);
+  opacity: 0.5;
+  filter: blur(42px);
+  animation: atmosphere-drift 10s ease-in-out infinite alternate;
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
   }
 }

@@ -120,8 +120,7 @@ Pas de photo (D08).
 | Colonne | Type | Contraintes | Note |
 |---|---|---|---|
 | `user_id` | `uuid` | PK, FK → `auth.users(id)` on delete cascade | |
-| `style_ids` | `uuid[]` | not null, default `'{}'` | styles visés |
-| `levels` | `level[]` | not null, default `'{}'` | |
+| `style_levels` | `jsonb` | not null, default `'{}'`, objet | styles visés et niveau de chacun : `{"<style_id>": "intermediate", …}` ; un seul niveau par style, intermédiaire par défaut à l'onboarding (D62) |
 | `availability` | `jsonb` | not null, default `'{}'` | `{"1":{"day":false,"evening":true}, …, "7":{…}}` (D28) |
 | `onboarding_completed_at` | `timestamptz` | nullable | |
 | `created_at` / `updated_at` | `timestamptz` | | |
@@ -186,8 +185,8 @@ Une règle par ligne. En cas d'ambiguïté, le cas est listé en fin de section,
 ### Comportement (moteur et affichage)
 
 - Soirée = cours commençant à 18h00 ou après ; journée sinon (D28). Un cours matche si `availability[weekday][plage]` est vrai.
-- Style : `course.style_id` ∈ `profile.style_ids`, **ou** `course.style_id` null (style non précisé : visible par tous, D58).
-- Niveau : `course.levels` vide **ou** intersection non vide avec `profile.levels` (D10, D30).
+- Style : `course.style_id` est une clé de `profile.style_levels`, **ou** `course.style_id` null (style non précisé : visible par tous, D58).
+- Niveau : `course.levels` vide **ou** contient le niveau donné pour le style du cours dans `profile.style_levels` (D62). Un cours sans style passe le filtre de niveau.
 - Type (si un filtre de type est exposé) : `course.course_type` null **ou** égal au filtre (D31).
 - Tri : `weekday`, puis `start_time` ; chevauchements autorisés et visibles, aucune règle de non-chevauchement (D05, D20).
 - Seuls les cours `is_active` dont `valid_until` (ou le défaut) n'est pas passé.

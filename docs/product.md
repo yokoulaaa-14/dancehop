@@ -72,7 +72,7 @@ App native · générateur automatique de planning · saisie communautaire · sc
 - **Objectif** : recueillir ce qui filtre la liste (D24 : pas de fréquence visée), sur une session anonyme créée au clic sur « Commencer » (D61).
 - **Parcours** : accueil (promesse, « Commencer », « J'ai déjà un compte ») → styles → niveau par style → disponibilités → liste. Progression en trois segments ; l'accueil n'est pas une étape (D62).
 - **Contenu affiché** :
-  - Styles : les 14 styles (multi) ; message info sous la question : les choix restent modifiables depuis la liste.
+  - Styles : les 14 styles (multi) ; message info sous les puces : les choix restent modifiables depuis la liste.
   - Niveau : un niveau par style choisi (débutant / intermédiaire / avancé), intermédiaire par défaut ; une légende décrit les trois niveaux.
   - Disponibilités : grille 7 jours × 2 plages (journée avant 18 h, soirée dès 18 h), vide par défaut, avec les raccourcis « tous les soirs », « les week-ends », « soirs de semaine + week-ends », « tout le temps » (D28), et une puce « Personnalisé » allumée dès que la grille remplie ne correspond à aucun raccourci ; au clic, elle vide la grille pour partir de zéro (D62).
 - **Actions** : cocher / décocher ; appliquer un raccourci puis affiner ; retour à l'étape précédente, réponses gardées ; terminer → liste filtrée. Événement PostHog « onboarding terminé ».

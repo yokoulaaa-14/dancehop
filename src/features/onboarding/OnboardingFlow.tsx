@@ -100,7 +100,6 @@ export function OnboardingFlow() {
           </Button>
         }
       >
-        <InfoMessage>Tu pourras changer tes choix à tout moment depuis la liste des cours.</InfoMessage>
         <div className="flex flex-wrap gap-150">
           {(styles.data ?? []).map((style) => (
             <Chip key={style.id} selected={styleIds.includes(style.id)} onToggle={() => toggleStyle(style.id)}>
@@ -108,6 +107,7 @@ export function OnboardingFlow() {
             </Chip>
           ))}
         </div>
+        <InfoMessage>Tu pourras changer tes choix à tout moment depuis la liste des cours.</InfoMessage>
         {styles.isError && (
           <p role="alert" className="type-body text-text-error-default">
             Les styles n'ont pas pu être chargés. Vérifie ta connexion et réessaie.

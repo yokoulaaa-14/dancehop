@@ -69,10 +69,14 @@ App native · générateur automatique de planning · saisie communautaire · sc
 
 ### Onboarding
 
-- **Objectif** : recueillir ce qui filtre la liste (D24 : pas de fréquence visée).
-- **Contenu affiché** : styles visés (14, multi) ; niveaux (débutant / intermédiaire / avancé, multi) ; grille de disponibilités 7 jours × 2 plages (journée / soirée), avec les raccourcis « tous les soirs », « les week-ends », « soirs de semaine + week-ends » (D28).
-- **Actions** : cocher / décocher ; appliquer un raccourci puis affiner ; terminer → liste filtrée. Événement PostHog « onboarding terminé ».
-- **États** : à définir (ordre des étapes, validation minimale, retour pour modifier).
+- **Objectif** : recueillir ce qui filtre la liste (D24 : pas de fréquence visée), sur une session anonyme créée au clic sur « Commencer » (D61).
+- **Parcours** : accueil (promesse, « Commencer », « J'ai déjà un compte ») → styles → niveau par style → disponibilités → liste. Progression en trois segments ; l'accueil n'est pas une étape (D62).
+- **Contenu affiché** :
+  - Styles : les 14 styles (multi) ; message info sous le sous-titre : les choix restent modifiables depuis la liste.
+  - Niveau : un niveau par style choisi (débutant / intermédiaire / avancé), intermédiaire par défaut ; une légende décrit les trois niveaux.
+  - Disponibilités : grille 7 jours × 2 plages (journée avant 18 h, soirée dès 18 h), vide par défaut, avec les raccourcis « tous les soirs », « les week-ends », « soirs de semaine + week-ends » (D28).
+- **Actions** : cocher / décocher ; appliquer un raccourci puis affiner ; retour à l'étape précédente, réponses gardées ; terminer → liste filtrée. Événement PostHog « onboarding terminé ».
+- **États** : bouton inactif tant qu'aucun choix n'est fait à l'étape ; bouton fixé en bas, contenu qui défile dessous ; modification plus tard par les mêmes écrans, préremplis.
 
 ### Liste des cours
 

@@ -93,7 +93,6 @@ export function OnboardingFlow() {
         step={1}
         stepCount={STEP_COUNT}
         title="Quels styles te font bouger ?"
-        subtitle="Plusieurs choix possibles."
         onBack={back}
         action={
           <Button onClick={goToLevels} disabled={styleIds.length === 0}>
@@ -124,7 +123,6 @@ export function OnboardingFlow() {
         step={2}
         stepCount={STEP_COUNT}
         title="Et ton niveau, style par style ?"
-        subtitle="Beaucoup de cours sont ouverts à tous les niveaux."
         onBack={back}
         action={<Button onClick={() => setStep(3)}>Continuer</Button>}
       >

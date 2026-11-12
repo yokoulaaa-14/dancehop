@@ -366,7 +366,7 @@ Trois polices à rôle fixe (D44, D45), toutes sur Google Fonts, aucune autre. L
 
 Le vide fait partie du dessin : marges généreuses, listes aérées, une information par ligne ; on préfère faire défiler plutôt que tasser. **Échelle chiffrée** sur l'unité de 4 px (D49) : `050` (4), `100` (8), `150` (12), `200` (16), `250` (20), `300` (24), `400` (32), `500` (40), `550` (44), `600` (48). Une seule échelle, sans nom par usage ni par composant (D49) : les règles de mise en page pointent sur un cran. Gouttière des écrans de donnée : `250` ; gouttière des écrans d'atmosphère : `300` ; cible tactile minimale : `550`, même quand le texte fait 14 px ; espacement des chips et marge interne des lignes de liste : `150` ; hauteur des boutons et des champs : `600`.
 
-Liste, pas grille : les cours se lisent par jour, triés par heure ; les chevauchements sont des lignes voisines (D20). Chaque ligne de cours : heure et style en `body-strong`, prof et studio en `body` et `text-neutral-subtle`, mention de niveau en `body-small`, action à droite.
+Liste, pas grille : les cours se lisent par jour, triés par heure ; les chevauchements sont des lignes voisines (D20). Chaque ligne de cours (D64 révisé) : à gauche l'heure en `body-strong` et la durée en `body-small` ; puis « style / prof » en `body-large` (style en graisse 600, prof en 400), le studio dessous en `body-small` et `text-neutral-subtle`, puis les badges. Un badge par niveau (« Débutant », « Intermédiaire », « Avancé ») ; « Tous niveaux » quand le cours couvre les trois. Pas d'action dans la ligne : on ajoute depuis la fiche (D65).
 
 ## Elevation & Depth
 
@@ -401,6 +401,7 @@ Composants prévus pour le MVP : chip (styles, filtres) ; bouton principal et bo
 - Pas de photo de prof (D08). Les fonds évoquent la lumière et la matière (traînées, chrome, eau, brume), jamais des silhouettes de danseurs. Pas de photos de personnes.
 - Le prix est affiché, jamais filtrant (D09). Le studio est nommé par son nom propre, jamais « école » ou « studio » en libellé générique (D30).
 - Rien n'est caché derrière un cache : un planning hors ligne est un planning périmé (D22).
+- Signes bannis de l'interface (D67), qu'Emmanuel associe à de l'« AI slop » : pas de point médian ni de puce pour séparer deux informations (« Styles · 3 », « Tevin · Juste Debout School ») ; pas de tiret cadratin ni demi-cadratin ; pas de flèche ni de chevron décoratifs (« Afficher → », chevron d'ouverture sur une puce) ; pas de petit rond indicateur (pastille de jour, point de notification). On sépare par la mise en page (deux lignes, deux poids, deux couleurs) ou par une barre oblique entre style et prof (« Hip-hop / Tevin »), seul séparateur admis. Seule exception : la flèche de retour de l'en-tête, qui est une icône de navigation, pas un signe typographique.
 - Anti-références visuelles : ClassPass (grille marketplace avec catégories, notes et avis) ; Google Agenda (blocs colorés qui se chevauchent dans une grille horaire, l'agenda illisible du problème, D03) ; dashboard SaaS (cartes KPI, sidebar, template admin, palette par défaut d'une librairie, D34) ; Inter comme police par défaut ; les affiches de battle en capitales saturées, qui sont le terrain, pas l'app.
 
 ## Nomenclature des tokens

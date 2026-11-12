@@ -11,19 +11,22 @@ _(rien)_
 - [ ] **Construire le MVP** (D42 : saisie faite, le produit vient avant le nom). Un écran par PR, chacun spécifié dans `product.md` et dessiné avec les tokens de `design.md` :
   - [x] Activer la connexion anonyme dans Supabase, Authentication > Sign In / Providers (Emmanuel, D61)
   - [x] Onboarding : accueil, styles, niveau par style, disponibilités, sur une session anonyme (D61, D62) — PR #1, 10/11 ; l'événement PostHog « onboarding terminé » viendra avec l'instrumentation
-  - [ ] Liste des cours filtrée (D05, D20, D58, D59)
+  - [ ] Liste des cours filtrée (D05, D20, D58, D59, D64, D65) : benchmark fait (Paper, page Benchmark), décisions consignées ; reste à trancher sur maquette la place de l'ajout (D65)
+  - [ ] Barre d'onglets Cours · Mes cours · Profil (D66)
   - [ ] Fiche cours
-  - [ ] Mon planning
+  - [ ] Mes cours (ex-« Mon planning », D66) : mise en page à distinguer de Cours sur maquette
+  - [ ] Profil : préférences et compte (D66)
   - [ ] Créer un compte et se connecter : lien magique, proposé pour garder son planning (D11, D61)
   - [ ] Export .ics d'un cours et du planning (D23, D27 ; cas 6 de `data-model.md` à trancher)
-- [ ] **Instrumenter PostHog** (D16, D19) : installer `posthog-js`, puis les événements de product.md, en commençant par « onboarding terminé ».
+- [ ] **Instrumenter PostHog** (D16, D19) : installer `posthog-js`, puis les événements de product.md, en commençant par « onboarding terminé » ; les mesures principales du test 1 changent (D65 : retours sur la liste, fiches ouvertes, clics sur le lien de réservation).
 - [ ] **Avant l'ouverture publique** (D61) : captcha sur la connexion anonyme Supabase ; purge des comptes anonymes jamais convertis.
 - [ ] **Revenir sur `docs/design.md`** : forme retenue d'écriture inclusive (encore « à définir » dans Ton rédactionnel) ; attente lumineuse (non tranchée) ; au premier écran, restyler le bouton shadcn sur nos tokens (hauteur, graisse, survol, appui, inactif, focus) et corriger les trois écarts de `src/index.css` (couleurs de graphique sur les lumières, polices et interligne en dur, anneau de focus à 50 %).
 - [ ] **Un jour, ouvrir aux styles non urbains** (contemporain, jazz, modern, yoga…) : hors taxonomie aujourd'hui (D41), ils sont exclus de la saisie. Chez Lax Studio, une dizaine de cours attendent (Contemporary, Jazz, Jazz Fusion, Urban Contemporary, Organic Dance Movement…), plus le Jazz Rock de Juste Debout School.
+- [ ] **Un jour, ouvrir aux cours ponctuels** (stages, workshops, événements) : souhait d'Emmanuel (12/11), contraire à D25 et au « hors périmètre » de product.md. Il faudrait des dates réelles en base (pas seulement un jour de la semaine) et un bandeau qui avance de semaine en semaine et de mois en mois, au-delà des 7 jours glissants de D64.
 - [ ] **Lier une vidéo par prof** (`teacher.video_url`, D08) : chez Lax Studio, chaque fiche prof (laxstudio.fr/professeurs) embarque une vidéo YouTube.
 - [ ] **Choisir le nom** (une fois un produit utilisable sous les yeux, D42). Shortlist : Dancehop, Studiohop, Bounce. Critères : prononçable sans l'épeler, pas une marque déjà utilisée par un studio parisien, domaine `.fr` ou `.app` libre. Test : dire le nom à deux danseurs et voir s'ils l'épellent du premier coup.
 - [ ] **Prendre le domaine**, avant le test terrain. Resend exige un domaine vérifié pour envoyer les liens magiques ; sans lui, SMTP de test Supabase (limité, pas fiable). Le domaine lève aussi la protection « Vercel Authentication » qui bloque les visiteurs sur dancehop.vercel.app (sinon, la désactiver pour la production).
-- [ ] **Créer `docs/research.md` avant le test terrain** (D16) : hypothèses, panel (~10 danseurs qui entrent réellement dans un nouveau style, 3 à 4 semaines), métriques instrumentées (comptes créés, onboardings terminés, cours ajoutés par utilisateur, plannings exportés, retours à 4 semaines, formulaire « as-tu testé un cours grâce à ça ? »), seuils de succès et d'arrêt. L'ajouter à la structure de `CLAUDE.md` à ce moment-là.
+- [ ] **Créer `docs/research.md` avant le test terrain** (D16) : hypothèses, panel (~10 danseurs qui entrent réellement dans un nouveau style, 3 à 4 semaines), métriques instrumentées (en premier, D65 : onboardings terminés, retours sur la liste, fiches ouvertes, clics sur le lien de réservation, retours à 4 semaines, formulaire « as-tu testé un cours grâce à ça ? » ; en second : comptes créés, cours ajoutés par utilisateur, plannings exportés), seuils de succès et d'arrêt. L'ajouter à la structure de `CLAUDE.md` à ce moment-là.
 
 ## Fait
 

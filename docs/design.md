@@ -299,7 +299,7 @@ Anti-références produit : dans `product.md`. Mobile-first, la cible utilise un
 |---|---|---|
 | **Neutre : fonds et surfaces** | | |
 | `bg-neutral-default` | `slate-950` | Fond de tous les écrans. 60 % de la surface. |
-| `bg-neutral-strong-default` | `slate-900` | Surface qui se détache du fond : chip, carte de niveau, champ, case de disponibilité, barre « Mon planning ». |
+| `bg-neutral-strong-default` | `slate-900` | Surface qui se détache du fond : chip, carte de niveau, champ, case de disponibilité, carte de Mes cours, barre d'onglets. |
 | `bg-neutral-strong-pressed` | `slate-800` | Surface pendant l'appui (chip, carte, ligne). |
 | `bg-neutral-strong-disabled` | `slate-900` | Surface inactive ; toujours accompagnée d'un texte ou d'une icône désactivés. |
 | **Neutre : texte** | | |
@@ -372,8 +372,8 @@ Liste, pas grille : les cours se lisent par jour, triés par heure ; les chevauc
 
 Deux régimes.
 
-- *Écrans de donnée* (liste des cours, fiche cours, mon planning) : plat. La hiérarchie vient des filets (`border-neutral`) et des surfaces (`bg-neutral-strong`), sans ombre ni flou. Rien derrière la donnée.
-- *Écrans d'atmosphère* (connexion, onboarding, états vides, confirmation d'export) : un **calque de lumière** derrière l'en-tête (D45, D46) : trois halos flous (`blue-300`, `light-blue`, `light-violet` à 0,5), flou 42 px, brume à 1, grain à 0,8 en `soft-light`. La lumière dérive lentement (aller-retour de 20 s), seule chose qui bouge au repos ; coupée par `prefers-reduced-motion`. Pas de traînées animées, pas de seconde source. Le texte posé dessus garde le contraste AA ; un libellé discret qui passerait sous 4,5:1 sur la brume repasse en `text-neutral`. Les surfaces y sont en **verre dépoli** : `text-neutral` à 7 % avec un flou d'arrière-plan de 12 px et un liseré clair de 1 px en haut ; repli opaque `bg-neutral-strong`. Le verre s'applique aussi à la barre « Mon planning », nulle part ailleurs.
+- *Écrans de donnée* (liste des cours, fiche cours, mes cours, profil) : plat. La hiérarchie vient des filets (`border-neutral`) et des surfaces (`bg-neutral-strong`), sans ombre ni flou. Rien derrière la donnée.
+- *Écrans d'atmosphère* (connexion, onboarding, états vides, confirmation d'export) : un **calque de lumière** derrière l'en-tête (D45, D46) : trois halos flous (`blue-300`, `light-blue`, `light-violet` à 0,5), flou 42 px, brume à 1, grain à 0,8 en `soft-light`. La lumière dérive lentement (aller-retour de 20 s), seule chose qui bouge au repos ; coupée par `prefers-reduced-motion`. Pas de traînées animées, pas de seconde source. Le texte posé dessus garde le contraste AA ; un libellé discret qui passerait sous 4,5:1 sur la brume repasse en `text-neutral`. Les surfaces y sont en **verre dépoli** : `text-neutral` à 7 % avec un flou d'arrière-plan de 12 px et un liseré clair de 1 px en haut ; repli opaque `bg-neutral-strong`. Le verre ne s'applique nulle part ailleurs (la barre « Mon planning » qui le portait est retirée, D66).
 
 Une sélection s'allume (D46) : chip, case de disponibilité cochée et bouton principal portent un dégradé de `bg-accent-selected` (blue-300) vers blue-50 et une lueur extérieure de 16 px de l'accent à 45 %, libellé en `text-accent-inverted`.
 
@@ -381,7 +381,7 @@ Une sélection s'allume (D46) : chip, case de disponibilité cochée et bouton p
 
 ## Shapes
 
-Arrondi doux sur ce qui se touche, rien sur ce qui se lit. `full` pour les chips, `lg` (14 px) pour les boutons, cartes, champs et la barre du planning, `sm` (8 px) pour les cases de disponibilité, `md` (10 px) pour les petits boutons. Les lignes de liste et les en-têtes de jour n'ont aucun rayon.
+Arrondi doux sur ce qui se touche, rien sur ce qui se lit. `full` pour les chips, `lg` (14 px) pour les boutons, cartes, champs, `sm` (8 px) pour les cases de disponibilité, `md` (10 px) pour les petits boutons. Les lignes de liste et les en-têtes de jour n'ont aucun rayon.
 
 ## Components
 
@@ -389,7 +389,7 @@ Les composants partent de shadcn/ui, restylés avec les tokens sémantiques, jam
 
 La section `components` de l'en-tête n'est pas une liste de composants : elle déclare les **couples fond / texte** que l'interface emploie, pour que le lint en vérifie le contraste (`page`, `surface`, `chip`, `chip-selected`, `accent-fill`, `message-error`…). Un nouveau couple s'y déclare avant d'être utilisé.
 
-Composants prévus pour le MVP : chip (styles, filtres) ; bouton principal et bouton sans fond, une seule action principale par écran ; champ ; carte de niveau (onboarding) ; case de disponibilité (grille 7 jours × 2 plages) ; ligne de cours et en-tête de jour (liste, plats, séparés par un filet) ; barre « Mon planning » (compteur en `heading-small`, export à droite, en verre) ; message d'état (`info`, `success`, `warning`, `error`, toujours avec icône et texte).
+Composants prévus pour le MVP : chip (styles, filtres) ; bouton principal et bouton sans fond, une seule action principale par écran ; champ ; carte de niveau (onboarding) ; case de disponibilité (grille 7 jours × 2 plages) ; ligne de cours et en-tête de jour (liste, plats, séparés par un filet) ; barre d'onglets en bas (Cours, Mes cours, Profil, D66) ; message d'état (`info`, `success`, `warning`, `error`, toujours avec icône et texte).
 
 ## Do's and Don'ts
 
@@ -462,7 +462,7 @@ Les transitions entre écrans utilisent un flou de mouvement (14 px, 300 ms, flo
 ## Ton rédactionnel
 
 - Tout le texte utilisateur est en français (D19).
-- Vocabulaire fixé : « mon planning » (la sélection), « ajouter à mon planning » / « retirer de mon planning » ; « indicateur de progression », jamais « gamification » (D24). L'outil n'est pas un « générateur » (D05).
+- Vocabulaire fixé : « mes cours » (la sélection, D66), « ajouter à mes cours » / « retirer de mes cours » ; « indicateur de progression », jamais « gamification » (D24). L'outil n'est pas un « générateur » (D05).
 - Les mentions obligatoires, telles quelles : « planning de saison, vérifie sur le site du studio » (D07) ; « prof variable, vérifie auprès du studio » (D30) ; « style non précisé par le studio » (D58) ; « une semaine sur deux, vérifie sur l'application du studio » (D59) ; « non précisé » pour le type (D31).
 - Court et direct, comme la personnalité : pas d'exclamation, pas d'emoji, pas de ton « copain ». Les questions d'onboarding en serif sont les seules phrases qui se permettent une image (« Quels styles te font bouger ? »).
 - Écriture inclusive : à définir (forme retenue).

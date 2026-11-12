@@ -17,7 +17,7 @@ Avant, un danseur devait se baser sur les critères suivants :
 
 Tous ces facteurs sont difficiles à réunir au sein d'un agenda : un travail de curation doit se faire à travers un outil d'agenda. Ce planning peut vite être amené à changer, dépendant des studios concernés (changements de professeurs, vacances scolaires...)
 
-Le but : un guide curé, pas un annuaire exhaustif de tous les cours possibles en région parisienne. Trois studios ont été choisis pour le MVP, reconnus dans le milieu et dont Emmanuel peut attester la renommée (D17, D43), une liste filtrée des cours compatibles, une sélection qui devient « mon planning », un export vers l'agenda. L'outil est l'index ; Instagram reste le média (D08). 
+Le but : un guide curé, pas un annuaire exhaustif de tous les cours possibles en région parisienne. Trois studios ont été choisis pour le MVP, reconnus dans le milieu et dont Emmanuel peut attester la renommée (D17, D43), une liste filtrée des cours compatibles qu'on consulte telle quelle pour trouver quoi tester, puis réserver sur le site du studio ; en second, une sélection, « mes cours », exportable vers l'agenda (D65, D66). L'outil est l'index ; Instagram reste le média (D08). 
 
 Objectifs du projet : résoudre un vrai problème utilisateur, shipper un produit live avec des métriques, savoir répondre sur le business model (parqué, D12), matière pour les entretiens product design.
 
@@ -37,17 +37,18 @@ Cas vécus : entrée en freestyle (dizaines de sites parcourus, profs cherchés 
 
 ## Dans / hors MVP
 
-### MVP (test 1 : « des danseurs construisent-ils un planning multi-studios et l'exportent-ils ? »)
+### MVP (test 1 : « des danseurs trouvent-ils dans une liste multi-studios des cours à tester, et vont-ils les réserver ? », D65)
 
 | # | Fonctionnalité | Détail | Réf. |
 |---|---|---|---|
 | 1 | Compte | Accès sans compte (connexion anonyme) ; compte par lien magique proposé pour garder son planning | D11, D61 |
 | 2 | Onboarding | Styles visés (multi), niveaux (multi), disponibilités en grille jours × plages avec raccourcis | D28, D30 |
-| 3 | Liste filtrée | Cours compatibles, groupés par jour, triés par heure ; chevauchements autorisés ; niveau / type non précisés matchent tout | D05, D20, D31 |
-| 4 | Mon planning | Ajouter / retirer un cours ; la sélection est le planning | D05 |
-| 5 | Fiche cours | Prof (lien si existant, pas de photo), niveaux + étiquette brute, lieu, métro, prix unité, lien de réservation, disclaimer de saison, mention « prof variable » (Guest) | D08, D09, D10, D30 |
+| 3 | Liste filtrée | Cours compatibles sur les 7 prochains jours, groupés par jour, triés par heure ; chevauchements autorisés ; niveau / type non précisés matchent tout ; filtres en puces, temporaires, qui peuvent tout afficher | D05, D20, D31, D64 |
+| 4 | Mes cours | Ajouter / retirer un cours ; la sélection, en semaine type ; secondaire, pas l'action principale | D05, D65, D66 |
+| 4 bis | Navigation et Profil | Barre d'onglets Cours · Mes cours · Profil ; Profil : préférences (onboarding prérempli) et compte | D66 |
+| 5 | Fiche cours | Prof (lien si existant, pas de photo), niveaux + étiquette brute, lieu, métro, prix unité, lien de réservation, disclaimer de saison, mention « prof variable » (Guest) ; écran où l'on va réserver | D08, D09, D10, D30, D65 |
 | 6 | Export | .ics d'un cours ou du planning, récurrence hebdo, Europe/Paris, fin de saison | D23, D27 |
-| 7 | Mesure | PostHog : onboarding terminé, cours ajouté, cours retiré, export, compte créé (passage d'anonyme à e-mail) | D16, D19, D61 |
+| 7 | Mesure | PostHog. En premier : onboarding terminé, retour sur la liste, fiche ouverte, clic sur le lien de réservation. En second : cours ajouté, cours retiré, export, compte créé (passage d'anonyme à e-mail) | D16, D19, D61, D65 |
 | 8 | PWA | Manifeste et icône ; pas de cache de données | D22 |
 | — | Pages légales | Mentions légales, confidentialité (profil, PostHog, contact de retrait pour les profs) | D19 |
 
@@ -80,10 +81,13 @@ App native · générateur automatique de planning · saisie communautaire · sc
 
 ### Liste des cours
 
-- **Objectif** : montrer tous les cours compatibles, chevauchements inclus, pour que l'utilisateur choisisse (D05, D20).
-- **Contenu affiché** : cours groupés par jour, triés par heure ; par cours : heure, style, prof, studio (nom propre), lieu et métro, niveaux (sans étiquette du studio : tous niveaux, D54). Chevauchements visibles comme lignes voisines.
-- **Actions** : ajouter à / retirer de mon planning (événements PostHog) ; ouvrir la fiche cours ; modifier ses réponses d'onboarding.
-- **États** : aucun cours compatible ; style non précisé (visible par tous, D58) ; une semaine sur deux (D59) ; autres états : à définir.
+- **Objectif** : montrer les cours compatibles, chevauchements inclus, pour qu'on trouve quoi tester sans rien avoir à sélectionner (D05, D20, D65).
+- **Contenu affiché** (D64) :
+  - Bandeau des 7 prochains jours, datés, à partir d'aujourd'hui, collé en haut ; le jour actif suit le défilement. Liste continue sur les 7 jours, en-têtes datés (« Aujourd'hui, jeu. 12 nov. »).
+  - Rangée de puces de filtre qui défile : croix (tout afficher), Styles, Niveau, Créneaux, Type, Studio. Par défaut, les préférences de l'onboarding.
+  - Par cours : heure de début et durée (répétées sur chaque ligne, même à la même heure), style (le type si le style est vide, D58), prof, nom du studio ; badges neutres sur une ligne : niveaux (tous niveaux si le studio ne précise pas, D54), type, « 1 sem. sur 2 », « prof variable ». Ni adresse ni métro (sur la fiche).
+- **Actions** : ouvrir la fiche cours (action principale, D65) ; filtrer avec les puces, chacune ouvre un panneau du bas avec des cases et « Afficher N cours » (Créneaux reprend la grille de l'onboarding et ses raccourcis) ; tout afficher ; ajouter à / retirer de mes cours (secondaire, place à trancher sur maquette, D65 ; événements PostHog). Les filtres sont temporaires : ils ne modifient jamais les réponses de l'onboarding, et la liste repart des préférences à chaque ouverture.
+- **États** : aucun cours (seulement avec des filtres : écran d'atmosphère, bouton « Effacer les filtres ») ; style non précisé (visible par tous, D58) ; une semaine sur deux (D59, affiché chaque semaine) ; prof variable (D30) ; autres états : à définir.
 
 ### Fiche cours
 
@@ -92,17 +96,24 @@ App native · générateur automatique de planning · saisie communautaire · sc
 - **Actions** : ajouter / retirer ; exporter ce cours en .ics (événement PostHog) ; ouvrir le lien de réservation.
 - **États** : Guest ; style non précisé ; une semaine sur deux ; type non précisé ; autres états : à définir.
 
-### Mon planning
+### Mes cours (onglet, ex-« Mon planning »)
 
-- **Objectif** : voir sa sélection et l'exporter (D05, D23).
-- **Contenu affiché** : les cours ajoutés, groupés par jour, triés par heure ; chevauchements visibles, aucune règle de non-chevauchement.
-- **Actions** : retirer un cours ; exporter le planning en .ics (événement PostHog).
-- **États** : planning vide ; autres états : à définir.
+- **Objectif** : voir sa sélection et l'exporter (D05, D23, D66).
+- **Contenu affiché** : les cours ajoutés, groupés par jour, triés par heure ; chevauchements visibles, aucune règle de non-chevauchement. La mise en page doit se distinguer de Cours au premier regard (D66) ; proposition à valider sur maquette : semaine type sans dates (seuls les jours qui ont un cours), résumé en tête (« 3 cours par semaine, 2 studios »), cartes sur surface, ni bandeau ni puces.
+- **Actions** : retirer un cours ; ouvrir la fiche ; exporter la sélection en .ics, seule action principale de l'écran (événement PostHog).
+- **États** : aucun cours ajouté (écran d'atmosphère, renvoi vers Cours) ; autres états : à définir.
+
+### Profil (onglet)
+
+- **Objectif** : modifier ses préférences par défaut et gérer son compte (D64, D66).
+- **Contenu affiché** : « Mes préférences » (résumé des styles, niveaux et créneaux) ; « Compte » (e-mail si un compte existe, sinon l'invitation à en créer un).
+- **Actions** : modifier ses préférences (rouvre l'onboarding prérempli, sans l'accueil ; seul endroit où elles changent) ; créer un compte ou se connecter (D61).
+- **États** : session anonyme ; compte avec e-mail ; autres états : à définir.
 
 ### Créer un compte / se connecter
 
-- **Objectif** : garder son planning (nouveau téléphone, autre navigateur), sans mot de passe (D11, D61).
-- **Quand** : proposé après le premier cours ajouté et depuis Mon planning ; jamais bloquant. Avant, la personne utilise Dancehop sur une session anonyme.
+- **Objectif** : garder ses cours et ses préférences (nouveau téléphone, autre navigateur), sans mot de passe (D11, D61).
+- **Quand** : depuis Profil, et proposé après le premier cours ajouté ; jamais bloquant (D66). Avant, la personne utilise Dancehop sur une session anonyme.
 - **Contenu affiché** : champ e-mail, explication du lien magique, pourquoi créer un compte.
 - **Actions** : envoyer le lien ; ouvrir le lien reçu → compte créé, planning conservé ; « J'ai déjà un compte » pour le retrouver sur un nouveau téléphone.
 - **États** : lien envoyé (attente du mail) ; lien expiré ou invalide ; adresse déjà liée à un compte. À définir : connexion à un compte existant depuis une session anonyme qui a déjà un planning (fusionner, remplacer, ou perdre en prévenant). Autres états : à définir.

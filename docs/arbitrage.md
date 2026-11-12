@@ -32,6 +32,7 @@ Un danseur qui entre dans un nouveau style doit reconstituer lui-même qui ensei
 - **Écarté** : générateur automatique ("on te sort le planning idéal") — reporté à quand il y aura des signaux de classement.
 - **Écarté** : MVP concierge (formulaire + planning composé à la main) — refusé, l'objectif est un outil automatique.
 - **Écarté** : un simple calendrier abonnable par style — il couvre le "suivre" mais pas le "choisir".
+- **Révisé le 12/11 (D64, D65)** : la liste peut tout afficher (puces de filtre) ; la sélection et l'export restent, mais ne sont plus l'action principale.
 
 ### D06 — Périmètre V1 (08/10, révisé 09/10)
 - **Décision** : toute la danse urbaine (hip-hop, house, dancehall, popping, freestyle, chorégraphies commerciales…), ~~studios parisiens uniquement (pas de banlieue)~~ → accessible en métro (D29, 09/10), 4 structures (D17), saison 2026-2027.
@@ -90,6 +91,7 @@ Un danseur qui entre dans un nouveau style doit reconstituer lui-même qui ensei
 ### D16 — Finalité du MVP : test terrain avant de continuer (09/10, révisé 09/10)
 - **Décision** : deux tests successifs. Test 1 (MVP) : "des danseurs construisent-ils un planning multi-studios à partir d'une liste filtrée, et l'exportent-ils ?". Test 2 (V2) : la boucle de remplacement (D14). Si le test 1 échoue, la boucle n'a pas besoin d'exister.
 - **Conditions** : testeurs qui entrent réellement dans un nouveau style au moment du test (pas des amis en jeu de rôle), une dizaine ; durée de test de 3 à 4 semaines minimum (il faut aller au cours puis revenir) ; seuils de succès et d'arrêt écrits avant le test (à fixer par Emmanuel, voir `TODO.md`).
+- **Révisé le 12/11 (D65)** : test 1 reformulé autour de la consultation et de la réservation ; ajouts et exports mesurés en second.
 
 ### D17 — Studios de la V1 : curation éditoriale (09/10)
 - **Décision** : Lax Studio, Juste Debout School, Ambassadeur d'Espérance, Studio MRG. Base simple, enrichie au fur et à mesure.
@@ -120,6 +122,7 @@ Un danseur qui entre dans un nouveau style doit reconstituer lui-même qui ensei
 - **Décision** : les cours sont présentés en liste groupée par jour et triée par heure ; les chevauchements apparaissent comme lignes voisines. La grille hebdomadaire est une vue desktop, nice to have.
 - **Justification** : lecture mobile (la cible utilise un téléphone plus qu'un PC) ; l'export .ics reste le pont vers les agendas tiers.
 - **Conséquence** : les jours/plages deviennent des filtres ; la fréquence visée devient un objectif affiché (D24).
+- **Révisé le 12/11 (D64)** : jours datés sur 7 jours glissants, bandeau collé en haut, filtres visibles en puces.
 
 ### D21 — Organisation interne : le repo est la source de vérité (09/10)
 - **Décision** : documentation en markdown dans le repo — `CLAUDE.md` (contexte permanent pour l'IA qui code), `docs/` (Arbitrage.md, PRD, specs), suivi des tâches en `TODO.md` ou GitHub Issues.
@@ -420,3 +423,28 @@ Un danseur qui entre dans un nouveau style doit reconstituer lui-même qui ensei
 - **Écarté** : écrire les interlignes à la main dans le CSS (seconde source, dérive certaine) ; une dépendance d'analyse YAML (le bloc est simple, une lecture ligne à ligne suffit).
 - **Raison** : aucun format d'export du CLI (css-tailwind, json-tailwind, dtcg, css-vars) ne contient `lineHeight` ; sans ce script, chaque écran aurait des interlignes en dur.
 - **Révise** : D47 (le CSS généré ne vient plus du seul CLI).
+
+### D64 — Liste des cours : jours, ligne, filtres (12/11)
+- **Source** : benchmark Mobbin « Liste des cours » sur Paper (page Benchmark, 48 écrans), tranché avec Emmanuel.
+- **Jours** : un bandeau des 7 prochains jours, datés, sur une semaine glissante qui commence aujourd'hui ; il reste collé en haut pendant le défilement, le jour actif suit la liste, un tap fait défiler jusqu'au jour. Dessous, une liste continue sur les 7 jours, avec des en-têtes à la manière d'Open (« Aujourd'hui, jeu. 12 nov. », puis « Vendredi 13 nov. »). Pas de sélecteur de mois. Un cours une semaine sur deux apparaît chaque semaine avec son badge (on ne sait pas quelle semaine est la bonne, D59).
+- **Ligne de cours** : à gauche, une colonne heure (début, durée dessous), répétée sur chaque ligne ; deux cours à la même heure sont deux lignes voisines, le studio fait la différence (modèle Apple Store). Au centre : style (le type quand le style est vide, D58), prof, nom du studio. Dessous, des badges neutres sur une ligne, dans cet ordre : niveaux, type, « 1 sem. sur 2 », « prof variable ». Adresse, métro et la phrase « vérifie sur le site du studio » vont sur la fiche. Ni photo (D08) ni couleur par style.
+- **Filtres** : une rangée de puces qui défile horizontalement, sur une ligne : une croix en tête (tout afficher), puis Styles, Niveau, Créneaux, Type (D31), Studio. Chaque puce ouvre un panneau qui monte du bas, avec des cases et « Afficher N cours ». Créneaux reprend la grille de l'onboarding (7 jours × journée / soirée) et ses raccourcis. Par défaut, les puces portent les préférences de l'onboarding ; les changer est temporaire : la liste repart des préférences à chaque ouverture, et les réponses de l'onboarding ne changent jamais depuis la liste. La croix affiche tous les cours, compatibles ou non.
+- **Aucun cours** : n'arrive qu'avec des filtres ; écran d'atmosphère (design.md) avec un bouton « Effacer les filtres ».
+- **Écarté** : un sélecteur de mois et des dates au-delà de 7 jours (une vue datée promet des cours pendant les vacances, hors périmètre, et place mal les cours une semaine sur deux) ; des blocs côte à côte dans une grille horaire (anti-référence Google Agenda, D03) ; une ligne-résumé qui rouvrirait l'onboarding ; des puces qui réécriraient les préférences (la croix les effacerait) ; studio et métro dans la ligne ; un toast à l'ajout.
+- **Ouvert** : les cours ponctuels (stages, workshops) qu'Emmanuel veut ajouter un jour, avec un bandeau qui avance de semaine en semaine et de mois en mois ; ils contredisent D25, la question est dans `TODO.md`.
+- **Révise** : D20 (jours datés sur 7 jours glissants, filtres visibles en puces), D05 (la liste peut tout afficher, pas seulement les cours compatibles), D30 (« prof variable » et « une semaine sur deux » deviennent des badges dans la ligne ; la phrase reste sur la fiche).
+
+### D65 — Consulter avant d'ajouter : le test 1 change (12/11)
+- **Décision** : la liste se consulte pour elle-même ; l'ajout au planning et l'export restent dans le MVP, mais ne sont plus l'action principale. L'action principale d'une ligne est d'ouvrir la fiche, d'où l'on va réserver sur le site du studio.
+- **Test 1 reformulé** : « des danseurs trouvent-ils dans une liste multi-studios des cours à tester, et vont-ils les réserver ? ». Mesures principales : retours sur la liste d'une semaine à l'autre, fiches ouvertes, clics sur le lien de réservation, et le formulaire « as-tu testé un cours grâce à ça ? ». Cours ajoutés et plannings exportés restent mesurés, en second.
+- **Raison** : Emmanuel doute que l'export vers l'agenda soit le besoin principal ; on peut utiliser Dancehop pour voir les prochains cours sans rien sélectionner. Mesurer en premier l'ajout et l'export aurait jugé le produit sur une action qu'on ne met plus en avant.
+- **À trancher sur maquette** : la place de l'ajout. (a) Une coche discrète à droite de la ligne ; (b) depuis la fiche seulement ; (c) un appui long qui passe en multi-sélection (peu découvrable, et sur le web mobile l'appui long déclenche aussi la sélection de texte et le menu du navigateur).
+- **Révise** : D05 (la sélection n'est plus le cœur du MVP), D16 (formulation et mesures du test 1), D61 (la proposition de compte ne peut plus dépendre du seul premier ajout).
+
+### D66 — Barre d'onglets : Cours, Mes cours, Profil (12/11)
+- **Décision** : après l'onboarding, une barre d'onglets fixée en bas, trois onglets. **Cours** : la liste (D64), le catalogue de ce qui existe. **Mes cours** : la sélection seule et son export (l'ancien « Mon planning »). **Profil** : « Mes préférences » (l'onboarding rouvert, prérempli, seul endroit où les préférences changent, D64) et « Compte » (créer un compte ou se connecter, D61). L'onboarding n'a pas de barre.
+- **Vocabulaire** : « mes cours » remplace « mon planning » dans l'interface (« ajouter à mes cours », « retirer de mes cours ») ; « planning » se lisait aussi comme la liste, qui est déjà rangée par jour. La table `plan_item` ne change pas.
+- **Deux pages qui ne doivent pas se ressembler** (Emmanuel) : Cours et Mes cours rangent toutes deux des cours par jour ; leur mise en page doit dire laquelle est le catalogue et laquelle est la sélection. Proposition à valider sur maquette : Cours reste datée et plate (bandeau, puces, lignes séparées par un filet, D64) ; Mes cours montre une semaine type sans dates (lundi → dimanche, les seuls jours qui ont un cours, puisque l'export est une récurrence hebdomadaire, D23, D27), sans bandeau ni puces, un résumé en tête (« 3 cours par semaine, 2 studios »), des cartes sur surface plutôt que des lignes, et l'export comme seule action principale de l'écran.
+- **Écarté** : deux onglets Cours et Profil avec une puce « Mes cours » dans les filtres (plus léger, mais la sélection et son export n'avaient plus de place évidente) ; une icône Profil en haut à droite de la liste ; la barre « Mon planning » en verre fixée en bas (design.md), qui ferait doublon avec la barre d'onglets.
+- **Point d'attention** : sur le web mobile, la barre de Safari est aussi en bas ; deux barres s'empilent tant que Dancehop n'est pas installée sur l'écran d'accueil (D22). Prévoir la marge de la zone sûre.
+- **Révise** : D05 et D23 (« mon planning » devient « mes cours »), D61 (le compte se propose depuis Profil, plus après le premier ajout seulement), D62 (« modification plus tard par les mêmes écrans » : on y accède depuis Profil), design.md (barre « Mon planning » retirée ; vocabulaire).

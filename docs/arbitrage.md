@@ -502,3 +502,9 @@ Un danseur qui entre dans un nouveau style doit reconstituer lui-même qui ensei
 - **Écarté** : l'appui long comme seule entrée ; des coches visibles en permanence (D65) ; « Tout sélectionner » ; un compteur en titre (« 3 sélectionnés »).
 - **Révise** : D65 (l'option c, ouverte, est tranchée : on ajoute un cours depuis sa fiche, ou plusieurs depuis le mode sélection).
 - **Révisé le 13/11, après maquette Paper (Emmanuel)** : la barre d'onglets reste en bas pendant la sélection. En haut, la croix passe à gauche et le bouton d'ajout à droite : « Ajouter », inactif tant que rien n'est choisi, puis « Ajouter N cours ». La case est centrée verticalement sur la ligne. La ligne choisie prend un nouveau sémantique `bg-accent-inverted-selected` (blue-900), créé et nommé par Emmanuel sur Paper ; un premier essai en slate-900 effaçait les badges, qui ont le même fond.
+
+### D74 — La famille d'un style vit en base : `style.family` (13/11)
+- **Décision** : une colonne `family` sur la table `style`, de type enum `style_family` (`hiphop`, `funk`, `club`, `ballroom`, `afro`, `studio`), non nulle. Elle porte la famille du repère de style (D71) ; les valeurs reprennent les noms des tokens `icon-style-{famille}-default`, l'écran passe directement de la famille au token. Migration `20261113184213_style_family.sql`, qui remplit les 14 styles existants par leur slug ; `seed.sql` donne la famille de chaque style.
+- **Écarté** : une table de correspondance dans le code (la liste des styles vivrait à deux endroits, alors qu'ils sont en table pour en ajouter un sans toucher au code) ; une table `style_family` à part (six valeurs fixes liées à des tokens de design, un enum suffit).
+- **Conséquence** : ajouter un style demande de choisir sa famille ; ajouter une famille demande une migration et une forme et une couleur nouvelles (D71).
+- **Révise** : D41 (taxonomie), D71 (où vit la correspondance style → famille).

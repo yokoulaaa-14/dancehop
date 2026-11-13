@@ -1,9 +1,10 @@
 // Calque de lumière des écrans d'atmosphère (D45, D46) : trois halos flous derrière l'en-tête,
-// fondus dans le fond. Décoratif, donc caché aux lecteurs d'écran.
+// fondus dans le fond. Décoratif, donc caché aux lecteurs d'écran. Couleurs par leurs sémantiques
+// bg-atmosphere-1/2/3 (D72), jamais par les primitifs.
 const HALOS = [
-  'left-[-90px] top-[40px] size-[300px] bg-blue-300',
-  'left-[180px] top-[-50px] size-[320px] bg-light-blue',
-  'left-[80px] top-[160px] size-[260px] bg-light-violet',
+  'left-[-90px] top-[40px] size-[300px] bg-bg-atmosphere-1',
+  'left-[180px] top-[-50px] size-[320px] bg-bg-atmosphere-2',
+  'left-[80px] top-[160px] size-[260px] bg-bg-atmosphere-3',
 ] as const
 
 export function Atmosphere({ height }: { height: number }) {

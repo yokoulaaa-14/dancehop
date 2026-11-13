@@ -73,10 +73,18 @@ colors:
   # Couleurs de lumière, hors système : calque d'atmosphère seulement (D45, D46).
   light-blue: "#4f7fd9"
   light-violet: "#6b5cff"
+  # Couleurs de famille de styles, hors gammes : repère de style seulement (D71).
+  style-hiphop: "#ff8e5e"
+  style-funk: "#b5de6e"
+  style-club: "#b4a6ff"
+  style-ballroom: "#f49ad0"
+  style-afro: "#f2d06b"
+  style-studio: "#e9cfae"
   # Sémantiques (D49) : catégorie.élément.rôle.modificateur.état ; les seuls appelés par les écrans.
   # Neutre : fonds et surfaces
   bg-neutral-default: "{colors.slate-950}"
   bg-neutral-strong-default: "{colors.slate-900}"
+  bg-accent-inverted-selected: "{colors.blue-900}"
   bg-neutral-strong-pressed: "{colors.slate-800}"
   bg-neutral-strong-disabled: "{colors.slate-900}"
   # Neutre : texte, bordures, icônes
@@ -94,6 +102,7 @@ colors:
   bg-accent-hover: "{colors.blue-200}"
   bg-accent-pressed: "{colors.blue-400}"
   bg-accent-selected: "{colors.blue-300}"
+  bg-accent-strong-selected: "{colors.blue-50}"
   bg-accent-disabled: "{colors.slate-800}"
   bg-accent-subtle-default: "{colors.blue-900}"
   text-accent-default: "{colors.blue-300}"
@@ -123,13 +132,36 @@ colors:
   text-error-default: "{colors.red-300}"
   icon-error-default: "{colors.red-300}"
   border-error-default: "{colors.red-500}"
+  # Atmosphère : les trois halos du calque de lumière (D72)
+  bg-atmosphere-1: "{colors.blue-300}"
+  bg-atmosphere-2: "{colors.light-blue}"
+  bg-atmosphere-3: "{colors.light-violet}"
+  # Repère de style : une forme et une couleur par famille (D71)
+  icon-style-hiphop-default: "{colors.style-hiphop}"
+  icon-style-funk-default: "{colors.style-funk}"
+  icon-style-club-default: "{colors.style-club}"
+  icon-style-ballroom-default: "{colors.style-ballroom}"
+  icon-style-afro-default: "{colors.style-afro}"
+  icon-style-studio-default: "{colors.style-studio}"
 typography:
+  display-large:
+    fontFamily: Instrument Serif
+    fontSize: 48px
+    fontWeight: 400
+    lineHeight: 1.05
+    letterSpacing: -0.005em
   display:
     fontFamily: Instrument Serif
     fontSize: 40px
     fontWeight: 400
     lineHeight: 1.05
     letterSpacing: -0.005em
+  display-small:
+    fontFamily: Instrument Serif
+    fontSize: 24px
+    fontWeight: 400
+    lineHeight: 1
+    letterSpacing: 0em
   heading-large:
     fontFamily: Sofia Sans Extra Condensed
     fontSize: 32px
@@ -175,7 +207,9 @@ rounded:
   lg: 14px
   full: 9999px
 spacing:
+  "025": 2px
   "050": 4px
+  "075": 6px
   "100": 8px
   "150": 12px
   "200": 16px
@@ -256,6 +290,25 @@ components:
   message-error:
     backgroundColor: "{colors.bg-error-subtle-default}"
     textColor: "{colors.text-error-default}"
+  # Repères de style sur le fond (D71) : formes graphiques, le lint vérifie qu'elles dépassent 4,5:1.
+  style-marker-hiphop:
+    backgroundColor: "{colors.bg-neutral-default}"
+    textColor: "{colors.icon-style-hiphop-default}"
+  style-marker-funk:
+    backgroundColor: "{colors.bg-neutral-default}"
+    textColor: "{colors.icon-style-funk-default}"
+  style-marker-club:
+    backgroundColor: "{colors.bg-neutral-default}"
+    textColor: "{colors.icon-style-club-default}"
+  style-marker-ballroom:
+    backgroundColor: "{colors.bg-neutral-default}"
+    textColor: "{colors.icon-style-ballroom-default}"
+  style-marker-afro:
+    backgroundColor: "{colors.bg-neutral-default}"
+    textColor: "{colors.icon-style-afro-default}"
+  style-marker-studio:
+    backgroundColor: "{colors.bg-neutral-default}"
+    textColor: "{colors.icon-style-studio-default}"
 ---
 
 # design.md
@@ -270,7 +323,7 @@ components:
 - *Sobre, pas austère.* L'interface se tait pour laisser la place aux cours. Une seule chose parle fort par écran : le titre.
 - *Délicate, pas fragile.* Typographie fine et condensée, mais jamais au prix de la lisibilité : graisses et contrastes minimaux fixés plus bas.
 - *En mouvement.* Le mouvement du moodboard (pose longue, flou, traînées) se retrouve dans les transitions entre écrans et dans la lumière qui dérive, pas dans des éléments d'interface qui bougent.
-- *Éthérée.* Sur les écrans où il n'y a rien à lire (accueil, onboarding, états vides, confirmations), l'app a son moment d'atmosphère : un titre en serif italique posé sur un calque de lumière. Sur les écrans de donnée, rien de tout ça (D45).
+- *Éthérée.* Sur les écrans où il n'y a rien à lire (accueil, onboarding, états vides, confirmations), l'app a son moment d'atmosphère : un titre en serif italique posé sur un calque de lumière. Sur les écrans de donnée, rien de tout ça (D45), sauf l'en-tête de l'écran Cours, qui garde son titre en serif sur la lumière au-dessus d'une liste sans effet (D69).
 
 **Références.**
 
@@ -299,7 +352,8 @@ Anti-références produit : dans `product.md`. Mobile-first, la cible utilise un
 |---|---|---|
 | **Neutre : fonds et surfaces** | | |
 | `bg-neutral-default` | `slate-950` | Fond de tous les écrans. 60 % de la surface. |
-| `bg-neutral-strong-default` | `slate-900` | Surface qui se détache du fond : chip, carte de niveau, champ, case de disponibilité, barre « Mon planning ». |
+| `bg-neutral-strong-default` | `slate-900` | Surface qui se détache du fond : chip, carte de niveau, champ, case de disponibilité, carte de Mes cours, barre d'onglets. |
+| `bg-accent-inverted-selected` | `blue-900` | Ligne de cours choisie en mode sélection (D73) ; les badges `bg-neutral-strong` restent lisibles dessus. |
 | `bg-neutral-strong-pressed` | `slate-800` | Surface pendant l'appui (chip, carte, ligne). |
 | `bg-neutral-strong-disabled` | `slate-900` | Surface inactive ; toujours accompagnée d'un texte ou d'une icône désactivés. |
 | **Neutre : texte** | | |
@@ -350,7 +404,22 @@ Anti-références produit : dans `product.md`. Mobile-first, la cible utilise un
 | `border-error-default` | `red-500` | Bordure d'un message d'erreur, et d'un champ en erreur. |
 
 
-**Lumière** : `light-blue` et `light-violet` sont hors système, pour le calque d'atmosphère seulement, jamais pour un élément d'interface.
+**Lumière** : `light-blue` et `light-violet` sont hors système, pour le calque d'atmosphère seulement, jamais pour un élément d'interface. Le calque les appelle par leurs sémantiques `bg-atmosphere-1` (blue-300), `bg-atmosphere-2` (light-blue) et `bg-atmosphere-3` (light-violet) (D72).
+
+**Sélection lumineuse** : le dégradé va de `bg-accent-selected` (blue-300) à `bg-accent-strong-selected` (blue-50) (D72).
+
+**Repère de style** (D71) : six couleurs de famille, hors gammes (`style-hiphop`, `style-funk`, `style-club`, `style-ballroom`, `style-afro`, `style-studio`), appelées par leurs sémantiques `icon-style-{famille}-default`. Elles ne colorent qu'une forme de 8 px posée après le nom du style, jamais un texte, un fond ou une bordure. Chaque famille a sa forme : la couleur ne porte jamais seule l'information.
+
+| Famille | Styles | Forme | Sémantique | Contraste sur le fond |
+|---|---|---|---|---|
+| Hip-hop et racines | Hip-hop, Breaking, Krump | carré | `icon-style-hiphop-default` | 8,2:1 |
+| Funk styles | Popping, Locking | triangle | `icon-style-funk-default` | 12,1:1 |
+| Club | House, Electro | losange | `icon-style-club-default` | 8,7:1 |
+| Disco et ballroom | Waacking, Voguing | rond | `icon-style-ballroom-default` | 9,2:1 |
+| Afro et caribéen | Afro, Dancehall | dôme | `icon-style-afro-default` | 12,4:1 |
+| Chorégraphie studio | Heels, Street jazz, Commercial | anneau | `icon-style-studio-default` | 12,4:1 |
+
+Formes dans un carré de 8 px (SVG `viewBox="0 0 8 8"`) : carré 7 px à rayon 1 ; triangle pointe en haut ; losange ; disque plein ; dôme (demi-disque étiré, 6 px de haut) ; anneau de trait 1,7 px. Écart de 6 px avec le nom, centré sur sa hauteur.
 
 Contrastes sur le fond : texte courant 14,8:1, titres 16,9:1, texte discret 6,7:1, accent 12:1, libellé sur accent 12:1, textes d'état sur leur fond teinté de 7,5:1 (`error`) à 11,3:1 (`info`). Le lint vérifie chaque couple déclaré dans `components`. L'effet « bas contraste » du style éthéré se joue sur les éléments discrets et les filets, jamais sur le texte courant. Les états `disabled` sont volontairement sous 4,5:1 (exemptés par WCAG) et ne sont jamais le seul indice qu'un élément est inactif.
 
@@ -360,20 +429,22 @@ Trois polices à rôle fixe (D44, D45), toutes sur Google Fonts, aucune autre. L
 
 - *Structure* : Sofia Sans Extra Condensed (`heading-large`, `heading-small`, `label`), variable. `heading-large` (32 px, 700) pour les jours ; `heading-small` (22 px, 600) pour les titres de bloc et le compteur du planning ; `label` (15 px, 500) en capitales (« ÉTAPE 1 SUR 3 »). Jamais sous 500 sur fond sombre ; léger interlettrage positif ; jamais sur un nom de prof ni de studio.
 - *Texte* : Hanken Grotesk, graisses 400 à 600, jamais en dessous de 400 sur fond sombre. `body` (14 px) est la base ; `body-strong` (14 px, 600) pour le style d'un cours et les libellés de bouton ; `body-small` (12 px) seulement pour les métadonnées (« 1h30 », « 2 cours »), en `text-neutral-subtle` au minimum ; `body-large` (16 px) obligatoire dans les champs, sinon iOS zoome au focus. Les horaires sont en `body-strong` : les chiffres de Hanken Grotesk ont tous la même largeur, les heures s'alignent en colonne sans réglage.
-- *Atmosphère* : Instrument Serif italique (`display`), 40 px sur mobile, réservé à la question de chaque étape d'onboarding, à l'accueil, aux états vides et aux confirmations. Jamais dans la liste des cours ni sur une donnée. Il porte une lueur de l'accent (ombres portées 18 px à 45 % et 44 px à 30 %), sans animation d'arrivée (D46).
+- *Atmosphère* : Instrument Serif italique (`display`), 40 px sur mobile, réservé à la question de chaque étape d'onboarding, à l'accueil, aux états vides et aux confirmations. Deux exceptions sur l'écran Cours (D69, D72) : le titre « Liste des cours » en `display-large` (48 px, italique), et l'heure de chaque groupe de cours en `display-small` (24 px, romain, graisse 400). Jamais sur un nom de cours, de prof ou de studio. Il porte une lueur de l'accent (ombres portées 18 px à 45 % et 44 px à 30 %), sans animation d'arrivée (D46).
 
 ## Layout
 
-Le vide fait partie du dessin : marges généreuses, listes aérées, une information par ligne ; on préfère faire défiler plutôt que tasser. **Échelle chiffrée** sur l'unité de 4 px (D49) : `050` (4), `100` (8), `150` (12), `200` (16), `250` (20), `300` (24), `400` (32), `500` (40), `550` (44), `600` (48). Une seule échelle, sans nom par usage ni par composant (D49) : les règles de mise en page pointent sur un cran. Gouttière des écrans de donnée : `250` ; gouttière des écrans d'atmosphère : `300` ; cible tactile minimale : `550`, même quand le texte fait 14 px ; espacement des chips et marge interne des lignes de liste : `150` ; hauteur des boutons et des champs : `600`.
+Le vide fait partie du dessin : marges généreuses, listes aérées, une information par ligne ; on préfère faire défiler plutôt que tasser. **Échelle chiffrée** sur l'unité de 4 px (D49), avec deux demi-crans pour les petits écarts (D72) : `025` (2), `050` (4), `075` (6), `100` (8), `150` (12), `200` (16), `250` (20), `300` (24), `400` (32), `500` (40), `550` (44), `600` (48). Une seule échelle, sans nom par usage ni par composant (D49) : les règles de mise en page pointent sur un cran. Gouttière des écrans de donnée : `250` ; gouttière des écrans d'atmosphère : `300` ; cible tactile minimale : `550`, même quand le texte fait 14 px ; espacement des chips et marge interne des lignes de liste : `150` ; hauteur des boutons et des champs : `600`.
 
-Liste, pas grille : les cours se lisent par jour, triés par heure ; les chevauchements sont des lignes voisines (D20). Chaque ligne de cours : heure et style en `body-strong`, prof et studio en `body` et `text-neutral-subtle`, mention de niveau en `body-small`, action à droite.
+Liste, pas grille : les cours se lisent par jour, triés par heure ; les chevauchements sont des lignes voisines (D20). Les cours qui commencent à la même heure forment un groupe (D69) : l'heure une seule fois, à gauche dans une colonne de 64 px, en `display-small`, et sous elle un fil vertical de 1 px en `border-neutral` le long du groupe ; `200` entre la colonne et les lignes, `300` entre deux lignes d'un groupe comme entre deux groupes, pas de filet. Chaque ligne de cours (`050` entre ses trois niveaux) : le nom du cours en `body-large` avec la graisse `body-strong`, suivi à `075` du repère de style (D71) ; en haut à droite, la durée (icône horloge 14 px à `050`, « 1h30 » en `body-small`, `text-neutral-subtle`, largeur fixe de 30 px, chiffres tabulaires) ; dessous, au même niveau, le prof (icône avatar) et le studio (icône lieu) en `body` et `text-neutral-default`, icônes 16 px en `icon-neutral-subtle` (le studio passe à la ligne si les deux ne tiennent pas) ; puis les badges. Un badge par niveau (« Débutant », « Intermédiaire », « Avancé ») ; « Tous niveaux » quand le cours couvre les trois. Pas d'action dans la ligne : on ajoute depuis la fiche (D65). La barre d'onglets flotte au-dessus de la liste (D70) : prévoir sous le dernier cours une marge égale à sa hauteur plus la zone sûre.
+
+**Dimensions de composant, sans token** (D49, D72) : colonne heure 64 px ; cercle du jour 36 px ; durée 30 px de large ; barre d'onglets 64 px de haut, `200` des bords, 28 px au-dessus de la zone sûre ; marge sous la liste et zone sûre des panneaux calculées en code (`env(safe-area-inset-bottom)`), jamais en dur. Icônes : 8 px (repère de style), 14 px (durée), 16 px (prof, studio, croix des puces), 18 px (croix des panneaux, soleil et lune, coches), 22 px (onglets) ; trait de 1,4 jusqu'à 16 px, 1,8 à partir de 18 px. Écart icône et texte : `075` ; écart dans un onglet et entre prof et studio sur deux lignes : `025`. Chaque texte prend l'interligne de son rôle, jamais un interligne en dur. La barre de statut des maquettes imite l'iPhone et reste hors système.
 
 ## Elevation & Depth
 
 Deux régimes.
 
-- *Écrans de donnée* (liste des cours, fiche cours, mon planning) : plat. La hiérarchie vient des filets (`border-neutral`) et des surfaces (`bg-neutral-strong`), sans ombre ni flou. Rien derrière la donnée.
-- *Écrans d'atmosphère* (connexion, onboarding, états vides, confirmation d'export) : un **calque de lumière** derrière l'en-tête (D45, D46) : trois halos flous (`blue-300`, `light-blue`, `light-violet` à 0,5), flou 42 px, brume à 1, grain à 0,8 en `soft-light`. La lumière dérive lentement (aller-retour de 20 s), seule chose qui bouge au repos ; coupée par `prefers-reduced-motion`. Pas de traînées animées, pas de seconde source. Le texte posé dessus garde le contraste AA ; un libellé discret qui passerait sous 4,5:1 sur la brume repasse en `text-neutral`. Les surfaces y sont en **verre dépoli** : `text-neutral` à 7 % avec un flou d'arrière-plan de 12 px et un liseré clair de 1 px en haut ; repli opaque `bg-neutral-strong`. Le verre s'applique aussi à la barre « Mon planning », nulle part ailleurs.
+- *Écrans de donnée* (liste des cours, fiche cours, mes cours, profil) : plat. La hiérarchie vient de l'espace, des filets (`border-neutral`) et des surfaces (`bg-neutral-strong`), sans ombre ni flou. Rien derrière la donnée. Deux exceptions (D69, D70) : l'en-tête de l'écran Cours (titre, bandeau des jours, puces) est posé sur le calque de lumière, qui s'efface en dégradé vers le fond avant le premier cours ; et la barre d'onglets est une capsule de verre qui flotte au-dessus de la liste.
+- *Écrans d'atmosphère* (connexion, onboarding, états vides, confirmation d'export) : un **calque de lumière** derrière l'en-tête (D45, D46) : trois halos flous (`blue-300`, `light-blue`, `light-violet` à 0,5), flou 42 px, brume à 1, grain à 0,8 en `soft-light`. La lumière dérive lentement (aller-retour de 20 s), seule chose qui bouge au repos ; coupée par `prefers-reduced-motion`. Pas de traînées animées, pas de seconde source. Le texte posé dessus garde le contraste AA ; un libellé discret qui passerait sous 4,5:1 sur la brume repasse en `text-neutral`. Les surfaces y sont en **verre dépoli** : `text-neutral` à 7 % avec un flou d'arrière-plan de 12 px et un liseré clair de 1 px en haut ; repli opaque `bg-neutral-strong`. Ailleurs, le verre ne s'applique qu'à la barre d'onglets (D70) : capsule flottante à 16 px des bords, au-dessus de la zone sûre, 64 px de haut ; `text-neutral` à 9 %, flou d'arrière-plan 12 px, bordure 1 px de `text-neutral` à 16 %, ombre 0 8 24 px de `bg-neutral` à 60 % ; repli opaque `bg-neutral-strong`. L'onglet actif est une capsule allumée (sélection lumineuse ci-dessous).
 
 Une sélection s'allume (D46) : chip, case de disponibilité cochée et bouton principal portent un dégradé de `bg-accent-selected` (blue-300) vers blue-50 et une lueur extérieure de 16 px de l'accent à 45 %, libellé en `text-accent-inverted`.
 
@@ -381,7 +452,7 @@ Une sélection s'allume (D46) : chip, case de disponibilité cochée et bouton p
 
 ## Shapes
 
-Arrondi doux sur ce qui se touche, rien sur ce qui se lit. `full` pour les chips, `lg` (14 px) pour les boutons, cartes, champs et la barre du planning, `sm` (8 px) pour les cases de disponibilité, `md` (10 px) pour les petits boutons. Les lignes de liste et les en-têtes de jour n'ont aucun rayon.
+Arrondi doux sur ce qui se touche, rien sur ce qui se lit. `full` pour les chips, `lg` (14 px) pour les boutons, cartes, champs, `sm` (8 px) pour les cases de disponibilité, `md` (10 px) pour les petits boutons. Les lignes de liste et les en-têtes de jour n'ont aucun rayon.
 
 ## Components
 
@@ -389,18 +460,20 @@ Les composants partent de shadcn/ui, restylés avec les tokens sémantiques, jam
 
 La section `components` de l'en-tête n'est pas une liste de composants : elle déclare les **couples fond / texte** que l'interface emploie, pour que le lint en vérifie le contraste (`page`, `surface`, `chip`, `chip-selected`, `accent-fill`, `message-error`…). Un nouveau couple s'y déclare avant d'être utilisé.
 
-Composants prévus pour le MVP : chip (styles, filtres) ; bouton principal et bouton sans fond, une seule action principale par écran ; champ ; carte de niveau (onboarding) ; case de disponibilité (grille 7 jours × 2 plages) ; ligne de cours et en-tête de jour (liste, plats, séparés par un filet) ; barre « Mon planning » (compteur en `heading-small`, export à droite, en verre) ; message d'état (`info`, `success`, `warning`, `error`, toujours avec icône et texte).
+Composants prévus pour le MVP : chip (styles, filtres) ; bouton principal et bouton sans fond, une seule action principale par écran ; champ ; carte de niveau (onboarding) ; case de disponibilité (grille 7 jours × 2 plages) ; ligne de cours et en-tête de jour (liste, plats, séparés par un filet) ; barre d'onglets en capsule de verre flottante (Cours, Mes cours, Profil, D66, D70) ; repère de style (D71) ; message d'état (`info`, `success`, `warning`, `error`, toujours avec icône et texte).
 
 ## Do's and Don'ts
 
 - Contraste AA sur tout texte et toute icône porteuse de sens ; 44 px de cible minimum ; focus visible en `border-accent-focus` ; une information n'est jamais portée uniquement par la couleur (styles, studios, cours dans le planning : texte, forme ou position en plus).
 - L'accent sur une action ou un état actif, jamais en décoration ; les rôles d'état sur un message d'état, jamais ailleurs.
 - Un écran n'appelle que des tokens sémantiques, jamais un primitif (`slate-900`, `blue-300`…) ni une valeur en dur.
-- Le serif italique n'apparaît jamais sur une donnée ni dans la liste ; Sofia n'apparaît jamais sur un nom de prof ni de studio.
+- Le serif n'apparaît jamais sur un nom de cours, de prof ou de studio ; dans l'écran Cours, il se limite au titre et aux heures des groupes (D69). Sofia n'apparaît jamais sur un nom de prof ni de studio.
+- Les couleurs de famille de styles ne colorent que le repère de style (D71), jamais un texte, un fond ou une bordure.
 - Aucune police, couleur ou librairie de composants en dehors de celles consignées.
 - Pas de photo de prof (D08). Les fonds évoquent la lumière et la matière (traînées, chrome, eau, brume), jamais des silhouettes de danseurs. Pas de photos de personnes.
 - Le prix est affiché, jamais filtrant (D09). Le studio est nommé par son nom propre, jamais « école » ou « studio » en libellé générique (D30).
 - Rien n'est caché derrière un cache : un planning hors ligne est un planning périmé (D22).
+- Signes bannis de l'interface (D67), qu'Emmanuel associe à de l'« AI slop » : pas de point médian ni de puce pour séparer deux informations (« Styles · 3 », « Tevin · Juste Debout School ») ; pas de tiret cadratin ni demi-cadratin ; pas de flèche ni de chevron décoratifs (« Afficher → », chevron d'ouverture sur une puce) ; pas de petit rond indicateur (pastille de jour, point de notification) ni de rond comme séparateur dans un texte ; le repère de style rond (D71), forme qui porte un sens, n'est pas concerné. On sépare par la mise en page (deux lignes, deux poids, deux couleurs, une icône devant chaque information) ; la barre oblique reste admise si un séparateur est inévitable. Seule exception : la flèche de retour de l'en-tête, qui est une icône de navigation, pas un signe typographique.
 - Anti-références visuelles : ClassPass (grille marketplace avec catégories, notes et avis) ; Google Agenda (blocs colorés qui se chevauchent dans une grille horaire, l'agenda illisible du problème, D03) ; dashboard SaaS (cartes KPI, sidebar, template admin, palette par défaut d'une librairie, D34) ; Inter comme police par défaut ; les affiches de battle en capitales saturées, qui sont le terrain, pas l'app.
 
 ## Nomenclature des tokens
@@ -421,15 +494,15 @@ Règles de nommage de tous les tokens (D49). Elles valent pour l'en-tête YAML, 
 | gamme | `slate` (fonds), `neutral` (texte), `blue` (accent, info), `red` (error), `orange` (warning), `green` (success) |
 | cran | `50`, `100`, `200`, `300`, `400`, `500`, `600`, `700`, `800`, `900`, `950` ; 50 le plus clair, 950 le plus foncé |
 
-Hors gammes : `--color-light-blue` et `--color-light-violet`, couleurs de lumière du calque d'atmosphère, jamais en interface.
+Hors gammes : `--color-light-blue` et `--color-light-violet`, couleurs de lumière du calque d'atmosphère, jamais en interface ; `--color-style-{famille}` (`hiphop`, `funk`, `club`, `ballroom`, `afro`, `studio`), couleurs du repère de style (D71).
 
 **Couleur, sémantiques** : `--color-{élément}-{rôle}[-{modificateur}]-{état}`
 
 | Segment | Obligatoire | Valeurs |
 |---|---|---|
 | élément | oui | `bg` (fond), `text`, `border`, `icon` |
-| rôle | oui | `neutral`, `accent` ; rôles d'état : `info`, `success`, `warning`, `error` |
-| modificateur | non | `subtle` < (rien) < `strong` ; `inverted` à part, pour le texte posé sur un remplissage plein |
+| rôle | oui | `neutral`, `accent` ; rôles d'état : `info`, `success`, `warning`, `error` ; `style-{famille}` pour le repère de style, avec l'élément `icon` seulement (D71) ; `atmosphere-{1,2,3}` pour les halos du calque de lumière, avec l'élément `bg` seulement et sans état (D72) |
+| modificateur | non | `subtle` < (rien) < `strong` ; `inverted` à part : le texte posé sur un remplissage plein, et le fond de la ligne choisie en mode sélection (`bg-accent-inverted-selected`, D73) |
 | état | oui | `default`, `hover` (desktop seulement), `pressed`, `selected`, `focus`, `disabled` |
 
 Exemples : `--color-bg-neutral-default` (le fond), `--color-text-neutral-subtle-default` (prof, studio), `--color-bg-accent-pressed` (appui sur le bouton principal), `--color-text-accent-inverted-default` (libellé du bouton plein), `--color-border-accent-focus` (anneau de focus), `--color-bg-error-subtle-default` (fond d'un message d'erreur). Le système permet bien plus de combinaisons qu'il n'en définit : seules existent celles de l'en-tête YAML.
@@ -439,15 +512,15 @@ Exemples : `--color-bg-neutral-default` (le fond), `--color-text-neutral-subtle-
 | Segment | Valeurs |
 |---|---|
 | propriété | `font` (police), `text` (taille), `font-weight` (graisse), `tracking` (interlettrage), `leading` (interligne, Paper seulement : l'export ne le produit pas) |
-| niveau | `display`, `heading-large`, `heading-small`, `label`, `body-large`, `body`, `body-strong`, `body-small` |
+| niveau | `display-large`, `display`, `display-small`, `heading-large`, `heading-small`, `label`, `body-large`, `body`, `body-strong`, `body-small` |
 
 Exemples : `--font-display`, `--text-body`, `--font-weight-heading-large`, `--tracking-label`.
 
 **Espacement** : `--spacing-{cran}`, avec `100` = 8 px
 
-| Cran | `050` | `100` | `150` | `200` | `250` | `300` | `400` | `500` | `550` | `600` |
-|---|---|---|---|---|---|---|---|---|---|---|
-| px | 4 | 8 | 12 | 16 | 20 | 24 | 32 | 40 | 44 | 48 |
+| Cran | `025` | `050` | `075` | `100` | `150` | `200` | `250` | `300` | `400` | `500` | `550` | `600` |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| px | 2 | 4 | 6 | 8 | 12 | 16 | 20 | 24 | 32 | 40 | 44 | 48 |
 
 **Rayons** : `--radius-{taille}` : `none` (0), `sm` (8 px), `md` (10 px), `lg` (14 px), `full`.
 
@@ -462,7 +535,7 @@ Les transitions entre écrans utilisent un flou de mouvement (14 px, 300 ms, flo
 ## Ton rédactionnel
 
 - Tout le texte utilisateur est en français (D19).
-- Vocabulaire fixé : « mon planning » (la sélection), « ajouter à mon planning » / « retirer de mon planning » ; « indicateur de progression », jamais « gamification » (D24). L'outil n'est pas un « générateur » (D05).
+- Vocabulaire fixé : « mes cours » (la sélection, D66), « ajouter à mes cours » / « retirer de mes cours » ; « indicateur de progression », jamais « gamification » (D24). L'outil n'est pas un « générateur » (D05).
 - Les mentions obligatoires, telles quelles : « planning de saison, vérifie sur le site du studio » (D07) ; « prof variable, vérifie auprès du studio » (D30) ; « style non précisé par le studio » (D58) ; « une semaine sur deux, vérifie sur l'application du studio » (D59) ; « non précisé » pour le type (D31).
 - Court et direct, comme la personnalité : pas d'exclamation, pas d'emoji, pas de ton « copain ». Les questions d'onboarding en serif sont les seules phrases qui se permettent une image (« Quels styles te font bouger ? »).
 - Écriture inclusive : à définir (forme retenue).

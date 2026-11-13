@@ -11,8 +11,8 @@ _(rien)_
 - [ ] **Construire le MVP** (D42 : saisie faite, le produit vient avant le nom). Un écran par PR, chacun spécifié dans `product.md` et dessiné avec les tokens de `design.md` :
   - [x] Activer la connexion anonyme dans Supabase, Authentication > Sign In / Providers (Emmanuel, D61)
   - [x] Onboarding : accueil, styles, niveau par style, disponibilités, sur une session anonyme (D61, D62) — PR #1, 10/11 ; l'événement PostHog « onboarding terminé » viendra avec l'instrumentation
-  - [ ] Liste des cours filtrée (D05, D20, D58, D59, D64, D65) : benchmark fait (Paper, page Benchmark), décisions consignées, itération 1 sur Paper (page Cours) ; maquette prête (Ready to dev) ; reste à confirmer l'appui long (D65)
-  - [ ] Barre d'onglets Cours · Mes cours · Profil (D66)
+  - [ ] Liste des cours filtrée (D05, D20, D58, D59, D64, D65, D69, D71) : benchmark fait (Paper, page Benchmark), décisions consignées ; maquette prête (Ready to dev, version C4 avec repères de style, 13/11) ; sélection multiple tranchée (D73), maquettes à valider sur Paper ; reste à reporter les repères de style dans les puces de l'onboarding et sur la fiche cours (D71)
+  - [ ] Barre d'onglets Cours · Mes cours · Profil (D66), en capsule de verre (D70)
   - [ ] Fiche cours
   - [ ] Mes cours (ex-« Mon planning », D66) : mise en page à distinguer de Cours sur maquette
   - [ ] Profil : préférences et compte (D66)

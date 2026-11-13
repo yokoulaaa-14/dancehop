@@ -456,3 +456,8 @@ Un danseur qui entre dans un nouveau style doit reconstituer lui-même qui ensei
 - **Raison** : Emmanuel associe ces signes à de l'« AI slop » ; ils remplissent l'interface sans rien dire.
 - **Conséquences sur la liste (D64)** : la puce « Styles · 3 » devient « 3 styles », les puces de filtre perdent leur chevron ; la ligne de cours n'écrit plus « prof · studio » mais « Hip-hop / Tevin », le studio dessous ; un badge par niveau plutôt qu'un badge qui en regroupe plusieurs. La barre oblique entre style et prof est le seul séparateur admis (Emmanuel).
 - **Exception** : la flèche de retour de l'en-tête de l'onboarding, icône de navigation et non signe typographique. À confirmer par Emmanuel.
+
+### D68 — Processus de conception d'un écran (13/11)
+- **Décision** : benchmark Mobbin (si le connecteur est disponible) sur la page Benchmark de Paper, puis maquettes dans la page Paper de l'écran, retours d'Emmanuel en commentaires Paper, versions écartées dans un cadre « Archives », écrans validés dans un cadre « Ready to dev », puis code, un écran par PR. Écrit dans `CLAUDE.md` (section « Conception d'un écran »).
+- **Raison** : Emmanuel valide visuellement dans Paper avant tout code et y retouche lui-même textes et espacements ; la page de l'écran garde l'historique sans le mêler aux écrans validés.
+- **Écarté** : décrire le processus seulement dans la mémoire de l'assistant (invisible dans le repo) ou dans `design.md` (qui décrit le design, pas la façon de travailler).

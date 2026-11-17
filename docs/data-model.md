@@ -24,6 +24,7 @@ Un `course` est un créneau hebdomadaire récurrent (D25), rattaché à **un** s
 | `course_type` | `freestyle`, `choreography`, `technique` | D31 |
 | `grid_reliability` | `season_grid`, `frequent_updates` | D30 |
 | `booking_mode` | `app_required`, `online_or_onsite`, `none` | audit |
+| `style_family` | `hiphop`, `funk`, `club`, `ballroom`, `afro`, `studio` | D71, D74 |
 
 Le jour de la semaine est un `smallint` 1 (lundi) → 7 (dimanche), conforme à ISO 8601 et à la génération .ics.
 
@@ -35,6 +36,7 @@ Le jour de la semaine est un `smallint` 1 (lundi) → 7 (dimanche), conforme à 
 | `slug` | `text` | unique, not null | `hip-hop`, `house`, `popping`, `locking`, `waacking`, `voguing`, `dancehall`, `afro`, `breaking`, `krump`, `electro`, `heels`, `street-jazz`, `commercial` |
 | `label` | `text` | not null | libellé affiché, en français |
 | `sort_order` | `smallint` | not null | ordre d'affichage dans l'onboarding |
+| `family` | `style_family` | not null | famille du repère de style (D71, D74) : `hiphop` (Hip-hop, Breaking, Krump), `funk` (Popping, Locking), `club` (House, Electro), `ballroom` (Waacking, Voguing), `afro` (Afro, Dancehall), `studio` (Heels, Street jazz, Commercial) |
 
 En table plutôt qu'en enum pour ajouter un style sans migration de code. La correspondance étiquette brute → style s'applique à la saisie (voir Règles métier), pas en base.
 

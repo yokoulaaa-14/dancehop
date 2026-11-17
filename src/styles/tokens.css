@@ -67,8 +67,15 @@
   --color-green-950: #000a06;
   --color-light-blue: #4f7fd9;
   --color-light-violet: #6b5cff;
+  --color-style-hiphop: #ff8e5e;
+  --color-style-funk: #b5de6e;
+  --color-style-club: #b4a6ff;
+  --color-style-ballroom: #f49ad0;
+  --color-style-afro: #f2d06b;
+  --color-style-studio: #e9cfae;
   --color-bg-neutral-default: #0c1320;
   --color-bg-neutral-strong-default: #1a2334;
+  --color-bg-accent-inverted-selected: #001b2e;
   --color-bg-neutral-strong-pressed: #323c4f;
   --color-bg-neutral-strong-disabled: #1a2334;
   --color-text-neutral-strong-default: #f6f4ef;
@@ -84,6 +91,7 @@
   --color-bg-accent-hover: #c1e4ff;
   --color-bg-accent-pressed: #5ab7f6;
   --color-bg-accent-selected: #9fd6ff;
+  --color-bg-accent-strong-selected: #eff8ff;
   --color-bg-accent-disabled: #323c4f;
   --color-bg-accent-subtle-default: #001b2e;
   --color-text-accent-default: #9fd6ff;
@@ -109,7 +117,18 @@
   --color-text-error-default: #ec8a92;
   --color-icon-error-default: #ec8a92;
   --color-border-error-default: #be4657;
+  --color-bg-atmosphere-1: #9fd6ff;
+  --color-bg-atmosphere-2: #4f7fd9;
+  --color-bg-atmosphere-3: #6b5cff;
+  --color-icon-style-hiphop-default: #ff8e5e;
+  --color-icon-style-funk-default: #b5de6e;
+  --color-icon-style-club-default: #b4a6ff;
+  --color-icon-style-ballroom-default: #f49ad0;
+  --color-icon-style-afro-default: #f2d06b;
+  --color-icon-style-studio-default: #e9cfae;
+  --font-display-large: "Instrument Serif";
   --font-display: "Instrument Serif";
+  --font-display-small: "Instrument Serif";
   --font-heading-large: "Sofia Sans Extra Condensed";
   --font-heading-small: "Sofia Sans Extra Condensed";
   --font-label: "Sofia Sans Extra Condensed";
@@ -117,7 +136,9 @@
   --font-body: "Hanken Grotesk";
   --font-body-strong: "Hanken Grotesk";
   --font-body-small: "Hanken Grotesk";
+  --text-display-large: 48px;
   --text-display: 40px;
+  --text-display-small: 24px;
   --text-heading-large: 32px;
   --text-heading-small: 22px;
   --text-label: 15px;
@@ -125,11 +146,15 @@
   --text-body: 14px;
   --text-body-strong: 14px;
   --text-body-small: 12px;
+  --tracking-display-large: -0.005em;
   --tracking-display: -0.005em;
+  --tracking-display-small: 0em;
   --tracking-heading-large: 0.02em;
   --tracking-heading-small: 0.02em;
   --tracking-label: 0.06em;
+  --font-weight-display-large: 400;
   --font-weight-display: 400;
+  --font-weight-display-small: 400;
   --font-weight-heading-large: 700;
   --font-weight-heading-small: 600;
   --font-weight-label: 500;
@@ -151,12 +176,16 @@
   --spacing-500: 40px;
   --spacing-550: 44px;
   --spacing-600: 48px;
+  --spacing-025: 2px;
   --spacing-050: 4px;
+  --spacing-075: 6px;
 }
 
 /* Interlignes, ajoutés par scripts/tokens-line-height.mjs (D63). */
 @theme {
+  --text-display-large--line-height: 1.05;
   --text-display--line-height: 1.05;
+  --text-display-small--line-height: 1;
   --text-heading-large--line-height: 0.95;
   --text-heading-small--line-height: 1;
   --text-label--line-height: 1;

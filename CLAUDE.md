@@ -29,6 +29,16 @@ Il s'agit d'un projet personnel qui n'est pas voué à être commercialisé pour
 1. Lis `TODO.md` et rappelle moi les 3 prochaines tâches à faire.
 3. Lis les documents liés à la tâche (règles d'usage ci-dessous).
 
+## Conception d'un écran (D68)
+
+Tout nouvel écran passe par ces étapes, dans l'ordre, avant d'être codé :
+
+1. **Benchmark Mobbin** (si le connecteur est disponible) : planche sur la page Benchmark de Paper, au format des planches existantes, avec un bloc « Ce qu'il faut trancher » en tête. Les arbitrages qui en sortent vont dans `docs/arbitrage.md`.
+2. **Maquettes sur Paper**, dans la page de l'écran (Onboarding, Cours, Mes Cours, Profile…), avec les tokens de `design.md` seulement et de vraies données des studios.
+3. **Retours d'Emmanuel en commentaires Paper** : les lire, faire les ajustements, résoudre les fils traités. Un retour qui contredit le journal se signale (règle dure 2).
+4. **Rangement de la page** : les versions non retenues vont dans un cadre « Archives » ; les écrans validés vont dans un cadre « Ready to dev », avec un titre qui résume les décisions (modèle : page Onboarding).
+5. **Code** : sur une branche, un écran par PR, en reprenant exactement les écrans « Ready to dev » (textes, espacements, états).
+
 ## Structure du repo
 
 ```

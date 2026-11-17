@@ -111,6 +111,23 @@
 }
 
 /* Niveaux typographiques de design.md : une classe par rôle, uniquement des tokens. */
+/* Titre de l'écran Cours (D69, D72). */
+@utility type-display-large {
+  font-family: var(--font-display-large);
+  font-size: var(--text-display-large);
+  font-weight: var(--font-weight-display-large);
+  letter-spacing: var(--tracking-display-large);
+  line-height: var(--text-display-large--line-height);
+  font-style: italic;
+}
+/* Heure d'un groupe de cours, en romain (D69, D72). */
+@utility type-display-small {
+  font-family: var(--font-display-small);
+  font-size: var(--text-display-small);
+  font-weight: var(--font-weight-display-small);
+  letter-spacing: var(--tracking-display-small);
+  line-height: var(--text-display-small--line-height);
+}
 @utility type-display {
   font-family: var(--font-display);
   font-size: var(--text-display);

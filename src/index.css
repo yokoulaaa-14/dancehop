@@ -211,6 +211,17 @@
   }
 }
 
+/* Le même verre, sans ombre, pour les boutons posés sur le calque de lumière (D73). */
+@utility glass-button {
+  background-color: color-mix(in oklab, var(--color-text-neutral-default) 9%, transparent);
+  border: 1px solid color-mix(in oklab, var(--color-text-neutral-default) 16%, transparent);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    background-color: var(--color-bg-neutral-strong-default);
+  }
+}
+
 /* Calque de lumière des écrans d'atmosphère (D45, D46) : la lumière dérive en 20 s aller-retour. */
 @keyframes atmosphere-drift {
   from { transform: translate3d(0, 0, 0); }

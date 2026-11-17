@@ -1,6 +1,6 @@
-import { useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { supabase } from '@/lib/supabase'
-import { fetchProfile } from '@/features/onboarding/api'
+import { ensureSession, fetchProfile } from '@/features/onboarding/api'
 import type { Level } from '@/features/onboarding/model'
 import type { Preferences } from './filter'
 import type { Course, CourseType, Studio, Style, StyleFamily } from './model'
@@ -100,5 +100,26 @@ export function usePreferences() {
       if (!profile?.onboarding_completed_at) return null
       return { styleLevels: profile.style_levels, availability: profile.availability }
     },
+  })
+}
+
+/**
+ * Ajoute des cours à « mes cours » (table `plan_item`, D05, D66, D73). Un cours déjà ajouté est
+ * ignoré (unicité user_id + course_id) : on peut le choisir à nouveau sans erreur.
+ */
+export function useAddToMyCourses() {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: async (courseIds: string[]) => {
+      const userId = await ensureSession()
+      const { error } = await supabase
+        .from('plan_item')
+        .upsert(
+          courseIds.map((courseId) => ({ user_id: userId, course_id: courseId })),
+          { onConflict: 'user_id,course_id', ignoreDuplicates: true },
+        )
+      if (error) throw error
+    },
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['my-courses'] }),
   })
 }

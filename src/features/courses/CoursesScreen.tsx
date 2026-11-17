@@ -3,8 +3,9 @@ import { Atmosphere } from '@/components/Atmosphere'
 import { Button } from '@/components/ui/button'
 import { SHORTCUTS, matchingShortcut } from '@/features/onboarding/model'
 import { TAB_BAR_CLEARANCE } from '@/features/shell/TabBar'
-import { useCourses, usePreferences, useStudios, useStyles } from './api'
+import { useAddToMyCourses, useCourses, usePreferences, useStudios, useStyles } from './api'
 import { CourseRow } from './CourseRow'
+import { AddButton, CloseSelectionButton, SelectableCourse, SelectButton } from './Selection'
 import { FilterPanel, type Panel } from './FilterPanels'
 import { countCourses, filtersFromPreferences, nextDays, schedule, type DaySchedule, type Filters } from './filter'
 import { COURSE_TYPE_LABELS, formatStartTime, type Studio } from './model'
@@ -84,6 +85,17 @@ export function CoursesScreen() {
   // Les filtres repartent des préférences à chaque ouverture de la liste (D64).
   const [changed, setChanged] = useState<Filters | null>(null)
   const [panel, setPanel] = useState<Panel | null>(null)
+  // Mode sélection (D73) : choisir plusieurs cours, puis les ajouter à « mes cours ».
+  const [selecting, setSelecting] = useState(false)
+  const [selected, setSelected] = useState<string[]>([])
+  const addToMyCourses = useAddToMyCourses()
+  const stopSelecting = () => {
+    setSelecting(false)
+    setSelected([])
+    addToMyCourses.reset()
+  }
+  const toggleCourse = (id: string) =>
+    setSelected((ids) => (ids.includes(id) ? ids.filter((x) => x !== id) : [...ids, id]))
 
   const filters = changed ?? (preferences.data ? filtersFromPreferences(preferences.data) : SHOW_EVERYTHING)
   const daySchedules = useMemo(() => schedule(courses.data ?? [], days, filters), [courses.data, days, filters])
@@ -93,8 +105,27 @@ export function CoursesScreen() {
   return (
     <div className="relative" style={{ paddingBottom: TAB_BAR_CLEARANCE }}>
       <Atmosphere height={ATMOSPHERE_HEIGHT} />
-      <header className="relative px-250 py-200">
-        <h1 className="type-display-large text-text-neutral-strong-default">Liste des cours</h1>
+      <header className="relative flex flex-col gap-075 px-250 pb-200">
+        <div className="flex min-h-550 items-center justify-between">
+          {selecting ? <CloseSelectionButton onClick={stopSelecting} /> : <span />}
+          {selecting ? (
+            <AddButton
+              count={selected.length}
+              pending={addToMyCourses.isPending}
+              onClick={() => addToMyCourses.mutate(selected, { onSuccess: stopSelecting })}
+            />
+          ) : (
+            <SelectButton onClick={() => setSelecting(true)} />
+          )}
+        </div>
+        <h1 className="type-display-large text-text-neutral-strong-default">
+          {selecting ? 'Choisis tes cours' : 'Liste des cours'}
+        </h1>
+        {addToMyCourses.isError && (
+          <p role="alert" className="type-body text-text-error-default">
+            Ces cours n'ont pas pu être ajoutés. Vérifie ta connexion et réessaie.
+          </p>
+        )}
       </header>
 
       <StickyFilters
@@ -117,7 +148,12 @@ export function CoursesScreen() {
           <Button onClick={() => setChanged({ ...filters, showAll: true })}>Effacer les filtres</Button>
         </div>
       )}
-      {!loading && !failed && <CourseList daySchedules={daySchedules} />}
+      {!loading && !failed && (
+        <CourseList
+          daySchedules={daySchedules}
+          selection={selecting ? { selected, onToggle: toggleCourse } : null}
+        />
+      )}
 
       <FilterPanel
         panel={panel}
@@ -266,7 +302,13 @@ function StickyFilters({
   )
 }
 
-function CourseList({ daySchedules }: { daySchedules: DaySchedule[] }) {
+function CourseList({
+  daySchedules,
+  selection,
+}: {
+  daySchedules: DaySchedule[]
+  selection: { selected: string[]; onToggle: (id: string) => void } | null
+}) {
   return (
     <div className="relative">
       {daySchedules.map(({ day, groups }, i) =>
@@ -282,10 +324,20 @@ function CourseList({ daySchedules }: { daySchedules: DaySchedule[] }) {
                     <span className="type-display-small text-text-neutral-strong-default">{formatStartTime(group.startTime)}</span>
                     <span aria-hidden className="w-px flex-1 bg-border-neutral-default" />
                   </div>
-                  <div className="flex min-w-0 flex-1 flex-col gap-300 px-250">
-                    {group.courses.map((course) => (
-                      <CourseRow key={course.id} course={course} />
-                    ))}
+                  {/* En sélection, chaque ligne prend sa propre marge pour porter son fond (D73). */}
+                  <div className={`flex min-w-0 flex-1 flex-col ${selection ? 'px-100' : 'gap-300 px-250'}`}>
+                    {group.courses.map((course) =>
+                      selection ? (
+                        <SelectableCourse
+                          key={course.id}
+                          course={course}
+                          checked={selection.selected.includes(course.id)}
+                          onToggle={() => selection.onToggle(course.id)}
+                        />
+                      ) : (
+                        <CourseRow key={course.id} course={course} />
+                      ),
+                    )}
                   </div>
                 </div>
               ))}

@@ -1,5 +1,6 @@
 import { createBrowserRouter } from 'react-router'
 import { RouterProvider } from 'react-router/dom'
+import { CoursesScreen } from '@/features/courses/CoursesScreen'
 import { OnboardingFlow } from '@/features/onboarding/OnboardingFlow'
 import { Welcome } from '@/features/onboarding/Welcome'
 import { AppShell, ComingSoon } from '@/features/shell/AppShell'
@@ -11,7 +12,7 @@ const router = createBrowserRouter([
   {
     element: <AppShell />,
     children: [
-      { path: '/cours', element: <ComingSoon title="Ta liste de cours arrive bientôt." /> },
+      { path: '/cours', element: <CoursesScreen /> },
       { path: '/mes-cours', element: <ComingSoon title="Tes cours choisis arrivent bientôt." /> },
       { path: '/profil', element: <ComingSoon title="Ton profil arrive bientôt." /> },
     ],

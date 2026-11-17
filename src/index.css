@@ -173,11 +173,25 @@
     0 0 44px color-mix(in srgb, var(--color-bg-accent-default) 30%, transparent);
 }
 
-/* Une sélection s'allume (D46) : dégradé de bg-accent-selected vers blue-50, lueur de 16 px à 45 %. */
+/* Une sélection s'allume (D46, D72) : dégradé de bg-accent-selected vers bg-accent-strong-selected,
+   lueur de 16 px à 45 %. */
 @utility lit {
-  background-image: linear-gradient(135deg, var(--color-bg-accent-selected), var(--color-blue-50));
+  background-image: linear-gradient(135deg, var(--color-bg-accent-selected), var(--color-bg-accent-strong-selected));
   box-shadow: 0 0 16px color-mix(in srgb, var(--color-bg-accent-default) 45%, transparent);
   color: var(--color-text-accent-inverted-default);
+}
+
+/* Verre dépoli de la barre d'onglets (D70) : text-neutral à 9 %, bordure à 16 %, flou 12 px,
+   ombre portée du fond à 60 %. Sans flou pris en charge, repli opaque sur bg-neutral-strong. */
+@utility glass {
+  background-color: color-mix(in oklab, var(--color-text-neutral-default) 9%, transparent);
+  border: 1px solid color-mix(in oklab, var(--color-text-neutral-default) 16%, transparent);
+  box-shadow: 0 8px 24px color-mix(in oklab, var(--color-bg-neutral-default) 60%, transparent);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    background-color: var(--color-bg-neutral-strong-default);
+  }
 }
 
 /* Calque de lumière des écrans d'atmosphère (D45, D46) : la lumière dérive en 20 s aller-retour. */

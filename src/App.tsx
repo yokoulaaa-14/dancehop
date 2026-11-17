@@ -1,25 +1,21 @@
 import { createBrowserRouter } from 'react-router'
 import { RouterProvider } from 'react-router/dom'
-import { Atmosphere } from '@/components/Atmosphere'
 import { OnboardingFlow } from '@/features/onboarding/OnboardingFlow'
 import { Welcome } from '@/features/onboarding/Welcome'
-
-const ATMOSPHERE_HEIGHT_PLACEHOLDER = 420
-
-/** Écran d'attente des parcours pas encore construits (liste des cours, connexion). */
-function ComingSoon({ title }: { title: string }) {
-  return (
-    <div className="relative flex h-dvh flex-col justify-center overflow-hidden bg-bg-neutral-default px-300">
-      <Atmosphere height={ATMOSPHERE_HEIGHT_PLACEHOLDER} />
-      <p className="relative type-display glow-display text-text-neutral-strong-default">{title}</p>
-    </div>
-  )
-}
+import { AppShell, ComingSoon } from '@/features/shell/AppShell'
 
 const router = createBrowserRouter([
   { path: '/', element: <Welcome /> },
+  // L'onboarding n'a pas de barre d'onglets (D66).
   { path: '/onboarding', element: <OnboardingFlow /> },
-  { path: '/cours', element: <ComingSoon title="Ta liste de cours arrive bientôt." /> },
+  {
+    element: <AppShell />,
+    children: [
+      { path: '/cours', element: <ComingSoon title="Ta liste de cours arrive bientôt." /> },
+      { path: '/mes-cours', element: <ComingSoon title="Tes cours choisis arrivent bientôt." /> },
+      { path: '/profil', element: <ComingSoon title="Ton profil arrive bientôt." /> },
+    ],
+  },
   { path: '/connexion', element: <ComingSoon title="La connexion arrive bientôt." /> },
 ])
 
